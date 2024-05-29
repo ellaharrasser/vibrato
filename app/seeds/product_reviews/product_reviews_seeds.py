@@ -1,4 +1,4 @@
-from ..models import ProductReview
+from ...models import ProductReview
 
 product_reviews = [
     ProductReview(

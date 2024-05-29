@@ -1,4 +1,4 @@
-from ..models import Shop
+from ...models import Shop
 
 shops = [
     Shop(

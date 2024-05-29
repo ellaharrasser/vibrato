@@ -1,8 +1,9 @@
 from flask.cli import AppGroup
-from .users import seed_users, undo_users
-from .shops import seed_shops, undo_shops
-from .products import seed_products, undo_products
-from .product_reviews import seed_product_reviews, undo_product_reviews
+from .users.users import seed_users, undo_users
+from .shops.shops import seed_shops, undo_shops
+from .products.products import seed_products, undo_products
+from .product_reviews.product_reviews import seed_product_reviews, undo_product_reviews
+# from .product_images.product_images import seed_product_images, undo_product_images
 
 from app.models.db import db, environment, SCHEMA
 
@@ -17,6 +18,7 @@ def seed():
     if environment == 'production':
         # Run seed undo and truncate tables before seeding in production
         undo_product_reviews()
+        # undo_product_images()
         undo_products()
         undo_shops()
         undo_users()
@@ -24,6 +26,7 @@ def seed():
     seed_users()
     seed_shops()
     seed_products()
+    # seed_product_images()
     seed_product_reviews()
 
 
@@ -31,6 +34,7 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_product_reviews()
+    # undo_product_images()
     undo_products()
     undo_shops()
     undo_users()
