@@ -2,31 +2,31 @@ from ..models import Shop
 
 shops = [
     Shop(
-        owner_id=0,
+        owner_id=1,
         name='Demo User\'s Shop',
         description='We sell music equipment here at this demo shop.',
         image='s3://vibrato-images/default_shop_image.jpg',
     ),
     Shop(
-        owner_id=1,
+        owner_id=2,
         name='Marnie Mee\'s Music Market',
         description='Only the finest music equipment here at Marnie Mee\'s!',
         image='s3://vibrato-images/default_shop_image.jpg',
     ),
     Shop(
-        owner_id=2,
+        owner_id=3,
         name='Slayer Audio Equipment',
         description='The best music store in all of Kansas.',
         image='s3://vibrato-images/default_shop_image.jpg',
     ),
     Shop(
-        owner_id=5,
+        owner_id=6,
         name='Hat Trick Harmonicas',
         description='We only sell harmonicas. Vocoders count as well, I guess.',
         image='s3://vibrato-images/default_shop_image.jpg',
     ),
     Shop(
-        owner_id=9,
+        owner_id=10,
         name='The SoundLab',
         description='All our products are guaranteed to be heavily irradiated.',
         image='s3://vibrato-images/default_shop_image.jpg',
