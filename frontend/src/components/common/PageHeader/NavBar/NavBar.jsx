@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
-import "./Navigation.css";
+import "./NavBar.css";
 
-function Navigation() {
+function NavBar() {
   return (
     <ul>
       <li>
@@ -16,4 +16,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default NavBar;
