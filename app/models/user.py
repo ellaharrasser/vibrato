@@ -17,7 +17,10 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     profile_image = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
-    created_at = db.Column(db.DateTime, server_default=func.now())
+    created_at = db.Column(
+        db.DateTime,
+        server_default=func.now()
+    )
     updated_at = db.Column(
         db.DateTime,
         server_default=func.now(),
@@ -51,8 +54,24 @@ class User(db.Model, UserMixin):
     def check_password(self, password) -> bool:
         return check_password_hash(self.password, password)
 
-    def to_dict(self) -> dict:
+    def relationships_dict(self):
         return {
+            'shops': [
+                shop.to_dict(rels=False)
+                for shop in self.shops
+            ],
+            'cartProducts': [
+                cart_product.to_dict(rels=False)
+                for cart_product in self.cart_products
+            ],
+            'reviews': [
+                review.to_dict(rels=False)
+                for review in self.reviews
+            ],
+        }
+
+    def to_dict(self, rels: bool = True):
+        result = {
             'id': self.id,
             'name': self.name,
             'email': self.email,
@@ -61,3 +80,8 @@ class User(db.Model, UserMixin):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }
+
+        if rels:
+            result |= self.relationships_dict()
+
+        return result

@@ -17,15 +17,22 @@ class Product(db.Model):
     )
     name = db.Column(db.String(255), nullable=False)
     brand = db.Column(db.String(255), nullable=False)
-    # Category will be changed to a separate, self-referential tree-like DB table later
+    # Category will be changed to a separate, self-referential tree-like table
     category = db.Column(db.String(255), nullable=False)
     condition = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     product_price = db.Column(db.Integer, nullable=False)
     shipping_price = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime, server_default=func.now()) # server_default makes the DB generate the timestamp
-    updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
+    created_at = db.Column(
+        db.DateTime,
+        server_default=func.now()
+    )
+    updated_at = db.Column(
+        db.DateTime,
+        server_default=func.now(),
+        onupdate=func.now()
+    )
 
     shop = db.relationship('Shop', back_populates='products')
     images = db.relationship(
@@ -44,8 +51,22 @@ class Product(db.Model):
         cascade='all, delete-orphan'
     )
 
-    def to_dict(self) -> dict:
+    def relationships_dict(self):
+        # Does not include cart_products (subject to change)
         return {
+            'shop': self.shop.to_dict(rels=False),
+            'images': [
+                image.to_dict(rels=False)
+                for image in self.images
+            ],
+            'reviews': [
+                review.to_dict(rels=False)
+                for review in self.reviews
+            ],
+        }
+
+    def to_dict(self, rels: bool = True):
+        result = {
             'id': self.id,
             'name': self.name,
             'brand': self.brand,
@@ -58,3 +79,8 @@ class Product(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }
+
+        if rels:
+            result |= self.relationships_dict()
+
+        return result

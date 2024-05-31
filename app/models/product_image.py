@@ -1,5 +1,3 @@
-from sqlalchemy.sql import func
-
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
@@ -20,6 +18,7 @@ class ProductImage(db.Model):
     product = db.relationship('Product', back_populates='images')
 
     def to_dict(self) -> dict:
+        # No relationships option included, deemed unnecessary
         return {
             'id': self.id,
             'image': self.image,

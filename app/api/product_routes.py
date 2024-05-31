@@ -9,11 +9,27 @@ product_routes = Blueprint('products', __name__)
 
 
 @product_routes.route('/')
-def products(page=1, size=40) -> dict:
+def products(page: int = 1, per_page: int = 20):
     """
-    Query for all products. If logged in, does not include current user's products.
+    Query for all products with pagination.
+
+    If logged in, excludes returned products belonging to the current user.
     """
     if current_user:
-        products_query = Product.query.filter_by(Product.shop.owner_id != current_user.id)
+        base_query = Product.query.filter(
+            Product.shop.owner_id != current_user.id
+        )
     else:
-        products_query = Product.query
+        base_query = Product.query
+
+    # Add query filters here
+
+    products_query = base_query.paginate(page, per_page, error_out=False)
+    products_count = products_query.count()
+    products = [product.to_dict() for product in products_query.all()]
+
+
+    return {
+        'products': products,
+        'count': products_count,
+    }

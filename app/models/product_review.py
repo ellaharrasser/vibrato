@@ -22,15 +22,33 @@ class ProductReview(db.Model):
     )
     review = db.Column(db.String(255), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime, server_default=func.now()) # server_default makes the DB generate the timestamp
-    updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
+    created_at = db.Column(
+        db.DateTime,
+        server_default=func.now()
+    )
+    updated_at = db.Column(
+        db.DateTime,
+        server_default=func.now(),
+        onupdate=func.now()
+    )
 
     user = db.relationship('User', back_populates='reviews')
     product = db.relationship('Product', back_populates='reviews')
 
-    def to_dict(self) -> dict:
+    def relationships_dict(self):
         return {
+            'user': self.user.to_dict(rels=False),
+            'product': self.product.to_dict(rels=False),
+        }
+
+    def to_dict(self, rels: bool = True) -> dict:
+        result = {
             'id': self.id,
             'review': self.review,
             'rating': self.rating,
         }
+
+        if rels:
+            result |= self.relationships_dict()
+
+        return result

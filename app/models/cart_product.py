@@ -4,7 +4,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 class CartProduct(db.Model):
-    """Functions as an association table between a User and the Products in their cart."""
+    """Associates Users and Products via a User's cart."""
     __tablename__ = 'cart_products'
 
     if environment == 'production':
@@ -22,7 +22,10 @@ class CartProduct(db.Model):
         nullable=False
     )
     quantity = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime, server_default=func.now())
+    created_at = db.Column(
+        db.DateTime,
+        server_default=func.now()
+    )
     updated_at = db.Column(
         db.DateTime,
         server_default=func.now(),
@@ -32,8 +35,19 @@ class CartProduct(db.Model):
     user = db.relationship('User', back_populates='cart_products')
     product = db.relationship('Product', back_populates='cart_products')
 
-    def to_dict(self) -> dict:
+    def relationships_dict(self):
         return {
+            'user': self.user.to_dict(rels=False),
+            'product': self.product.to_dict(rels=False),
+        }
+
+    def to_dict(self, rels: bool = True):
+        result = {
             'id': self.id,
             'quantity': self.quantity,
         }
+
+        if rels:
+            result |= self.relationships_dict()
+
+        return result
