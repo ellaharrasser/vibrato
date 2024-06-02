@@ -18,7 +18,10 @@ class Shop(db.Model):
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     image = db.Column(db.String(255), nullable=False)
-    created_at = db.Column(db.DateTime, server_default=func.now())
+    created_at = db.Column(
+        db.DateTime,
+        server_default=func.now()
+    )
     updated_at = db.Column(
         db.DateTime,
         server_default=func.now(),
@@ -32,8 +35,17 @@ class Shop(db.Model):
         cascade='all, delete-orphan'
     )
 
-    def to_dict(self) -> dict:
+    def relationships_dict(self):
         return {
+            'owner': self.owner.to_dict(rels=False),
+            'products': [
+                product.to_dict(rels=False)
+                for product in self.products
+            ],
+        }
+
+    def to_dict(self, rels: bool = True):
+        result = {
             'id': self.id,
             'name': self.name,
             'description': self.description,
@@ -41,3 +53,8 @@ class Shop(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
         }
+
+        if rels:
+            result |= self.relationships_dict()
+
+        return result
