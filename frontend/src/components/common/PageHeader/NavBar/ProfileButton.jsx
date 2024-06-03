@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
-import { thunkLogout } from "../../redux/session";
-import OpenModalMenuItem from "../../OpenModalMenuItem/OpenModalMenuItem";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+
+import { thunkLogout } from '../../../../redux/session';
+import OpenModalMenuItem from '../../OpenModalMenuItem';
+import LoginFormModal from './LoginFormModal';
+import SignupFormModal from './SignupFormModal';
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -26,9 +27,9 @@ function ProfileButton() {
       }
     };
 
-    document.addEventListener("click", closeMenu);
+    document.addEventListener('click', closeMenu);
 
-    return () => document.removeEventListener("click", closeMenu);
+    return () => document.removeEventListener('click', closeMenu);
   }, [showMenu]);
 
   const closeMenu = () => setShowMenu(false);
@@ -45,7 +46,7 @@ function ProfileButton() {
         <FaUserCircle />
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <ul className={'profile-dropdown'} ref={ulRef}>
           {user ? (
             <>
               <li>{user.username}</li>
@@ -57,12 +58,12 @@ function ProfileButton() {
           ) : (
             <>
               <OpenModalMenuItem
-                itemText="Log In"
+                itemText='Log In'
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
               <OpenModalMenuItem
-                itemText="Sign Up"
+                itemText='Sign Up'
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />

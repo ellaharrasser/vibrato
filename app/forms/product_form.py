@@ -43,13 +43,9 @@ class ProductForm(FlaskForm):
         'Quantity',
         validators=[DataRequired(), NumberRange(min=0)]
     )
-    shop_id = SelectField(
+    shop_id = IntegerField(
         'Shop',
         validators=[DataRequired()],
-        choices=[
-            shop.owner_id
-            for shop in Shop.query.filter_by(id=current_user.id).all()
-        ]
     )
     # One image is required, 4 extras are optional
     image_1 = FileField(

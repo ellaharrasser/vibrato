@@ -39,7 +39,7 @@ def upload_file_to_s3(file, acl='public-read') -> dict[str, str]:
     return { 'url': f'{S3_LOCATION}{file.filename}' }
 
 
-def remove_file_from_s3(file_url: str) -> True | dict[str, str]:
+def remove_file_from_s3(file_url: str):
     # Split file name from the URL for AWS
     key = file_url.rsplit('/', 1)[1]
 

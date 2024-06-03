@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { thunkSignup } from "../../../redux/session";
-import { useModal } from "../../../context/Modal";
+import { thunkSignup } from "../../../../../redux/session";
+import { useModal } from "../../../../../context/Modal";
 import "./SignupForm.css";
 
 function SignupFormModal() {

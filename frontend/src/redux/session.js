@@ -1,3 +1,5 @@
+// Actions
+
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 
@@ -10,8 +12,10 @@ const removeUser = () => ({
   type: REMOVE_USER
 });
 
+// Thunks
+
 export const thunkAuthenticate = () => async (dispatch) => {
-	const response = await fetch("/api/auth/");
+	const response = await fetch('/api/auth/');
 	if (response.ok) {
 		const data = await response.json();
 		if (data.errors) {
@@ -23,9 +27,9 @@ export const thunkAuthenticate = () => async (dispatch) => {
 };
 
 export const thunkLogin = (credentials) => async dispatch => {
-  const response = await fetch("/api/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+  const response = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)
   });
 
@@ -36,14 +40,14 @@ export const thunkLogin = (credentials) => async dispatch => {
     const errorMessages = await response.json();
     return errorMessages
   } else {
-    return { server: "Something went wrong. Please try again" }
+    return { server: 'Something went wrong. Please try again' }
   }
 };
 
 export const thunkSignup = (user) => async (dispatch) => {
-  const response = await fetch("/api/auth/signup", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+  const response = await fetch('/api/auth/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user)
   });
 
@@ -54,14 +58,16 @@ export const thunkSignup = (user) => async (dispatch) => {
     const errorMessages = await response.json();
     return errorMessages
   } else {
-    return { server: "Something went wrong. Please try again" }
+    return { server: 'Something went wrong. Please try again' }
   }
 };
 
 export const thunkLogout = () => async (dispatch) => {
-  await fetch("/api/auth/logout");
+  await fetch('/api/auth/logout');
   dispatch(removeUser());
 };
+
+// Reducer
 
 const initialState = { user: null };
 

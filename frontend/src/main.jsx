@@ -1,20 +1,23 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { Provider as ReduxProvider } from "react-redux";
-import { RouterProvider } from "react-router-dom";
-import configureStore from "./redux/store";
-import { router } from "./router";
-import * as sessionActions from "./redux/session";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { RouterProvider } from 'react-router-dom';
+import { Provider as ReduxProvider } from 'react-redux';
+
+import { router } from './router';
+import configureStore from './redux/store';
+import * as sessionActions from './redux/session';
+import * as productsActions from './redux/products';
+import './index.css';
 
 const store = configureStore();
 
-if (import.meta.env.MODE !== "production") {
-  window.store = store;
+if (import.meta.env.MODE !== 'production') {
+  window.store = store; // Expose store/actions in development for testing
   window.sessionActions = sessionActions;
+  window.productsActions = productsActions;
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ReduxProvider store={store}>
       <RouterProvider router={router} />
