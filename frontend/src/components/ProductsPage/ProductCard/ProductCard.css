@@ -1,0 +1,46 @@
+.product-card {
+    width: 180px;
+    height: 300px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 8px;
+}
+
+p {
+    margin: 0;
+}
+
+img {
+    height: auto;
+    max-height: 180px;
+    max-width: 180px;
+}
+
+.name {
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+    font-weight: 700;
+    color: black;
+}
+
+.condition {
+    font-size: 1rem;
+    line-height: 1rem;
+    font-weight: 400;
+    color: var(--d-grey-m)
+}
+
+.product-price {
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+    font-weight: 600;
+    color: black;
+}
+
+.shipping-price {
+    font-size: 1rem;
+    line-height: 1rem;
+    font-weight: 500;
+    color: var(--d-grey-m);
+}

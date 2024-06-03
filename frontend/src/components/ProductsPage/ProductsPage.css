@@ -1,0 +1,25 @@
+main {
+    width: 100%;
+    max-width: 1000px;
+
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+h1 {
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: 700;
+}
+
+main > ul {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 20px;
+
+    list-style: none;
+}

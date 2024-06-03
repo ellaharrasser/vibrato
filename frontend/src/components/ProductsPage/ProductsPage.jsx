@@ -18,14 +18,14 @@ function ProductsPage() {
     }, [dispatch])
 
     return (
-        <>
+        <main>
             <h1>All Products</h1>
-            <ul id='products-list'>
+            <ul>
                 {isLoaded && values(products).map(product => (
                     <ProductCard product={product} key={product.id} />
                 ))}
             </ul>
-        </>
+        </main>
     );
 }
 

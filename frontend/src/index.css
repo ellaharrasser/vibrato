@@ -35,12 +35,14 @@ html, body {
 #page-wrapper {
     width: 100%;
     height: 100%;
+
     display: flex;
     flex-flow: column nowrap;
 }
 
 #page-header {
     height: 80px;
+
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -48,7 +50,9 @@ html, body {
     background-color: var(--white-l);
 }
 
-#page-content {
+#page-content-wrapper {
     height: 100%;
+
     display: flex;
+    justify-content: center;
 }

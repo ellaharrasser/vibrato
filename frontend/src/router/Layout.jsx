@@ -16,14 +16,14 @@ export default function Layout() {
   return (
     <>
       <ModalProvider>
-        <section id='page-wrapper'>
+        <div id='page-wrapper'>
           <header id='page-header'>
             {isLoaded && <PageHeader />}
           </header>
-          <main id='page-content'>
+          <div id='page-content-wrapper'>
             {isLoaded && <Outlet />}
-          </main>
-        </section>
+          </div>
+        </div>
         <Modal />
       </ModalProvider>
     </>
