@@ -1,0 +1,52 @@
+#top-header-container,
+#bottom-header-container {
+    width: 100%;
+    padding: 5px 0px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    border-bottom: 1px solid var(--d-grey-l);
+}
+
+#top-header-container {
+    height: 50px;
+}
+
+#bottom-header-container {
+    height: 30px;
+}
+
+#top-header,
+#bottom-header {
+    height: 100%;
+    width: 100%;
+    max-width: 1000px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 10px;
+}
+
+#top-header {
+    justify-content: space-between;
+}
+
+#bottom-header {
+    justify-content: center;
+}
+
+#site-name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--d-grey-d);
+    text-decoration: none;
+
+    transition: color 75ms ease-in-out;
+}
+
+#site-name:hover {
+    color: var(--cyan-m);
+}

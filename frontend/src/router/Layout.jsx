@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { ModalProvider, Modal } from "../context/Modal";
 import { thunkAuthenticate } from "../redux/session";
-import NavBar from "../components/common/PageHeader/NavBar";
+import PageHeader from "../components/common/PageHeader";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -16,8 +16,14 @@ export default function Layout() {
   return (
     <>
       <ModalProvider>
-        <NavBar />
-        {isLoaded && <Outlet />}
+        <section id='page-wrapper'>
+          <header id='page-header'>
+            {isLoaded && <PageHeader />}
+          </header>
+          <main id='page-content'>
+            {isLoaded && <Outlet />}
+          </main>
+        </section>
         <Modal />
       </ModalProvider>
     </>

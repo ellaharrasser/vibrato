@@ -1,1 +1,54 @@
-/* TODO: Add sitewide styles */
+:root {
+    /* Global color scheme */
+    --white-l: #f9f9f9;
+    --l-grey-m: #cdcdcd;
+    --l-grey-d: #a4a4a4;
+    --grey-l: #8c8c8c;
+    --grey-m: #6a6a6a;
+    --grey-d: #484848;
+    --d-grey-l: #3e3e3e;
+    --d-grey-m: #2d2d2d;
+    --d-grey-d: #1c1c1c;
+    --brown-l: #ad7050;
+    --brown-m: #744d38;
+    --brown-d: #4d3528;
+    --cyan-l: #69ddc2;
+    --cyan-m: #36d1ad;
+    --cyan-d: #26a688;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Cabin', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    height: 100%;
+}
+
+#page-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#page-header {
+    height: 80px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    background-color: var(--white-l);
+}
+
+#page-content {
+    height: 100%;
+    display: flex;
+}

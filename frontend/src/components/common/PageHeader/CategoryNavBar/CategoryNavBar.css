@@ -1,0 +1,23 @@
+#category-nav-bar > ul {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
+
+    list-style: none;
+}
+
+#category-nav-bar > ul li {
+    font-size: 1rem;
+    line-height: 1.125rem;
+    color: var(--d-grey-d);
+    cursor: pointer;
+
+    transition: color 75ms ease-in-out;
+}
+
+#category-nav-bar > ul li:hover {
+    color: var(--cyan-m);
+}
