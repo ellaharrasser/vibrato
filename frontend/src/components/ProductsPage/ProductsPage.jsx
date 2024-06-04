@@ -10,6 +10,7 @@ import './ProductsPage.css';
 function ProductsPage() {
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.products);
+    const productCount = useSelector(state => state.products.count);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -19,12 +20,17 @@ function ProductsPage() {
 
     return (
         <main>
-            <h1>All Products</h1>
-            <ul>
-                {isLoaded && values(products).map(product => (
-                    <ProductCard product={product} key={product.id} />
-                ))}
-            </ul>
+            {isLoaded && <>
+                <div className='info'>
+                    <h1>All Products</h1>
+                    <p className='count'>{productCount} results</p>
+                </div>
+                <ul>
+                    {isLoaded && values(products).map(product => (
+                        <ProductCard product={product} key={product.id} />
+                    ))}
+                </ul>
+            </>}
         </main>
     );
 }

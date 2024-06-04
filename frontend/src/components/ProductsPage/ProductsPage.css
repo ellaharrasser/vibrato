@@ -6,10 +6,30 @@ main {
     flex-flow: column nowrap;
 }
 
+.info {
+    margin: 32px 0px;
+    width: 100%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: end;
+    gap: 10px;
+}
+
 h1 {
+    margin: 0;
+
     font-size: 2rem;
     line-height: 2rem;
     font-weight: 700;
+    color: black;
+}
+
+.count {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    font-weight: 500;
+    color: var(--d-grey-m);
 }
 
 main > ul {

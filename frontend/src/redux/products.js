@@ -3,10 +3,11 @@
 const LOAD_PRODUCTS = 'products/loadProducts';
 const LOAD_CURRENT_PRODUCT = 'products/loadCurrentProduct';
 
-export const loadProducts = (products) => {
+export const loadProducts = (products, count) => {
     return {
         type: LOAD_PRODUCTS,
         products,
+        count,
     }
 };
 
@@ -26,7 +27,7 @@ export const thunkLoadProducts = () => async (dispatch) => {
         const data = await response.json();
         const products = {}; // Normalizing data
         data.products.forEach(product => products[product.id] = product);
-        dispatch(loadProducts(products));
+        dispatch(loadProducts(products, data.count));
     }
 };
 
@@ -45,7 +46,7 @@ const initialState = { products: null, currentProduct: null };
 const productsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_PRODUCTS:
-            return { ...state, products: action.products };
+            return { ...state, products: action.products, count: action.count };
         case LOAD_CURRENT_PRODUCT:
             return { ...state, currentProduct: action.currentProduct };
         default:
