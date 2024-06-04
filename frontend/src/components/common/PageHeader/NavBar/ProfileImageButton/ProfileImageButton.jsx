@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 // import { FaUserCircle } from 'react-icons/fa';
 
-// import OpenModalMenuItem from '../../OpenModalMenuItem';
-// import LoginFormModal from './LoginFormModal';
-// import SignupFormModal from './SignupFormModal';
+import { thunkLogout } from '../../../../../redux/session';
 import './ProfileImageButton.css';
 
 
 function ProfileButton({ user }) {
+  const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const [imageClass, setImageClass] = useState('profile-image');
-  const [infoClass, setInfoClass] = useState('profile-image');
+  const [infoClass, setInfoClass] = useState('profile-image hidden');
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
@@ -39,6 +39,14 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener('click', closeMenu);
   }, [showMenu]);
 
+  const closeMenu = () => setShowMenu(false);
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(thunkLogout());
+    closeMenu();
+  };
+
   return (
     <li>
       <img
@@ -54,9 +62,7 @@ function ProfileButton({ user }) {
               <li>
                 <NavLink to={`/users/${user.id}`}>My Profile</NavLink>
               </li>
-              <li>
-                <NavLink to={`/`}>My Shops</NavLink>
-              </li>
+              <li onClick={logout}>Log Out</li>
             </>
           )}
         </ul>

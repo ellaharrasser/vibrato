@@ -17,9 +17,9 @@ function NavBar() {
   const demoLogin = () => dispatch(thunkLogin({
     email: 'demo@aa.io', password: 'password',
   }));
-  const comingSoonAlert = () => {
-    window.alert('Account page coming soon!');
-  }
+  // const comingSoonAlert = () => {
+  //   window.alert('Account page coming soon!');
+  // }
 
   return (
     <nav id='nav-bar'>
@@ -30,9 +30,6 @@ function NavBar() {
             <NavLink to='/products'>Products</NavLink>
           </li>
           <ProfileImageButton user={user} />
-          <li onClick={logout}>
-            Log Out
-          </li>
         </>) : (<>
           <OpenModalMenuItem
             itemText='Log In'
@@ -42,9 +39,7 @@ function NavBar() {
             itemText='Sign Up'
             modalComponent={<SignupFormModal />}
           />
-          <li onClick={demoLogin}>
-            Demo
-          </li>
+          <li onClick={demoLogin}>Demo</li>
         </>)}
       </ul>
     </nav>
