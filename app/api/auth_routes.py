@@ -1,8 +1,10 @@
 from flask import Blueprint, request
-from app.models import User, db
-from app.forms import LoginForm
-from app.forms import SignUpForm
+from ..models import User, db
+from ..forms import LoginForm
+from ..forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+
+from ..utils.aws import get_unique_filename, upload_file_to_s3
 
 
 auth_routes = Blueprint('auth', __name__)
@@ -30,6 +32,7 @@ def login():
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
+
         login_user(user)
         return user.to_dict()
     return form.errors, 401
@@ -51,14 +54,26 @@ def sign_up():
     """
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
+        profile_image = form.data['profile_image']
+        profile_image.filename = get_unique_filename(profile_image.filename)
+        upload = upload_file_to_s3(profile_image)
+
+        if 'url' not in upload: # Check for errors while uploading
+            return form.errors, 400
+
         user = User(
-            username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            name=form.data['name'],
+            password=form.data['password'],
+            profile_image=upload['url'],
+            description=form.data['description']
         )
+
         db.session.add(user)
         db.session.commit()
+
         login_user(user)
         return user.to_dict()
     return form.errors, 401

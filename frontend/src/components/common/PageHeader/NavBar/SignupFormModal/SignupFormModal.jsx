@@ -63,7 +63,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.name && <p>{errors.name}</p>}
         <label>
           Password
           <input
