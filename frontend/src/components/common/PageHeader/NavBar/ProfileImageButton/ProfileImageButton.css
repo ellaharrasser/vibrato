@@ -1,0 +1,61 @@
+.profile-image {
+    width: auto;
+    max-height: 40px;
+
+    cursor: pointer;
+
+    border: 2px solid var(--grey-l);
+    border-radius: 20px;
+
+    transition: border 75ms ease-in-out;
+}
+
+.profile-image:hover,
+.selected {
+    border: 2px solid var(--d-grey-d)
+}
+
+.profile-info {
+    width: fit-content;
+    margin: 5px;
+    padding: 4px;
+
+    position: sticky;
+
+    list-style: none;
+    background-color: var(--white-l);
+    border-left: 4px solid var(--grey-l);
+    border-radius: 2px;
+}
+
+.profile-info::after {
+    content: '';
+    height: calc(100% - 4px); /* Unsure why the -4px is necessary */
+    width: 10px;
+    position: absolute;
+    top: 0;
+    right: -10px;
+    display: block;
+
+    background: linear-gradient(90deg, var(--white-l), rgba(255, 255, 255, 0));
+}
+
+.invisible-container {
+    width: 0;
+    height: fit-content;
+
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 75ms ease-in-out, visibility 0ms 75ms;
+}
+
+.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0ms, opacity 75ms ease-in-out;
+}

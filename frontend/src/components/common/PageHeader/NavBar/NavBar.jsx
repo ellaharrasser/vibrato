@@ -1,11 +1,12 @@
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { thunkLogin, thunkLogout } from "../../../../redux/session";
-import OpenModalMenuItem from "../../OpenModalMenuItem";
-import LoginFormModal from "./LoginFormModal";
-import SignupFormModal from "./SignupFormModal";
-import "./NavBar.css";
+import { thunkLogin, thunkLogout } from '../../../../redux/session';
+import OpenModalMenuItem from '../../OpenModalMenuItem';
+import LoginFormModal from './LoginFormModal';
+import SignupFormModal from './SignupFormModal';
+import ProfileImageButton from './ProfileImageButton';
+import './NavBar.css';
 
 
 function NavBar() {
@@ -28,10 +29,7 @@ function NavBar() {
             {/* Placeholder for testing */}
             <NavLink to='/products'>Products</NavLink>
           </li>
-          <li onClick={comingSoonAlert}>
-            {/* Placeholder, change to dropdown menu/modal? */}
-            Account
-          </li>
+          <ProfileImageButton user={user} />
           <li onClick={logout}>
             Log Out
           </li>

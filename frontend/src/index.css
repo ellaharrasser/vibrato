@@ -42,6 +42,9 @@ html, body {
 
 #page-header {
     height: 80px;
+    width: 100%;
+    position: fixed;
+    top: 0;
 
     display: flex;
     flex-flow: column nowrap;
@@ -52,6 +55,7 @@ html, body {
 
 #page-content-wrapper {
     height: 100%;
+    margin-top: 80px; /* Account for header */
 
     display: flex;
     justify-content: center;

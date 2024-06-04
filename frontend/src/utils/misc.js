@@ -1,7 +1,5 @@
-export const values = (object) => {
-    if (!object) return [];
-    return Object.values(object);
-}
+export const getValues = (item) => item ? Object.values(item) : [];
+export const getKeys = (item) => item ? Object.keys(item) : [];
 
 const USDFormatter = Intl.NumberFormat('en-us', {
     style: 'currency',

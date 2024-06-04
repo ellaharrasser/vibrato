@@ -13,7 +13,7 @@
     font-weight: 400;
     color: var(--grey-d);
 
-    border: 1px solid var(--grey-l);
+    border: 2px solid var(--grey-l);
     border-radius: 5px;
 
     transition:
@@ -22,7 +22,7 @@
 }
 
 #header-search-bar input:focus {
-    border: 1px solid var(--d-grey-d);
+    border: 2px solid var(--d-grey-d);
     color: var(--d-grey-d);
 
     outline: none;
