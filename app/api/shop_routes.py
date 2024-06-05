@@ -9,6 +9,22 @@ from ..utils.aws import get_unique_filename, upload_file_to_s3
 shop_routes = Blueprint('shops', __name__)
 
 
+@shop_routes.route('')
+def shops():
+    """
+    Query for all shops with pagination.
+    """
+    shops_query = Shop.query
+
+    owner_id = request.args.get('owner_id', type=int)
+    if owner_id:
+        shops_query = shops_query.filter_by(owner_id=owner_id)
+
+    shops = [shop.to_dict() for shop in shops_query]
+
+    return { 'shops': shops }
+
+
 @shop_routes.route('/<shop_id>')
 def shop_by_id(shop_id: int):
     """

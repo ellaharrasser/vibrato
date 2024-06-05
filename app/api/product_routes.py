@@ -20,7 +20,11 @@ def products(page: int = 1, per_page: int = 20):
     # Add query filters here
 
     products_count = base_query.count()
-    products_query = base_query.paginate(page=page, per_page=per_page, error_out=False)
+    products_query = base_query.paginate(
+        page=page,
+        per_page=per_page,
+        error_out=False
+    )
     products = [product.to_dict() for product in products_query]
 
     return {
