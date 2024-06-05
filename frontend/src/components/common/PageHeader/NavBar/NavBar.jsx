@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { thunkLogin, thunkLogout } from '../../../../redux/session';
+import { thunkLogin } from '../../../../redux/session';
 import OpenModalMenuItem from '../../OpenModalMenuItem';
 import LoginFormModal from './LoginFormModal';
 import SignupFormModal from './SignupFormModal';
@@ -13,7 +13,6 @@ function NavBar() {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
-  const logout = () => dispatch(thunkLogout());
   const demoLogin = () => dispatch(thunkLogin({
     email: 'demo@aa.io', password: 'password',
   }));
