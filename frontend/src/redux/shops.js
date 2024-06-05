@@ -1,7 +1,5 @@
 // Actions
 
-import { isRouteErrorResponse } from "react-router-dom";
-
 const LOAD_SHOPS = 'shops/loadShops';
 const LOAD_CURRENT_SHOP = 'shops/loadCurrentShop';
 

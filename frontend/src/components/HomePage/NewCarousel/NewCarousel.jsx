@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 import './NewCarousel.css';
 
 function NewCarousel({ products }) {
-    const [carouselIndex, setCarouselIndex] = useState(0);
+    // const [carouselIndex, setCarouselIndex] = useState(0);
 
     return (
         <div id='new-carousel' className='carousel-container'>
@@ -11,7 +11,10 @@ function NewCarousel({ products }) {
             <ul className='carousel'>
                 {products.map(product => (
                     <li className='carousel-item-container'>
-                        <ProductCarouselItem product={product}/>
+                        <ProductCarouselItem
+                            product={product}
+                            key={product.id}
+                        />
                     </li>
                 ))}
             </ul>

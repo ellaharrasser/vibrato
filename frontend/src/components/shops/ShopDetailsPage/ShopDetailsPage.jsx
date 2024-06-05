@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { thunkLoadCurrentShop } from '../../../redux/shops';
-import OpenModalButton from '../../common/OpenModalButton';
+// import OpenModalButton from '../../common/OpenModalButton';
 import './ShopDetailsPage.css';
 
 
@@ -11,7 +11,7 @@ function ShopDetailsPage() {
     const dispatch = useDispatch();
     const { shopId } = useParams();
 
-    const user = useSelector(state => state.session.user);
+    // const user = useSelector(state => state.session.user);
     const shop = useSelector(state => state.shops.currentShop);
 
     useEffect(() => {

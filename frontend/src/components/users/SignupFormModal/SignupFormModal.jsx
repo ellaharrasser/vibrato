@@ -66,7 +66,7 @@ function SignupFormModal() {
     }
 
     return newValidations;
-  }, [email, name, description, password, confirmPassword]);
+  }, [email, name, description, profileImage, password, confirmPassword]);
 
   useEffect(() => {
     if (!hasSubmitted) return; // Prevent validations until initial submission
