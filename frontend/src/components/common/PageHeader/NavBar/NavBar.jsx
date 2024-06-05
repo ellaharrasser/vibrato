@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { thunkLogin } from '../../../../redux/session';
 import OpenModalMenuItem from '../../OpenModalMenuItem';
-import LoginFormModal from './LoginFormModal';
-import SignupFormModal from './SignupFormModal';
+import LoginFormModal from '../../../users/LoginFormModal';
+import SignupFormModal from '../../../users/SignupFormModal';
 import ProfileImageButton from './ProfileImageButton';
 import './NavBar.css';
 

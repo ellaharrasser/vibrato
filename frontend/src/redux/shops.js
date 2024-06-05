@@ -1,5 +1,7 @@
 // Actions
 
+import { isRouteErrorResponse } from "react-router-dom";
+
 const LOAD_SHOPS = 'shops/loadShops';
 const LOAD_CURRENT_SHOP = 'shops/loadCurrentShop';
 
@@ -21,12 +23,17 @@ export const loadCurrentShop = (currentShop) => {
 
 export const thunkLoadUserShops = (user) => async (dispatch) => {
     // TODO: Add query params and filters
-    const response = await fetch(`/api/user/${user.id}/shops`);
+    const response = await fetch(`/api/users/${user.id}/shops`);
     if (response.ok) {
         const data = await response.json();
         const shops = {}; // Normalizing data
         data.shops.forEach(shop => shops[shop.id] = shop);
         dispatch(loadShops(shops));
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' };
     }
 };
 
@@ -34,7 +41,30 @@ export const thunkLoadCurrentShop = (shopId) => async (dispatch) => {
     const response = await fetch(`/api/shops/${shopId}`);
     if (response.ok) {
         const data = await response.json();
-        dispatch(loadCurrentShop(data.shop));
+        await dispatch(loadCurrentShop(data.shop));
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' };
+    }
+};
+
+export const thunkNewShop = (shop) => async (dispatch) => {
+    const response = await fetch('/api/shops/new', {
+        method: 'POST',
+        body: shop,
+    });
+
+    if (response.ok) {
+        const newShop = await response.json();
+        await dispatch(loadCurrentShop(newShop));
+        return { shop: newShop }; // Return shop for redirecting using the id
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' }
     }
 };
 

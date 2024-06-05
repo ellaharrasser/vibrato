@@ -34,10 +34,10 @@ def product_by_id(product_id: int):
     """
     Query for a product by id.
     """
-    product = Product.get(product_id)
+    product = Product.query.get(product_id)
     if not product:
         return { 'errors': { 'message': 'Product not found' } }, 404
-    return { 'product': product }
+    return { 'product': product.to_dict() }
 
 
 @product_routes.route('/new', methods=['POST'])

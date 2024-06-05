@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from ..models import User, db
 from ..forms import LoginForm
 from ..forms import SignUpForm
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_user, logout_user
 
 from ..utils.aws import get_unique_filename, upload_file_to_s3
 
@@ -76,7 +76,7 @@ def sign_up():
 
         login_user(user)
         return user.to_dict()
-    return form.errors, 401
+    return form.errors, 400
 
 
 @auth_routes.route('/unauthorized')

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { thunkLoadProducts } from '../../redux/products';
+import { getValues } from '../../../utils/misc';
+import { thunkLoadProducts } from '../../../redux/products';
 import ProductCard from './ProductCard';
 import './ProductsPage.css';
-import { getValues } from '../../utils/misc';
 
 
 function ProductsPage() {

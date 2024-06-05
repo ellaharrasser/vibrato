@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { validateEmail } from '../../../../../utils/validate';
-import { getKeys } from '../../../../../utils/misc';
-import { thunkSignup } from '../../../../../redux/session';
-import { useModal } from '../../../../../context/Modal';
+import { validateEmail } from '../../../utils/validate';
+import { getKeys } from '../../../utils/misc';
+import { thunkSignup } from '../../../redux/session';
+import { useModal } from '../../../context/Modal';
 import './SignupForm.css';
 
 function SignupFormModal() {
@@ -36,29 +36,33 @@ function SignupFormModal() {
     const newValidations = {};
 
     if (!email) {
-      newValidations.email = 'Email is required';
+      newValidations.email = 'An email is required.';
     } else if (!validateEmail(email)) {
-      newValidations.email = 'Email format is invalid';
+      newValidations.email = 'The email\'s format is invalid.';
     } else if (email.length > 255) {
-      newValidations.email = 'Email must be 255 or fewer characters';
+      newValidations.email = 'Emails must be 255 or fewer characters.';
     }
 
     if (!name) {
-      newValidations.name = 'Name is required';
+      newValidations.name = 'A name is required.';
     } else if (name.length > 255) {
-      newValidations.name = 'Name must be 255 or fewer characters';
+      newValidations.name = 'Names must be 255 or fewer characters.';
     }
 
     if (description.length > 255) {
-      newValidations.description = 'Description must be 255 or fewer characters';
+      newValidations.description = 'Descriptions must be 255 or fewer characters.';
+    }
+
+    if (!profileImage) {
+      newValidations.profileImage = 'A profile image is required.';
     }
 
     if (password.length < 8) {
-      newValidations.password = 'Password must be 8 or more characters';
+      newValidations.password = 'Passwords must be 8 or more characters.';
     } else if (password.length > 255) {
-      newValidations.password = 'Password must be 255 or fewer characters';
+      newValidations.password = 'Passwords must be 255 or fewer characters.';
     } else if (password !== confirmPassword) {
-      newValidations.confirmPassword = 'Both passwords must match';
+      newValidations.confirmPassword = 'Both passwords must match.';
     }
 
     return newValidations;
@@ -89,7 +93,6 @@ function SignupFormModal() {
     setImageLoading(true);
 
     const serverResponse = await dispatch(thunkSignup(formData));
-
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
@@ -100,7 +103,7 @@ function SignupFormModal() {
   return (
     <>
       <h1>Sign Up</h1>
-      {errors.server && <p className='form-error'>{errors.server}</p>}
+      {errors.server && <p className='server-error'>{errors.server}</p>}
       <form onSubmit={handleSubmit} encType='multipart/form-data'>
         <label>
           Email
@@ -108,7 +111,6 @@ function SignupFormModal() {
             type='text'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
         </label>
         {validations.email && (
@@ -122,7 +124,6 @@ function SignupFormModal() {
             type='text'
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
           />
         </label>
         {validations.name && (
@@ -141,14 +142,15 @@ function SignupFormModal() {
         {errors.profileImage && (
           <p className='form-error'>{errors.profileImage}</p>
         )}
-        {imageLoading && <p>Loading...</p>}
+        <p className='image-loading'>
+          {imageLoading ? 'Loading...' : ''}
+        </p>
         <label>
           Description
           <input
             type='text'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            required
           />
         </label>
         {validations.description && (
@@ -162,7 +164,6 @@ function SignupFormModal() {
             type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
         </label>
         {validations.password && (
@@ -176,7 +177,6 @@ function SignupFormModal() {
             type='password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
           />
         </label>
         {validations.confirmPassword && (

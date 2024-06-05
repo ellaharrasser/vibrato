@@ -2,7 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Layout from './Layout';
 import HomePage from '../components/HomePage';
-import ProductsPage from '../components/ProductsPage';
+import ProductsPage from '../components/products/ProductsPage';
+import ShopDetailsPage from '../components/shops/ShopDetailsPage';
+import NewShopForm from '../components/shops/NewShopForm';
 
 export const router = createBrowserRouter([
   {
@@ -14,8 +16,20 @@ export const router = createBrowserRouter([
       },
       {
         path: '/products',
-        element: <ProductsPage />
-      }
+        element: <ProductsPage />,
+      },
+      // {
+      //   path: '/products/:productId',
+      //   element: <ProductDetailsPage />,
+      // },
+      {
+        path: '/shops/:shopId',
+        element: <ShopDetailsPage />,
+      },
+      {
+        path: '/shops/new',
+        element: <NewShopForm />,
+      },
     ],
   },
 ]);
