@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flask_login import current_user, login_required
+from flask_login import login_required
 
 from ..models import db, Product, ProductImage
 from ..forms.product_form import ProductForm

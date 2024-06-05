@@ -1,15 +1,21 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
-from wtforms import IntegerField, StringField, TextAreaField, SelectField, FileField
+from wtforms import IntegerField, StringField, FileField
 from wtforms.validators import DataRequired, Length, NumberRange
-from flask_login import current_user
 
 from ..utils.aws import ALLOWED_EXTENSIONS
 from ..utils.conditions import CONDITIONS
-from ..models.shop import Shop
 
 
 class ProductForm(FlaskForm):
+    user_id = IntegerField(
+        'User ID',
+        validators=[DataRequired()],
+    )
+    shop_id = IntegerField(
+        'Shop ID',
+        validators=[DataRequired()],
+    )
     name = StringField(
         'Name',
         validators=[DataRequired(), Length(max=255)]
@@ -22,12 +28,12 @@ class ProductForm(FlaskForm):
         'Brand',
         validators=[DataRequired(), Length(max=255)]
     )
-    condition = SelectField(
+    condition = StringField(
         'Brand',
         choices=CONDITIONS,
         validators=[DataRequired(), Length(max=255)]
     )
-    description = TextAreaField(
+    description = StringField(
         'Description',
         validators=[DataRequired(), Length(max=255)]
     )
@@ -42,10 +48,6 @@ class ProductForm(FlaskForm):
     quantity = IntegerField(
         'Quantity',
         validators=[DataRequired(), NumberRange(min=0)]
-    )
-    shop_id = IntegerField(
-        'Shop',
-        validators=[DataRequired()],
     )
     # One image is required, 4 extras are optional
     image_1 = FileField(
