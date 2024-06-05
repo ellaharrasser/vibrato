@@ -18,10 +18,15 @@
 }
 
 .product-card .name {
+    width: 100%;
+    max-height: 2.25rem;
+
     font-size: 1.125rem;
     line-height: 1.125rem;
     font-weight: 700;
     color: black;
+
+    overflow: hidden;
 }
 
 .product-card .condition {
@@ -43,4 +48,11 @@
     line-height: 1rem;
     font-weight: 500;
     color: var(--d-grey-m);
+}
+
+.product-card .image-placeholder {
+    height: 180px;
+    width: 180px;
+
+    background-color: var(--grey-l);
 }
