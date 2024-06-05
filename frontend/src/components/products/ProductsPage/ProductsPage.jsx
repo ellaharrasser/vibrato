@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getValues } from '../../../utils/misc';
 import { thunkLoadProducts } from '../../../redux/products';
-import ProductCard from './ProductCard';
+import ProductCard from '../ProductCard';
 import './ProductsPage.css';
 
 
@@ -26,9 +26,9 @@ function ProductsPage() {
                     <p className='count'>{productCount} results</p>
                 </div>
                 <ul>
-                    {isLoaded && getValues(products).map(product => (
+                    {isLoaded ? getValues(products).map(product => (
                         <ProductCard product={product} key={product.id} />
-                    ))}
+                    )) : <p className='loading'>Loading...</p>}
                 </ul>
             </>}
         </main>

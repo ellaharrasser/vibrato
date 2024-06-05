@@ -1,4 +1,4 @@
-import { centsToUSD } from '../../../../utils/misc';
+import { centsToUSD } from '../../../utils/misc';
 import './ProductCard.css';
 
 

@@ -20,13 +20,14 @@ export const loadCurrentShop = (currentShop) => {
 // Thunks
 
 export const thunkLoadUserShops = (user) => async (dispatch) => {
-    // TODO: Add query params and filters
-    const response = await fetch(`/api/users/${user.id}/shops`);
+    const url = '/api/shops?owner_id=' + encodeURIComponent(`${user.id}`)
+    const response = await fetch(url);
     if (response.ok) {
         const data = await response.json();
         const shops = {}; // Normalizing data
         data.shops.forEach(shop => shops[shop.id] = shop);
-        dispatch(loadShops(shops));
+        console.log(shops);
+        await dispatch(loadShops(shops));
     } else if (response.status < 500) {
         const errors = await response.json();
         return errors;
@@ -73,7 +74,7 @@ const initialState = { shops: null, currentShop: null };
 const shopsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SHOPS:
-            return { ...state, shops: action.products };
+            return { ...state, shops: action.shops };
         case LOAD_CURRENT_SHOP:
             return { ...state, currentShop: action.currentShop };
         default:
