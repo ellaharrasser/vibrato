@@ -16,21 +16,21 @@ function ProductsPage() {
     useEffect(() => {
         dispatch(thunkLoadProducts());
         setIsLoaded(true);
-    }, [dispatch])
+    }, [dispatch]);
 
     return (
         <main>
-            {isLoaded && <>
+            {isLoaded ? <>
                 <div className='info'>
                     <h1>All Products</h1>
                     <p className='count'>{productCount} results</p>
                 </div>
                 <ul>
-                    {isLoaded ? getValues(products).map(product => (
+                    {getValues(products).map(product => (
                         <ProductCard product={product} key={product.id} />
-                    )) : <p className='loading'>Loading...</p>}
+                    ))}
                 </ul>
-            </>}
+            </> : <p className='loading'>Loading...</p>}
         </main>
     );
 }

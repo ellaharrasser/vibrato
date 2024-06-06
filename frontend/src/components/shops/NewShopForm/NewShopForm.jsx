@@ -15,7 +15,7 @@ function NewShopForm() {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(undefined);
     const [imageLoading, setImageLoading] = useState(false);
 
     const [validations, setValidations] = useState({});
@@ -122,13 +122,11 @@ function NewShopForm() {
                         || errors.image && errors.image}
                     </p>
                     <input
+                        id='image'
                         type='file'
                         accept='image/*'
                         onChange={(e) => setImage(e.target.files[0])}
                     />
-                    <p className='image-loading'>
-                        {imageLoading ? 'Loading...' : ''}
-                    </p>
                 </div>
                 <button
                     type='submit'
@@ -137,6 +135,9 @@ function NewShopForm() {
                 >
                     Create Shop
                 </button>
+                <p className='image-loading'>
+                    {imageLoading && 'Loading...'}
+                </p>
             </form>
         </main>
     )

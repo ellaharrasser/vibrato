@@ -10,11 +10,10 @@ function NewCarousel({ products }) {
             <h2 className='carousel-header'>New Products</h2>
             <ul className='carousel'>
                 {products.map(product => (
-                    <li className='carousel-item-container'>
-                        <ProductCarouselItem
+                    <li className='carousel-item-container' key={product.id}>
+                        {/* <ProductCarouselItem
                             product={product}
-                            key={product.id}
-                        />
+                        /> */}
                     </li>
                 ))}
             </ul>

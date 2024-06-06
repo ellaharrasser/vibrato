@@ -7,6 +7,7 @@ import { thunkSignup } from '../../../redux/session';
 import { useModal } from '../../../context/Modal';
 import './SignupForm.css';
 
+
 function SignupFormModal() {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
@@ -14,7 +15,7 @@ function SignupFormModal() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [profileImage, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(undefined);
   const [imageLoading, setImageLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');

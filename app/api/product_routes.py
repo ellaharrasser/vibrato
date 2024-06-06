@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required
 
+from ..utils.aws import get_unique_filename, upload_file_to_s3
 from ..models import db, Product, ProductImage
 from ..forms.product_form import ProductForm
 
@@ -20,6 +21,10 @@ def products(page: int = 1, per_page: int = 20):
     user_id = request.args.get('user_id', type=int)
     if user_id:
         base_query = base_query.filter_by(user_id=user_id)
+
+    # category = request.args.get('category', type=str)
+    # if category:
+    #     base_query = base_query.filter_by(category=category)
 
     products_count = base_query.count()
     products_query = base_query.paginate(
@@ -73,10 +78,18 @@ def new_product():
 
         images = []
         for num in range(1, 6): # "Iterate" through form image fields
-            if form.data[f'image_{num}']:
+            image_key = f'image_{num}'
+            if form.data[image_key]:
+                image = form.data[image_key]
+                image.filename = get_unique_filename(image.filename)
+                upload = upload_file_to_s3(image)
+
+                if 'url' not in upload: # Check for errors while uploading
+                    return form.errors, 400
+
                 images.append(ProductImage(
                     product_id=product.id,
-                    image=form.data[f'image_{num}']
+                    image=upload['url']
                 ))
 
         db.session.add_all(images)

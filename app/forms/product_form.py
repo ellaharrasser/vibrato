@@ -8,10 +8,6 @@ from ..utils.conditions import CONDITIONS
 
 
 class ProductForm(FlaskForm):
-    user_id = IntegerField(
-        'User ID',
-        validators=[DataRequired()],
-    )
     shop_id = IntegerField(
         'Shop ID',
         validators=[DataRequired()],
@@ -30,7 +26,6 @@ class ProductForm(FlaskForm):
     )
     condition = StringField(
         'Brand',
-        choices=CONDITIONS,
         validators=[DataRequired(), Length(max=255)]
     )
     description = StringField(

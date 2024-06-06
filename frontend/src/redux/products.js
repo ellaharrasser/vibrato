@@ -32,7 +32,7 @@ export const thunkLoadProducts = () => async (dispatch) => {
 };
 
 export const thunkLoadUserProducts = (user) => async (dispatch) => {
-    const url = '/api/products?owner_id=' + encodeURIComponent(`${user.id}`)
+    const url = '/api/products?owner_id=' + encodeURIComponent(`${user.id}`);
     const response = await fetch(url);
     if (response.ok) {
         const data = await response.json();
@@ -52,6 +52,24 @@ export const thunkLoadCurrentProduct = (productId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(loadCurrentProduct(data.product));
+    }
+};
+
+export const thunkNewProduct = (product) => async (dispatch) => {
+    const response = await fetch('/api/products/new', {
+        method: 'POST',
+        body: product,
+    });
+
+    if (response.ok) {
+        const newProduct = await response.json();
+        await dispatch(loadCurrentProduct(newProduct));
+        return { product: newProduct }; // Return product for redirecting using the id
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' }
     }
 };
 
