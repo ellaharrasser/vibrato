@@ -56,7 +56,7 @@ class Product(db.Model):
         return {
             'shop': self.shop.to_dict(rels=False),
             'images': [
-                image.to_dict(rels=False)
+                image.to_dict() # No rels kwarg on product images
                 for image in self.images
             ],
             'reviews': [

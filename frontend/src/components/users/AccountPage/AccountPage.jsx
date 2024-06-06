@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import './AccountPage.css';
 import { thunkLoadUserShops } from '../../../redux/shops';
+import { thunkLoadUserProducts } from '../../../redux/products';
 import { useNavigate } from 'react-router-dom';
 import { getKeys, getValues } from '../../../utils/misc';
 
@@ -11,21 +12,24 @@ function AccountPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const user = useSelector(state => state.session.user);
-    const shops = useSelector(state => state.shops.shops);
-
     const [shopsLoaded, setShopsLoaded] = useState(false);
 
-    if (!user) return navigate('/');
+    const user = useSelector(state => state.session.user);
 
     useEffect(() => {
+        if (!user) return navigate('/');
         const fetchUserShops = async () => {
             await dispatch(thunkLoadUserShops(user));
-            console.log(shops);
+            await dispatch(thunkLoadUserProducts(user));
             setShopsLoaded(true);
         }
         fetchUserShops();
     }, [user, dispatch, navigate]);
+
+    const shops = useSelector(state => state.shops.shops);
+    const products = useSelector(state => state.products.products);
+
+    console.log(products);
 
     return (
         <main>

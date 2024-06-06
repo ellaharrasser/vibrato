@@ -10,8 +10,10 @@ function ProductCard({ product }) {
 
     return (
         <li className='product-card'>
-            {/* <img src={product.images[0]} /> */}
-            <div className='image-placeholder'></div>
+            <img
+                src={product.images[0].image}
+                alt='Product Image Preview'
+            />
             <p className='name'>{product.brand} {product.name}</p>
             <p className='condition'>{product.condition}</p>
             <p className='product-price'>{productPriceText}</p>

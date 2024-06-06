@@ -17,7 +17,9 @@ def products(page: int = 1, per_page: int = 20):
     """
     base_query = Product.query
 
-    # Add query filters here
+    user_id = request.args.get('user_id', type=int)
+    if user_id:
+        base_query = base_query.filter_by(user_id=user_id)
 
     products_count = base_query.count()
     products_query = base_query.paginate(

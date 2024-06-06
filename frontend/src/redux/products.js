@@ -31,6 +31,22 @@ export const thunkLoadProducts = () => async (dispatch) => {
     }
 };
 
+export const thunkLoadUserProducts = (user) => async (dispatch) => {
+    const url = '/api/products?owner_id=' + encodeURIComponent(`${user.id}`)
+    const response = await fetch(url);
+    if (response.ok) {
+        const data = await response.json();
+        const products = {}; // Normalizing data
+        data.products.forEach(product => products[product.id] = product);
+        await dispatch(loadProducts(products, data.count));
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' };
+    }
+};
+
 export const thunkLoadCurrentProduct = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`);
     if (response.ok) {

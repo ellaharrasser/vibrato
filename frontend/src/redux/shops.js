@@ -26,7 +26,6 @@ export const thunkLoadUserShops = (user) => async (dispatch) => {
         const data = await response.json();
         const shops = {}; // Normalizing data
         data.shops.forEach(shop => shops[shop.id] = shop);
-        console.log(shops);
         await dispatch(loadShops(shops));
     } else if (response.status < 500) {
         const errors = await response.json();
