@@ -4,18 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getKeys } from '../../../utils/misc';
 import { thunkNewShop } from '../../../redux/shops';
-import './NewShopForm.css';
+import './EditShopForm.css';
 
 
-function NewShopForm() {
+function EditShopForm({ shop }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const user = useSelector(state => state.session.user);
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [image, setImage] = useState(null);
+    const [name, setName] = useState(shop.name);
+    const [description, setDescription] = useState(shop.description);
+    const [image, setImage] = useState(shop.image);
     const [imageLoading, setImageLoading] = useState(false);
 
     const [validations, setValidations] = useState({});
@@ -142,4 +142,4 @@ function NewShopForm() {
     )
 }
 
-export default NewShopForm;
+export default EditShopForm;
