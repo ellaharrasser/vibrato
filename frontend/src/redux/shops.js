@@ -57,7 +57,25 @@ export const thunkNewShop = (shop) => async (dispatch) => {
     if (response.ok) {
         const newShop = await response.json();
         await dispatch(loadCurrentShop(newShop));
-        return { shop: newShop }; // Return shop for redirecting using the id
+        return { shop: newShop }; // Return shop for redirecting
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' }
+    }
+};
+
+export const thunkEditShop = (shop) => async (dispatch) => {
+    const response = await fetch(`/api/shops/${shop.id}`, {
+        method: 'PUT',
+        body: shop,
+    });
+
+    if (response.ok) {
+        const editedShop = await response.json();
+        await dispatch(loadCurrentShop(editedShop));
+        return { shop: editedShop }; // Return shop for redirecting
     } else if (response.status < 500) {
         const errors = await response.json();
         return errors;

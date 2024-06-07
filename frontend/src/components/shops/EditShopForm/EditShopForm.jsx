@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getKeys } from '../../../utils/misc';
-import { thunkNewShop } from '../../../redux/shops';
+import { thunkEditShop } from '../../../redux/shops';
 import './EditShopForm.css';
 
 
@@ -76,7 +76,7 @@ function EditShopForm({ shop }) {
         formData.append('image', image);
         setImageLoading(true);
 
-        const serverResponse = await dispatch(thunkNewShop(formData));
+        const serverResponse = await dispatch(thunkEditShop(formData));
         if (serverResponse.shop) {
             navigate(`/shops/${serverResponse.shop.id}`);
         } else if (serverResponse) {

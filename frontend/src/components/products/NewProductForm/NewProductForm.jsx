@@ -96,6 +96,8 @@ function NewProductForm() {
             newValidations.image = 'At least one image is required.';
         }
 
+        // TODO: Add image validations
+
         return newValidations;
     }, [
         shopId, name, brand, category, condition, description, productPrice,

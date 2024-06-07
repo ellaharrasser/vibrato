@@ -64,7 +64,25 @@ export const thunkNewProduct = (product) => async (dispatch) => {
     if (response.ok) {
         const newProduct = await response.json();
         await dispatch(loadCurrentProduct(newProduct));
-        return { product: newProduct }; // Return product for redirecting using the id
+        return { product: newProduct }; // Return product for redirecting
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' }
+    }
+};
+
+export const thunkEditProduct = (product) => async (dispatch) => {
+    const response = await fetch(`/api/products/${product.id}`, {
+        method: 'PUT',
+        body: product,
+    });
+
+    if (response.ok) {
+        const editedProduct = await response.json();
+        await dispatch(loadCurrentProduct(editedProduct));
+        return { product: editedProduct }; // Return product for redirecting
     } else if (response.status < 500) {
         const errors = await response.json();
         return errors;
