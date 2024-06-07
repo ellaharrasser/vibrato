@@ -9,12 +9,16 @@ import './ProductsPage.css';
 
 function ProductsPage() {
     const dispatch = useDispatch();
+
+    const user = useSelector(state => state.session.user);
     const products = useSelector(state => state.products.products);
     const productCount = useSelector(state => state.products.count);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        dispatch(thunkLoadProducts());
+        user
+            ? dispatch(thunkLoadProducts({ excludeUser: user }))
+            : dispatch(thunkLoadProducts());
         setIsLoaded(true);
     }, [dispatch]);
 

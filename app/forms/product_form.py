@@ -26,7 +26,7 @@ class ProductForm(FlaskForm):
     )
     condition = StringField(
         'Brand',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[DataRequired(), Length(max=255)] # Need condition validator
     )
     description = StringField(
         'Description',

@@ -20,14 +20,26 @@ export const loadCurrentProduct = (currentProduct) => {
 
 // Thunks
 
-export const thunkLoadProducts = () => async (dispatch) => {
-    // TODO: Add query params and filters
-    const response = await fetch('/api/products');
+export const thunkLoadProducts = (filters) => async (dispatch) => {
+    console.log(filters);
+    let url = 'api/products';
+    if (filters) {
+        if ('excludeUser' in filters) {
+            url += '?exclude_user_id=' + encodeURIComponent(`${filters.excludeUser.id}`);
+        }
+    }
+
+    const response = await fetch(url);
     if (response.ok) {
         const data = await response.json();
         const products = {}; // Normalizing data
         data.products.forEach(product => products[product.id] = product);
         dispatch(loadProducts(products, data.count));
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' };
     }
 };
 
@@ -52,6 +64,11 @@ export const thunkLoadCurrentProduct = (productId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(loadCurrentProduct(data.product));
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' };
     }
 };
 

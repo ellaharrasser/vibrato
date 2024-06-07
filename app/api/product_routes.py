@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required
 
 from ..utils.aws import get_unique_filename, upload_file_to_s3
-from ..models import db, Product, ProductImage
+from ..models import db, Product, ProductImage, Shop
 from ..forms.product_form import ProductForm
 
 
@@ -20,7 +20,11 @@ def products(page: int = 1, per_page: int = 20):
 
     user_id = request.args.get('user_id', type=int)
     if user_id:
-        base_query = base_query.filter_by(user_id=user_id)
+        base_query = base_query.join(Shop).filter(Shop.owner_id == user_id)
+
+    exclude_user_id = request.args.get('exclude_user_id', type=int)
+    if exclude_user_id:
+        base_query = base_query.join(Shop).filter(Shop.owner_id != exclude_user_id)
 
     # category = request.args.get('category', type=str)
     # if category:

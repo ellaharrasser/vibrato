@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { getKeys } from '../../../../utils/misc';
 import { thunkLogin } from '../../../../redux/session';
 import OpenModalMenuItem from '../../OpenModalMenuItem';
 import LoginFormModal from '../../../users/LoginFormModal';
@@ -16,17 +17,20 @@ function NavBar() {
   const demoLogin = () => dispatch(thunkLogin({
     email: 'demo@aa.io', password: 'password',
   }));
-  // const comingSoonAlert = () => {
-  //   window.alert('Account page coming soon!');
-  // }
 
   return (
     <nav id='nav-bar'>
       <ul>
+        <li>
+          {/* Placeholder for testing */}
+          <NavLink to='/products'>Products</NavLink>
+        </li>
         {user ? (<>
           <li>
-            {/* Placeholder for testing */}
-            <NavLink to='/products'>Products</NavLink>
+            {user.shops.length
+              ? <NavLink to='/products/new'>Sell Your Gear</NavLink>
+              : <NavLink to='/shops/new'>Create a Shop</NavLink>
+            }
           </li>
           <ProfileImageButton user={user} />
         </>) : (<>
