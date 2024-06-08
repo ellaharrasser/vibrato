@@ -59,6 +59,11 @@ function EditProductForm() {
 
     const [dataLoaded, setDataLoaded] = useState(false);
 
+    // Load initial field states and initialFields object
+    const preloadStates = () => {
+
+    };
+
     useEffect(() => {
         if (!user) return navigate('/');
         const fetchProduct = async () => {
@@ -66,7 +71,8 @@ function EditProductForm() {
             setDataLoaded(true);
         }
         fetchProduct();
-    }, [user, dispatch, navigate]);
+        preloadStates();
+    }, [user, productId, dispatch, navigate, preloadStates]);
 
     const setSubmitDisabledStatus = (disabled) => {
       (disabled)
@@ -162,7 +168,7 @@ function EditProductForm() {
 
         return newEditedFields;
     }, [
-        name, brand, category, condition, description, productPrice,
+        product, name, brand, category, condition, description, productPrice,
         shippingPrice, quantity, image1, image2, image3, image4, image5,
     ])
 

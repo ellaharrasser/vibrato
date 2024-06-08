@@ -42,24 +42,31 @@ def shop_by_id(shop_id: int):
         form['csrf_token'].data = request.cookies['csrf_token']
 
         if form.validate_on_submit():
-            image = form.data['image']
-            image.filename = get_unique_filename(image.filename)
-            upload = upload_file_to_s3(image)
+            if 'name' in form.data:
+                shop.name = form.data['name']
 
-            if 'url' not in upload: # Check for errors while uploading
-                return form.errors, 400
+            if 'description' in form.data:
+                shop.description = form.data['description']
 
-            shop = Shop(
-                owner_id=form.data['owner_id'],
-                name=form.data['name'],
-                description=form.data['description'],
-                image=upload['url'],
-            )
+            if 'image' in form.data:
+                image = form.data['image']
+                image.filename = get_unique_filename(image.filename)
+                upload = upload_file_to_s3(image)
 
-            db.session.add(shop)
+                if 'url' not in upload: # Check for errors while uploading
+                    return form.errors, 400
+
+                shop.image = upload['url']
+
             db.session.commit()
             return shop.to_dict()
+
         return form.errors, 400
+
+    elif request.method == 'DELETE':
+        db.session.delete(shop)
+        db.session.commit()
+        return 204
 
 
 

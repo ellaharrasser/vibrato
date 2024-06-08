@@ -6,8 +6,9 @@ import ProductsPage from '../components/products/ProductsPage';
 import ShopDetailsPage from '../components/shops/ShopDetailsPage';
 import AccountPage from '../components/users/AccountPage';
 import NewShopForm from '../components/shops/NewShopForm';
-import NewProductForm from '../components/products/NewProductForm/NewProductForm';
-import EditProductForm from '../components/products/EditProductForm/EditProductForm';
+import EditShopForm from '../components/shops/EditShopForm';
+import NewProductForm from '../components/products/NewProductForm';
+import EditProductForm from '../components/products/EditProductForm';
 
 export const router = createBrowserRouter([
   {
@@ -41,10 +42,10 @@ export const router = createBrowserRouter([
         path: '/shops/:shopId',
         element: <ShopDetailsPage />,
       },
-      // {
-      //   path: '/shops/:shopId/edit',
-      //   element: <EditShopForm />,
-      // },
+      {
+        path: '/shops/:shopId/edit',
+        element: <EditShopForm />,
+      },
       {
         path: '/users/:userId',
         element: <AccountPage />,

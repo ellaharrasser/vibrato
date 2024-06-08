@@ -17,7 +17,7 @@ function MyShopCard({ shop }) {
                 <p className='description'>{shop.description}</p>
             </div>
             <div className='my-shop-actions'>
-                {/* <NavLink to={`/shops/${shop.id}/edit`}>Edit</NavLink> */}
+                <NavLink to={`/shops/${shop.id}/edit`}>Edit</NavLink>
                 {/* <OpenModalButton
                     modalComponent={<DeleteShopModal shop={shop}/>}
                     buttonText='Delete'

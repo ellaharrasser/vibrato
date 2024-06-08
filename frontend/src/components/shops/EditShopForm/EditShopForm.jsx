@@ -1,28 +1,51 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getKeys } from '../../../utils/misc';
-import { thunkEditShop } from '../../../redux/shops';
+import { thunkEditShop, thunkLoadCurrentShop } from '../../../redux/shops';
 import './EditShopForm.css';
 
 
-function EditShopForm({ shop }) {
+function EditShopForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const user = useSelector(state => state.session.user);
+    const { shopId } = useParams();
+
+    useEffect(() => {
+        dispatch(thunkLoadCurrentShop(shopId));
+    }, [shopId, dispatch]);
+
+    const shop = useSelector(state => state.shops.currentShop);
 
     const [name, setName] = useState(shop.name);
     const [description, setDescription] = useState(shop.description);
     const [image, setImage] = useState(shop.image);
     const [imageLoading, setImageLoading] = useState(false);
 
+    const [editedFields, setEditedFields] = useState({});
     const [validations, setValidations] = useState({});
     const [errors, setErrors] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [submitDisabled, setSubmitDisabled] = useState(false);
     const [submitClass, setSubmitClass] = useState('submit');
+
+    const getEditedFields = useCallback(() => {
+        const newEditedFields = {};
+
+        if (shop.name !== name) {
+            newEditedFields.name = name;
+        }
+        if (shop.description !== description) {
+            newEditedFields.description = description;
+        }
+        if (shop.image !== image) {
+            newEditedFields.image = image;
+        }
+
+        return newEditedFields;
+    }, [shop, name, description, image]);
 
     const setSubmitDisabledStatus = (disabled) => {
       (disabled)
@@ -56,24 +79,33 @@ function EditShopForm({ shop }) {
     useEffect(() => {
         if (!hasSubmitted) return; // Prevent validations until initial submission
         const newValidations = getValidations();
-        setSubmitDisabledStatus(getKeys(newValidations).length > 0);
         setValidations(newValidations);
-    }, [hasSubmitted, getValidations]);
+
+        const newEditedFields = getEditedFields();
+        setEditedFields(newEditedFields);
+
+        setSubmitDisabledStatus(
+            getKeys(newValidations).length || !getKeys(newEditedFields).length
+        );
+    }, [hasSubmitted, getValidations, getEditedFields]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!hasSubmitted) { // Prevent submission if validation errors exist
+        /* Prevent submission if validation errors exist,
+        or if no fields have changed */
+        if (!hasSubmitted) {
             setHasSubmitted(true);
             const newValidations = getValidations();
-            if (getKeys(newValidations).length) return;
+            const newEditedFields = getEditedFields();
+            if (getKeys(newValidations).length || !getKeys(newEditedFields).length) return;
         }
 
+        // Append only edited fields to form data object
         const formData = new FormData();
-        formData.append('owner_id', user.id);
-        formData.append('name', name);
-        formData.append('description', description);
-        formData.append('image', image);
+        if (editedFields.name) formData.append('name', name);
+        if (editedFields.description) formData.append('description', description);
+        if (editedFields.image) formData.append('image', image);
         setImageLoading(true);
 
         const serverResponse = await dispatch(thunkEditShop(formData));
@@ -84,9 +116,9 @@ function EditShopForm({ shop }) {
         }
     };
 
-    return (
+    return shop ? (
         <main>
-            <h1>Create a Shop</h1>
+            <h1>Edit an existing Shop</h1>
             {errors.server && <p className='server-error'>{errors.server}</p>}
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div className='form-item-container'>
@@ -130,6 +162,9 @@ function EditShopForm({ shop }) {
                         {imageLoading ? 'Loading...' : ''}
                     </p>
                 </div>
+                {!getKeys(editedFields).length && (
+                    <p className='form-error'>No fields have changed.</p>
+                )}
                 <button
                     type='submit'
                     className={submitClass}
@@ -138,6 +173,10 @@ function EditShopForm({ shop }) {
                     Create Shop
                 </button>
             </form>
+        </main>
+    ) : (
+        <main>
+            <p className='loading'>Loading...</p>
         </main>
     )
 }
