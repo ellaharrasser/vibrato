@@ -1,43 +1,51 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getKeys, getFromIndex } from '../../../utils/misc';
 import conditions from '../../../utils/conditions';
 import { thunkLoadUserShops } from '../../../redux/shops';
-import { thunkEditProduct } from '../../../redux/products';
+import { thunkEditProduct, thunkLoadCurrentProduct } from '../../../redux/products';
 import './EditProductForm.css';
 
 
-function EditProductForm({ product }) {
+function EditProductForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const user = useSelector(state => state.session.user);
+    const { productId } = useParams();
 
-    const [name, setName] = useState(product.name);
-    const [brand, setBrand] = useState(product.brand);
-    const [category, setCategory] = useState(product.category);
-    const [condition, setCondition] = useState(product.condition);
-    const [description, setDescription] = useState(product.description);
-    const [productPrice, setProductPrice] = useState(product.productPrice);
-    const [shippingPrice, setShippingPrice] = useState(product.shippingPrice);
-    const [quantity, setQuantity] = useState(product.quantity);
+    const user = useSelector(state => state.session.user);
+    const product = useSelector(state => state.products.currentProduct);
+
+    const [name, setName] = useState(product?.name);
+    const [brand, setBrand] = useState(product?.brand);
+    const [category, setCategory] = useState(product?.category);
+    const [condition, setCondition] = useState(product?.condition);
+    const [description, setDescription] = useState(product?.description);
+    const [productPrice, setProductPrice] = useState(product?.productPrice);
+    const [shippingPrice, setShippingPrice] = useState(product?.shippingPrice);
+    const [quantity, setQuantity] = useState(product?.quantity);
     // Check if images exist, and if so, set each initial state to their urls
     const [image1, setImage1] = useState(
-        getFromIndex(product.images, 0)?.image
+        // getFromIndex(product.images, 0)?.image
+        null
     );
     const [image2, setImage2] = useState(
-        getFromIndex(product.images, 1)?.image
+        // getFromIndex(product.images, 1)?.image
+        null
     );
     const [image3, setImage3] = useState(
-        getFromIndex(product.images, 2)?.image
+        // getFromIndex(product.images, 2)?.image
+        null
     );
     const [image4, setImage4] = useState(
-        getFromIndex(product.images, 3)?.image
+        // getFromIndex(product.images, 3)?.image
+        null
     );
     const [image5, setImage5] = useState(
-        getFromIndex(product.images, 4)?.image
+        // getFromIndex(product.images, 4)?.image
+        null
     );
     const [imageLoading, setImageLoading] = useState(false);
 
@@ -53,11 +61,11 @@ function EditProductForm({ product }) {
 
     useEffect(() => {
         if (!user) return navigate('/');
-        const fetchUserShops = async () => {
-            await dispatch(thunkLoadUserShops(user));
+        const fetchProduct = async () => {
+            await dispatch(thunkLoadCurrentProduct(productId));
             setDataLoaded(true);
         }
-        fetchUserShops();
+        fetchProduct();
     }, [user, dispatch, navigate]);
 
     const setSubmitDisabledStatus = (disabled) => {
@@ -136,21 +144,21 @@ function EditProductForm({ product }) {
         if (product.quantity !== quantity) {
             newEditedFields.quantity = quantity;
         }
-        if (getFromIndex(product.images, 0)?.image !== image1) {
-            newEditedFields.image1 = image1;
-        }
-        if (getFromIndex(product.images, 1)?.image !== image2) {
-            newEditedFields.image2 = image2;
-        }
-        if (getFromIndex(product.images, 2)?.image !== image3) {
-            newEditedFields.image3 = image3;
-        }
-        if (getFromIndex(product.images, 3)?.image !== image4) {
-            newEditedFields.image4 = image4;
-        }
-        if (getFromIndex(product.images, 4)?.image !== image5) {
-            newEditedFields.image5 = image5;
-        }
+        // if (getFromIndex(product.images, 0)?.image !== image1) {
+        //     newEditedFields.image1 = image1;
+        // }
+        // if (getFromIndex(product.images, 1)?.image !== image2) {
+        //     newEditedFields.image2 = image2;
+        // }
+        // if (getFromIndex(product.images, 2)?.image !== image3) {
+        //     newEditedFields.image3 = image3;
+        // }
+        // if (getFromIndex(product.images, 3)?.image !== image4) {
+        //     newEditedFields.image4 = image4;
+        // }
+        // if (getFromIndex(product.images, 4)?.image !== image5) {
+        //     newEditedFields.image5 = image5;
+        // }
 
         return newEditedFields;
     }, [
@@ -166,7 +174,8 @@ function EditProductForm({ product }) {
     }, [getEditedFields]);
 
     useEffect(() => {
-        if (!hasSubmitted) return; // Prevent validations until initial submission
+        // Prevent validations until initial submission
+        if (!hasSubmitted) return;
         const newValidations = getValidations();
         setSubmitDisabledStatus(getKeys(newValidations).length > 0);
         setValidations(newValidations);
@@ -175,7 +184,8 @@ function EditProductForm({ product }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!hasSubmitted) { // Prevent submission if validation errors exist
+        // Prevent submission if validation errors exist
+        if (!hasSubmitted) {
             setHasSubmitted(true);
             const newValidations = getValidations();
             if (getKeys(newValidations).length) return;

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getKeys } from '../../../../utils/misc';
+// import { getKeys } from '../../../../utils/misc';
 import { thunkLogin } from '../../../../redux/session';
 import OpenModalMenuItem from '../../OpenModalMenuItem';
 import LoginFormModal from '../../../users/LoginFormModal';

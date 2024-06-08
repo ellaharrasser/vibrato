@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { validateEmail } from '../../../utils/validate';
-import { getKeys } from '../../../utils/misc';
-import { thunkSignup } from '../../../redux/session';
 import { useModal } from '../../../context/Modal';
+import { getKeys } from '../../../utils/misc';
+import { validateEmail } from '../../../utils/validate';
+import { thunkSignup } from '../../../redux/session';
 import './SignupForm.css';
 
 

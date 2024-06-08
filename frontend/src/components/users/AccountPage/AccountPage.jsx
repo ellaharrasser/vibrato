@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import './AccountPage.css';
+import { getValues } from '../../../utils/misc';
 import { thunkLoadUserShops } from '../../../redux/shops';
 import { thunkLoadUserProducts } from '../../../redux/products';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { getKeys, getValues } from '../../../utils/misc';
+import MyShopCard from './MyShopCard';
+import MyProductCard from './MyProductCard';
+import './AccountPage.css';
 
 
 function AccountPage() {
@@ -31,7 +33,7 @@ function AccountPage() {
 
     return (
         <main>
-            <div id='my-account-container'>
+            <section id='my-account'>
                 <h1>My Account</h1>
                 <ul className='user-info'>
                     <li className='name'>{user.name}</li>
@@ -44,45 +46,33 @@ function AccountPage() {
                         />
                     </li>
                 </ul>
-            </div>
-            <div id='my-shops-container'>
+            </section>
+            <section id='my-shops'>
                 <h2>My Shops</h2>
-                {dataLoaded ? (<>
+                <div className='shop-links'>
                     <NavLink to='/shops/new'>Create a Shop</NavLink>
-                    {getValues(shops).map(shop => (
-                        // <MyShopCard shop={shop} />
-                        <ul className='shop-card' key={shop.id}>
-                            <li className='name'>{shop.name}</li>
-                            <li className='description'>{shop.description}</li>
-                            <li>
-                                <img
-                                    src={shop.image}
-                                    alt='Shop Image'
-                                    />
-                            </li>
-                        </ul>
-                    ))}
-                </>) : <p className='loading'>Loading...</p>}
-            </div>
-            <div id='my-products-container'>
+                </div>
+                <ul className='my-shops-list'>
+                    {dataLoaded ? (<>
+                        {getValues(shops).map(shop => (
+                            <MyShopCard shop={shop} key={shop.id} />
+                        ))}
+                    </>) : <p className='loading'>Loading...</p>}
+                </ul>
+            </section>
+            <section id='my-products'>
                 <h2>My Products</h2>
-                {dataLoaded ? (<>
+                <div className='product-links'>
                     <NavLink to='/products/new'>Create a Product</NavLink>
-                    {getValues(products).map(product => (
-                        // <MyProductCard product={product} />
-                        <ul className='product-card' key={product.id}>
-                            <li className='name'>{product.name}</li>
-                            <li className='description'>{product.description}</li>
-                            <li>
-                                <img
-                                    src={product.images[0].image}
-                                    alt='Product Image'
-                                    />
-                            </li>
-                        </ul>
-                    ))}
-                </>) : <p className='loading'>Loading...</p>}
-            </div>
+                </div>
+                <ul className='my-products-list'>
+                    {dataLoaded ? (<>
+                        {getValues(products).map(product => (
+                            <MyProductCard product={product} key={product.id} />
+                        ))}
+                    </>) : <p className='loading'>Loading...</p>}
+                </ul>
+            </section>
         </main>
     );
 }

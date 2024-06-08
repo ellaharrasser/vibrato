@@ -7,6 +7,7 @@ import ShopDetailsPage from '../components/shops/ShopDetailsPage';
 import AccountPage from '../components/users/AccountPage';
 import NewShopForm from '../components/shops/NewShopForm';
 import NewProductForm from '../components/products/NewProductForm/NewProductForm';
+import EditProductForm from '../components/products/EditProductForm/EditProductForm';
 
 export const router = createBrowserRouter([
   {
@@ -20,22 +21,30 @@ export const router = createBrowserRouter([
         path: '/products',
         element: <ProductsPage />,
       },
+      {
+        path: '/products/new',
+        element: <NewProductForm />,
+      },
       // {
       //   path: '/products/:productId',
       //   element: <ProductDetailsPage />,
       // },
       {
-        path: '/products/new',
-        element: <NewProductForm />,
-      },
-      {
-        path: '/shops/:shopId',
-        element: <ShopDetailsPage />,
+        path: '/products/:productId/edit',
+        element: <EditProductForm />,
       },
       {
         path: '/shops/new',
         element: <NewShopForm />,
       },
+      {
+        path: '/shops/:shopId',
+        element: <ShopDetailsPage />,
+      },
+      // {
+      //   path: '/shops/:shopId/edit',
+      //   element: <EditShopForm />,
+      // },
       {
         path: '/users/:userId',
         element: <AccountPage />,

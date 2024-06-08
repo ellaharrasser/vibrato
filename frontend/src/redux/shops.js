@@ -2,19 +2,27 @@
 
 const LOAD_SHOPS = 'shops/loadShops';
 const LOAD_CURRENT_SHOP = 'shops/loadCurrentShop';
+const DELETE_SHOP = 'shops/deleteShop';
 
 export const loadShops = (shops) => {
     return {
         type: LOAD_SHOPS,
         shops,
-    }
+    };
 };
 
 export const loadCurrentShop = (currentShop) => {
     return {
         type: LOAD_CURRENT_SHOP,
         currentShop,
-    }
+    };
+};
+
+export const deleteShop = (shopId) => {
+    return {
+        type: DELETE_SHOP,
+        shopId,
+    };
 };
 
 // Thunks
@@ -84,6 +92,22 @@ export const thunkEditShop = (shop) => async (dispatch) => {
     }
 };
 
+export const thunkDeleteShop = (shopId) => async (dispatch) => {
+    const response = await fetch(`/api/shops/${shopId}`, {
+        method: 'DELETE',
+        body: shopId,
+    });
+
+    if (response.ok) {
+        await dispatch(deleteShop(shopId));
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' }
+    }
+}
+
 // Reducer
 
 const initialState = { shops: null, currentShop: null };
@@ -94,6 +118,13 @@ const shopsReducer = (state = initialState, action) => {
             return { ...state, shops: action.shops };
         case LOAD_CURRENT_SHOP:
             return { ...state, currentShop: action.currentShop };
+        case DELETE_SHOP: {
+            const newState = { ...state };
+            if (newState.shops) {
+                delete newState.shops[action.shopId];
+            }
+            return newState;
+        }
         default:
             return state;
     }

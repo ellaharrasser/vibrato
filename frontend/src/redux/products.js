@@ -2,6 +2,7 @@
 
 const LOAD_PRODUCTS = 'products/loadProducts';
 const LOAD_CURRENT_PRODUCT = 'products/loadCurrentProduct';
+const DELETE_PRODUCT = '/products/deleteProduct';
 
 export const loadProducts = (products, count) => {
     return {
@@ -16,6 +17,13 @@ export const loadCurrentProduct = (currentProduct) => {
         type: LOAD_CURRENT_PRODUCT,
         currentProduct,
     }
+};
+
+export const deleteProduct = (productId) => {
+    return {
+        type: DELETE_PRODUCT,
+        productId,
+    };
 };
 
 // Thunks
@@ -108,6 +116,22 @@ export const thunkEditProduct = (product) => async (dispatch) => {
     }
 };
 
+export const thunkDeleteProduct = (productId) => async (dispatch) => {
+    const response = await fetch(`/api/products/${productId}`, {
+        method: 'DELETE',
+        body: productId,
+    });
+
+    if (response.ok) {
+        await dispatch(deleteProduct(productId));
+    } else if (response.status < 500) {
+        const errors = await response.json();
+        return errors;
+    } else {
+        return { server: 'Something went wrong. Please try again' }
+    }
+};
+
 // Reducer
 
 const initialState = { products: null, currentProduct: null };
@@ -118,6 +142,13 @@ const productsReducer = (state = initialState, action) => {
             return { ...state, products: action.products, count: action.count };
         case LOAD_CURRENT_PRODUCT:
             return { ...state, currentProduct: action.currentProduct };
+        case DELETE_PRODUCT: {
+            const newState = { ...state };
+            if (newState.products) {
+                delete newState.products[action.productId];
+            }
+            return newState;
+        }
         default:
             return state;
     }
