@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flask_login import login_required
+from flask_login import current_user, login_required
 
 from ..models import db, Shop
 from ..forms.shop_form import ShopForm, EditShopForm
@@ -25,17 +25,32 @@ def shops():
     return { 'shops': shops }
 
 
-@shop_routes.route('/<shop_id>', methods=['GET', 'PUT', 'DELETE'])
-def shop_by_id(shop_id: int):
+@shop_routes.route('/<shop_id>', methods=['GET'])
+def get_shop_by_id(shop_id: int):
     """
     Query for a shop by id.
     """
     shop = Shop.query.get(shop_id)
+
     if not shop:
         return { 'errors': { 'message': 'Shop not found' } }, 404
 
-    if request.method == 'GET':
-        return { 'shop': shop.to_dict() }
+    return { 'shop': shop.to_dict() }
+
+
+@shop_routes.route('/<shop_id>', methods=['PUT', 'DELETE'])
+@login_required
+def shop_by_id(shop_id: int):
+    """
+    Edit or delete a shop by id.
+    """
+    shop = Shop.query.get(shop_id)
+
+    if not shop:
+        return { 'errors': { 'message': 'Shop not found' } }, 404
+
+    elif shop.owner.id != current_user.id:
+        return { 'errors': { 'message': 'Unauthorized' } }, 401
 
     elif request.method == 'PUT':
         form = EditShopForm()
@@ -54,7 +69,6 @@ def shop_by_id(shop_id: int):
         db.session.delete(shop)
         db.session.commit()
         return { 'message': 'Successfully deleted' }, 204
-
 
 
 @shop_routes.route('/new', methods=['POST'])

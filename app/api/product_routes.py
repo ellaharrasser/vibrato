@@ -61,7 +61,7 @@ def get_product_by_id(product_id: int):
 @login_required
 def product_by_id(product_id: int):
     """
-    Query for a product by id.
+    Edit or delete a product by id.
     """
     product = Product.query.get(product_id)
 
