@@ -1,0 +1,63 @@
+#home-page {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+#home-page h1 {
+    margin: 40px;
+
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+}
+
+footer {
+    width: 100%;
+    height: 100px;
+
+    position: absolute;
+    bottom: 0;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+
+    border-top: 1px solid var(--d-grey-l)
+}
+
+footer h2 {
+    margin: 0;
+    line-height: 100%;
+}
+
+footer .link-container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+footer .link-label {
+    margin: 0;
+}
+
+footer .dev-link {
+    margin: 0;
+
+    color: black;
+    text-decoration: none;
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all 75ms ease-in-out;
+}
+
+footer .dev-link:hover {
+    color: var(--cyan-d);
+}
