@@ -26,7 +26,7 @@ function DeleteProductModal({ product }) {
             <h1>Delete Product</h1>
             <p>
                 Are you sure you want to delete this product?
-                <br></br>This action cannot be undone.
+                <br /><br />This action cannot be undone.
             </p>
             <div className='buttons-container'>
                 <button

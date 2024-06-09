@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useModal } from '../../../context/Modal';
 import { thunkDeleteShop } from '../../../redux/shops';
@@ -9,12 +9,16 @@ import './DeleteShopModal.css';
 function DeleteShopModal({ shop }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const { closeModal } = useModal();
 
     const handleDelete = () => {
         dispatch(thunkDeleteShop(shop.id));
         closeModal();
-        navigate('/');
+        // Navigate to homepage if on shop details page currently
+        if (location.pathname.startsWith('/shops/')) {
+            navigate('/');
+        }
     };
 
     return (
@@ -22,21 +26,23 @@ function DeleteShopModal({ shop }) {
             <h1>Delete Shop</h1>
             <p>
                 Are you sure you want to delete this shop?
-                All of its listed products will be deleted.
-                This action cannot be undone.
+                <br />All of its listed products will be deleted.
+                <br /><br />This action cannot be undone.
             </p>
-            <button
-                className='delete-button'
-                onClick={handleDelete}
-            >
-                Delete
-            </button>
-            <button
-                className='cancel-button'
-                onClick={closeModal}
-            >
-                Cancel
-            </button>
+            <div className='buttons-container'>
+                <button
+                    className='delete-button'
+                    onClick={handleDelete}
+                >
+                    Delete
+                </button>
+                <button
+                    className='cancel-button'
+                    onClick={closeModal}
+                >
+                    Cancel
+                </button>
+            </div>
         </div>
     )
 }
