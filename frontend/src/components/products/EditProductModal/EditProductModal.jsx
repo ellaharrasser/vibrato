@@ -116,7 +116,7 @@ function EditProductModal({ product }) {
         }
     };
 
-    return <>
+    return <div id='edit-product-wrapper'>
         <h1>Edit an existing Product</h1>
         <form onSubmit={handleSubmit} encType='multipart/form-data'>
             <div className='form-item-container'>
@@ -237,7 +237,7 @@ function EditProductModal({ product }) {
                 Edit Shop
             </button>
         </form>
-    </>
+    </div>
 }
 
 export default EditProductModal;

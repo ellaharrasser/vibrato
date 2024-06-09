@@ -101,98 +101,96 @@ function SignupFormModal() {
     }
   };
 
-  return (
-    <>
-      <h1>Sign Up</h1>
-      {errors.server && <p className='server-error'>{errors.server}</p>}
-      <form onSubmit={handleSubmit} encType='multipart/form-data'>
-        <label>
-          Email
-          <input
-            type='text'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        {validations.email && (
-          <p className='form-error'>{validations.email}</p>
-        ) || errors.email && (
-          <p className='form-error'>{errors.email}</p>
-        )}
-        <label>
-          Name
-          <input
-            type='text'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        {validations.name && (
-          <p className='form-error'>{validations.name}</p>
-        ) || errors.name && (
-          <p className='form-error'>{errors.name}</p>
-        )}
-        <label>
-          Profile Image
-          <input
-            type='file'
-            accept='image/*'
-            onChange={(e) => setProfileImage(e.target.files[0])}
-          />
-        </label>
-        {errors.profileImage && (
-          <p className='form-error'>{errors.profileImage}</p>
-        )}
-        <p className='image-loading'>
-          {imageLoading ? 'Loading...' : ''}
-        </p>
-        <label>
-          Description
-          <input
-            type='text'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
-        {validations.description && (
-          <p className='form-error'>{validations.description}</p>
-        ) || errors.description && (
-          <p className='form-error'>{errors.description}</p>
-        )}
-        <label>
-          Password
-          <input
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        {validations.password && (
-          <p className='form-error'>{validations.password}</p>
-        ) || errors.password && (
-          <p className='form-error'>{errors.password}</p>
-        )}
-        <label>
-          Confirm Password
-          <input
-            type='password'
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </label>
-        {validations.confirmPassword && (
-          <p className='form-error'>{validations.confirmPassword}</p>
-        )}
-        <button
-          type='submit'
-          className={submitClass}
-          disabled={submitDisabled}
-        >
-          Sign Up
-        </button>
-      </form>
-    </>
-  );
+  return <div id='signup-wrapper'>
+    <h1>Sign Up</h1>
+    {errors.server && <p className='server-error'>{errors.server}</p>}
+    <form onSubmit={handleSubmit} encType='multipart/form-data'>
+      <label>
+        Email
+        <input
+          type='text'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </label>
+      {validations.email && (
+        <p className='form-error'>{validations.email}</p>
+      ) || errors.email && (
+        <p className='form-error'>{errors.email}</p>
+      )}
+      <label>
+        Name
+        <input
+          type='text'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </label>
+      {validations.name && (
+        <p className='form-error'>{validations.name}</p>
+      ) || errors.name && (
+        <p className='form-error'>{errors.name}</p>
+      )}
+      <label>
+        Profile Image
+        <input
+          type='file'
+          accept='image/*'
+          onChange={(e) => setProfileImage(e.target.files[0])}
+        />
+      </label>
+      {errors.profileImage && (
+        <p className='form-error'>{errors.profileImage}</p>
+      )}
+      <p className='image-loading'>
+        {imageLoading ? 'Loading...' : ''}
+      </p>
+      <label>
+        Description
+        <input
+          type='text'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </label>
+      {validations.description && (
+        <p className='form-error'>{validations.description}</p>
+      ) || errors.description && (
+        <p className='form-error'>{errors.description}</p>
+      )}
+      <label>
+        Password
+        <input
+          type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </label>
+      {validations.password && (
+        <p className='form-error'>{validations.password}</p>
+      ) || errors.password && (
+        <p className='form-error'>{errors.password}</p>
+      )}
+      <label>
+        Confirm Password
+        <input
+          type='password'
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </label>
+      {validations.confirmPassword && (
+        <p className='form-error'>{validations.confirmPassword}</p>
+      )}
+      <button
+        type='submit'
+        className={submitClass}
+        disabled={submitDisabled}
+      >
+        Sign Up
+      </button>
+    </form>
+  </div>
 }
 
 export default SignupFormModal;

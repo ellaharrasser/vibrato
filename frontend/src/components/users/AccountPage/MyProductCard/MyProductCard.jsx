@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import OpenModalButton from '../../../common/OpenModalButton';
 import EditProductModal from '../../../products/EditProductModal';
 import DeleteProductModal from '../../../products/DeleteProductModal';
+import './MyProductCard.css';
+
 
 function MyProductCard({ product }) {
     const navigate = useNavigate();

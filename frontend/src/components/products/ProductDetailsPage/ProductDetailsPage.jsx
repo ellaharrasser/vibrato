@@ -21,7 +21,7 @@ function ProductDetailsPage() {
     }, [productId, dispatch]);
 
     return (
-        <main>
+        <main id='product-details-page'>
             {product ? (
                 <>
                     <div className='product-images-container'>

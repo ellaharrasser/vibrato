@@ -30,34 +30,32 @@ function LoginFormModal() {
     }
   };
 
-  return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type='text'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type='submit'>Log In</button>
-      </form>
-    </>
-  );
+  return <div id='login-wrapper'>
+    <h1>Log In</h1>
+    <form onSubmit={handleSubmit}>
+      <label>
+        Email
+        <input
+          type='text'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </label>
+      {errors.email && <p>{errors.email}</p>}
+      <label>
+        Password
+        <input
+          type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </label>
+      {errors.password && <p>{errors.password}</p>}
+      <button type='submit'>Log In</button>
+    </form>
+  </div>;
 }
 
 export default LoginFormModal;

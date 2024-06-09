@@ -5,6 +5,7 @@ import EditShopModal from '../../../shops/EditShopModal';
 import DeleteShopModal from '../../../shops/DeleteShopModal';
 import './MyShopCard.css';
 
+
 function MyShopCard({ shop }) {
     const navigate = useNavigate();
 

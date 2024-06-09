@@ -18,7 +18,7 @@ function DeleteShopModal({ shop }) {
     };
 
     return (
-        <>
+        <div id='delete-shop-wrapper'>
             <h1>Delete Shop</h1>
             <p>
                 Are you sure you want to delete this shop?
@@ -37,7 +37,7 @@ function DeleteShopModal({ shop }) {
             >
                 Cancel
             </button>
-        </>
+        </div>
     )
 }
 

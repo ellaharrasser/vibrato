@@ -149,7 +149,7 @@ function NewProductForm() {
     };
 
     return dataLoaded ? (
-        <main>
+        <main id='new-product-page'>
             <h1>List a new Product</h1>
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div className='form-item-container'>

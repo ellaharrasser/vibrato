@@ -18,7 +18,7 @@ function DeleteProductModal({ product }) {
     };
 
     return (
-        <>
+        <div id='delete-product-wrapper'>
             <h1>Delete Product</h1>
             <p>
                 Are you sure you want to delete this product?
@@ -36,7 +36,7 @@ function DeleteProductModal({ product }) {
             >
                 Cancel
             </button>
-        </>
+        </div>
     );
 }
 

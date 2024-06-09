@@ -21,7 +21,7 @@ function ShopDetailsPage() {
     }, [dispatch, shopId]);
 
     return (
-        <main>
+        <main id='shop-details-page'>
             {shop ? <>
                 <h1>{shop.name}</h1>
                 <p>{shop.description}</p>

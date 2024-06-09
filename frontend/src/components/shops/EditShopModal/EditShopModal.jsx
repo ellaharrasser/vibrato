@@ -77,7 +77,7 @@ function EditShopModal({ shop }) {
     };
 
     return (
-        <>
+        <div id='edit-shop-wrapper'>
             <h1>Edit an existing Shop</h1>
             {errors.server && <p className='server-error'>{errors.server}</p>}
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
@@ -115,7 +115,7 @@ function EditShopModal({ shop }) {
                     Confirm Edits
                 </button>
             </form>
-        </>
+        </div>
     );
 }
 

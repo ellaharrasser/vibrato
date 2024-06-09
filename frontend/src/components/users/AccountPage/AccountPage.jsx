@@ -28,7 +28,7 @@ function AccountPage() {
     const products = useSelector(state => state.products.products);
 
     return (
-        <main>
+        <main id='account-page'>
             <section id='my-account'>
                 <h1>My Account</h1>
                 <ul className='user-info'>
