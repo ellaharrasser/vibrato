@@ -2,27 +2,26 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useModal } from '../../../context/Modal';
-import { thunkDeleteShop } from '../../../redux/shops';
-import './DeleteShopModal.css';
+import { thunkDeleteProduct } from '../../../redux/products';
+import './DeleteProductModal.css';
 
 
-function DeleteShopModal({ shop }) {
+function DeleteProductModal({ product }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { closeModal } = useModal();
 
     const handleDelete = () => {
-        dispatch(thunkDeleteShop(shop.id));
+        dispatch(thunkDeleteProduct(product.id));
         closeModal();
         navigate('/');
     };
 
     return (
         <>
-            <h1>Delete Shop</h1>
+            <h1>Delete Product</h1>
             <p>
-                Are you sure you want to delete this shop?
-                All of its listed products will be deleted.
+                Are you sure you want to delete this product?
                 This action cannot be undone.
             </p>
             <button
@@ -38,7 +37,7 @@ function DeleteShopModal({ shop }) {
                 Cancel
             </button>
         </>
-    )
+    );
 }
 
-export default DeleteShopModal;
+export default DeleteProductModal;

@@ -130,9 +130,9 @@ function NewProductForm() {
         formData.append('category', category);
         formData.append('condition', condition);
         formData.append('description', description);
-        formData.append('product_price', productPrice);
-        formData.append('shipping_price', shippingPrice);
-        formData.append('quantity', quantity);
+        formData.append('product_price', +productPrice);
+        formData.append('shipping_price', +shippingPrice);
+        formData.append('quantity', +quantity);
         formData.append('image_1', image1);
         image2 && formData.append('image_2', image2);
         image3 && formData.append('image_3', image3);
