@@ -1,4 +1,4 @@
-main {
+#products-page {
     width: 100%;
     max-width: 1000px;
 
@@ -6,8 +6,8 @@ main {
     flex-flow: column nowrap;
 }
 
-.info {
-    margin: 32px 0px;
+#products-page .info {
+    margin: 50px 0px;
     width: 100%;
 
     display: flex;
@@ -16,7 +16,7 @@ main {
     gap: 10px;
 }
 
-h1 {
+#products-page h1 {
     margin: 0;
 
     font-size: 2rem;
@@ -25,14 +25,16 @@ h1 {
     color: black;
 }
 
-.count {
+#products-page .count {
+    margin: 0px 0px 0.0625rem; /* Align better with h1 */
+
     font-size: 1.2rem;
     line-height: 1.2rem;
     font-weight: 500;
     color: var(--d-grey-m);
 }
 
-main > ul {
+#products-page > ul {
     margin: 0;
     padding: 0;
 

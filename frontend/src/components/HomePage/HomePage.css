@@ -11,7 +11,7 @@
     line-height: 2.5rem;
 }
 
-footer {
+#home-page footer {
     width: 100%;
     height: 100px;
 
@@ -27,12 +27,12 @@ footer {
     border-top: 1px solid var(--d-grey-l)
 }
 
-footer h2 {
+#home-page footer h2 {
     margin: 0;
     line-height: 100%;
 }
 
-footer .link-container {
+#home-page footer .link-container {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -40,11 +40,11 @@ footer .link-container {
     gap: 5px;
 }
 
-footer .link-label {
+#home-page footer .link-label {
     margin: 0;
 }
 
-footer .dev-link {
+#home-page footer .dev-link {
     margin: 0;
 
     color: black;
@@ -58,6 +58,6 @@ footer .dev-link {
     transition: all 75ms ease-in-out;
 }
 
-footer .dev-link:hover {
+#home-page footer .dev-link:hover {
     color: var(--cyan-d);
 }

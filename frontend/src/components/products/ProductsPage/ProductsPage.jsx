@@ -23,7 +23,7 @@ function ProductsPage() {
     }, [user, dispatch]);
 
     return (
-        <main>
+        <main id='products-page'>
             {isLoaded ? <>
                 <div className='info'>
                     <h1>All Products</h1>
