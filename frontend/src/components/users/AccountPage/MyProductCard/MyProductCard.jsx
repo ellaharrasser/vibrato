@@ -1,5 +1,8 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-// import OpenModalButton from '../../../common/OpenModalButton';
+import { useNavigate } from 'react-router-dom';
+
+import OpenModalButton from '../../../common/OpenModalButton';
+import EditProductModal from '../../../products/EditProductModal';
+import DeleteProductModal from '../../../products/DeleteProductModal';
 
 function MyProductCard({ product }) {
     const navigate = useNavigate();
@@ -17,11 +20,14 @@ function MyProductCard({ product }) {
                 <p className='description'>{product.description}</p>
             </div>
             <div className='my-product-actions'>
-                <NavLink to={`/products/${product.id}/edit`}>Edit</NavLink>
-                {/* <OpenModalButton
+                <OpenModalButton
+                    modalComponent={<EditProductModal product={product}/>}
+                    buttonText='Edit'
+                />
+                <OpenModalButton
                     modalComponent={<DeleteProductModal product={product}/>}
                     buttonText='Delete'
-                /> */}
+                />
             </div>
         </li>
     );

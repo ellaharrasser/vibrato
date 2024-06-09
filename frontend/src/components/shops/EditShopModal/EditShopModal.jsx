@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { useModal } from '../../../context/Modal';
 import { getKeys } from '../../../utils/misc';
 import { thunkEditShop } from '../../../redux/shops';
-import './EditShopFormModal.css';
+import './EditShopModal.css';
 
 
-function EditShopFormModal({ shop }) {
+function EditShopModal({ shop }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
@@ -119,4 +119,4 @@ function EditShopFormModal({ shop }) {
     );
 }
 
-export default EditShopFormModal;
+export default EditShopModal;

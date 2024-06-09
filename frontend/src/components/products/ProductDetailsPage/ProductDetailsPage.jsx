@@ -38,7 +38,7 @@ function ProductDetailsPage() {
                         <p className='price'>{product.productPrice}</p>
                         <p className='shipping-price'>{product.shippingPrice}</p>
                         <p className='description'>{product.description}</p>
-                        {product.user.id === user.id && (
+                        {user && product.user.id === user.id && (
                             <div className='owner-actions'>
                                 <OpenModalButton
                                     modalComponent={

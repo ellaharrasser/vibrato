@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import Layout from './Layout';
+import AuthRequiredRoute from './AuthRequiredRoute';
 import HomePage from '../components/HomePage';
 import ProductsPage from '../components/products/ProductsPage';
 import ProductDetailsPage from '../components/products/ProductDetailsPage';
@@ -23,7 +24,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/products/new',
-        element: <NewProductForm />,
+        element: (
+          <AuthRequiredRoute>
+            <NewProductForm />
+          </AuthRequiredRoute>
+        ),
       },
       {
         path: '/products/:productId',
@@ -31,7 +36,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/shops/new',
-        element: <NewShopForm />,
+        element: (
+          <AuthRequiredRoute>
+            <NewShopForm />
+          </AuthRequiredRoute>
+        ),
       },
       {
         path: '/shops/:shopId',
@@ -39,7 +48,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/users/:userId',
-        element: <AccountPage />,
+        element: (
+          <AuthRequiredRoute>
+            <AccountPage />
+          </AuthRequiredRoute>
+        ),
       },
     ],
   },

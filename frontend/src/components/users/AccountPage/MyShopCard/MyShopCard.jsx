@@ -1,5 +1,9 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-// import OpenModalButton from '../../../common/OpenModalButton';
+import { useNavigate } from 'react-router-dom';
+
+import OpenModalButton from '../../../common/OpenModalButton';
+import EditShopModal from '../../../shops/EditShopModal';
+import DeleteShopModal from '../../../shops/DeleteShopModal';
+import './MyShopCard.css';
 
 function MyShopCard({ shop }) {
     const navigate = useNavigate();
@@ -17,11 +21,14 @@ function MyShopCard({ shop }) {
                 <p className='description'>{shop.description}</p>
             </div>
             <div className='my-shop-actions'>
-                <NavLink to={`/shops/${shop.id}/edit`}>Edit</NavLink>
-                {/* <OpenModalButton
+                <OpenModalButton
+                    modalComponent={<EditShopModal shop={shop}/>}
+                    buttonText='Edit'
+                />
+                <OpenModalButton
                     modalComponent={<DeleteShopModal shop={shop}/>}
                     buttonText='Delete'
-                /> */}
+                />
             </div>
         </li>
     );

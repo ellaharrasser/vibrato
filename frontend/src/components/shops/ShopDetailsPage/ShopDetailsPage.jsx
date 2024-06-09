@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { thunkLoadCurrentShop } from '../../../redux/shops';
 import OpenModalButton from '../../common/OpenModalButton';
-import EditShopFormModal from '../EditShopFormModal';
+import EditShopFormModal from '../EditShopModal';
 import DeleteShopModal from '../DeleteShopModal';
 import './ShopDetailsPage.css';
 
@@ -26,7 +26,7 @@ function ShopDetailsPage() {
                 <h1>{shop.name}</h1>
                 <p>{shop.description}</p>
                 <img src={shop.image} alt='Shop Image' />
-                {shop.owner.id === user.id && (
+                {user && shop.owner.id === user.id && (
                     <div className='owner-actions'>
                         <OpenModalButton
                             modalComponent={<EditShopFormModal shop={shop}/>}
