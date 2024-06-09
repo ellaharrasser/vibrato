@@ -2,6 +2,7 @@ from ...models import Product
 
 products = [
     Product(
+        user_id=1,
         shop_id=1,
         name='American Standard Stratocaster 1978',
         brand='Fender',
@@ -13,6 +14,7 @@ products = [
         quantity=1,
     ),
     Product(
+        user_id=1,
         shop_id=1,
         name='AC30C2 Tube Combo Amp',
         brand='Vox',
@@ -24,6 +26,7 @@ products = [
         quantity=1,
     ),
     Product(
+        user_id=2,
         shop_id=2,
         name='TU-3 Chromatic Tuner',
         brand='BOSS',
@@ -35,6 +38,7 @@ products = [
         quantity=1,
     ),
     Product(
+        user_id=2,
         shop_id=2,
         name='DrumBrute 2017',
         brand='Arturia',
@@ -46,6 +50,7 @@ products = [
         quantity=1,
     ),
     Product(
+        user_id=3,
         shop_id=3,
         name='MPK Mini MkIII 25-Key MIDI Controller',
         brand='AKAI',
@@ -57,6 +62,7 @@ products = [
         quantity=6,
     ),
     Product(
+        user_id=3,
         shop_id=3,
         name='314ce Acoustic-Electric Guitar',
         brand='Taylor',
@@ -68,6 +74,7 @@ products = [
         quantity=2,
     ),
     Product(
+        user_id=3,
         shop_id=3,
         name='000-15SM Acoustic Guitar',
         brand='Martin',
@@ -79,6 +86,7 @@ products = [
         quantity=3,
     ),
     Product(
+        user_id=6,
         shop_id=4,
         name='Special 20 Harmonica - Key of C',
         brand='Hohner',
@@ -90,6 +98,7 @@ products = [
         quantity=3,
     ),
     Product(
+        user_id=6,
         shop_id=4,
         name='microKORG Synthesizer with Vocoder',
         brand='KORG',
@@ -101,6 +110,7 @@ products = [
         quantity=21,
     ),
     Product(
+        user_id=10,
         shop_id=5,
         name='TLM 103 Large-Diaphragm Condensor Mic',
         brand='Neumann',
@@ -112,6 +122,7 @@ products = [
         quantity=1,
     ),
     Product(
+        user_id=10,
         shop_id=5,
         name='DL4 MkII',
         brand='Line 6',
@@ -123,6 +134,7 @@ products = [
         quantity=1,
     ),
     Product(
+        user_id=10,
         shop_id=5,
         name='KeyStep Pro 37-Key Midi Controller',
         brand='Arturia',

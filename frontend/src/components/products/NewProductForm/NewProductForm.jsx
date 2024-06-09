@@ -92,6 +92,10 @@ function NewProductForm() {
             newValidations.description = 'Descriptions must be 255 or fewer characters.';
         }
 
+        if (+quantity <= 0) {
+            newValidations.quantity = 'A quantity must be 1 or more';
+        }
+
         if (!image1) {
             newValidations.image = 'At least one image is required.';
         }
@@ -99,10 +103,7 @@ function NewProductForm() {
         // TODO: Add image validations
 
         return newValidations;
-    }, [
-        shopId, name, brand, category, condition, description, productPrice,
-        shippingPrice, quantity, image1, image2, image3, image4, image5,
-    ]);
+    }, [shopId, name, brand, category, condition, description, quantity, image1]);
 
     useEffect(() => {
         if (!hasSubmitted) return; // Prevent validations until initial submission

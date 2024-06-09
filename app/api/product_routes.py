@@ -1,8 +1,8 @@
 from flask import Blueprint, request
-from flask_login import login_required
+from flask_login import current_user, login_required
 
 from ..utils.aws import get_unique_filename, upload_file_to_s3
-from ..models import db, Product, ProductImage, Shop
+from ..models import db, Product, ProductImage, User, Shop
 from ..forms.product_form import ProductForm, EditProductForm
 
 
@@ -20,11 +20,11 @@ def products(page: int = 1, per_page: int = 20):
 
     user_id = request.args.get('user_id', type=int)
     if user_id:
-        base_query = base_query.join(Shop).filter(Shop.owner_id == user_id)
+        base_query = base_query.join(User).filter(User.id == user_id)
 
     exclude_user_id = request.args.get('exclude_user_id', type=int)
     if exclude_user_id:
-        base_query = base_query.join(Shop).filter(Shop.owner_id != exclude_user_id)
+        base_query = base_query.join(User).filter(User.id != exclude_user_id)
 
     # category = request.args.get('category', type=str)
     # if category:
@@ -44,17 +44,32 @@ def products(page: int = 1, per_page: int = 20):
     }
 
 
-@product_routes.route('/<product_id>', methods=['GET', 'PUT', 'DELETE'])
+@product_routes.route('/<product_id>', methods=['GET'])
+def get_product_by_id(product_id: int):
+    """
+    Query for a product by id.
+    """
+    product = Product.query.get(product_id)
+
+    if not product:
+        return { 'errors': { 'message': 'Product not found' } }, 404
+
+    return { 'product': product.to_dict() }
+
+
+@product_routes.route('/<product_id>', methods=['PUT', 'DELETE'])
+@login_required
 def product_by_id(product_id: int):
     """
     Query for a product by id.
     """
     product = Product.query.get(product_id)
+
     if not product:
         return { 'errors': { 'message': 'Product not found' } }, 404
 
-    if request.method == 'GET':
-        return { 'product': product.to_dict() }
+    elif product.user.id != current_user.id:
+        return { 'errors': { 'message': 'Unauthorized' } }, 401
 
     elif request.method == 'PUT':
         form = EditProductForm() # TODO: Add image editing

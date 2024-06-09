@@ -10,6 +10,11 @@ class Product(db.Model):
         __table_args__ = { 'schema': SCHEMA }
 
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('users.id')),
+        nullable=False
+    )
     shop_id = db.Column(
         db.Integer,
         db.ForeignKey(add_prefix_for_prod('shops.id')),
@@ -34,6 +39,7 @@ class Product(db.Model):
         onupdate=func.now()
     )
 
+    user = db.relationship('User', back_populates='products')
     shop = db.relationship('Shop', back_populates='products')
     images = db.relationship(
         'ProductImage',
@@ -54,6 +60,7 @@ class Product(db.Model):
     def relationships_dict(self):
         # Does not include cart_products (subject to change)
         return {
+            'user': self.user.to_dict(rels=False),
             'shop': self.shop.to_dict(rels=False),
             'images': [
                 image.to_dict() # No rels kwarg on product images

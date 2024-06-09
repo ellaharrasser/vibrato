@@ -8,6 +8,7 @@ from ..utils.conditions import CONDITIONS
 
 
 class ProductForm(FlaskForm):
+    user_id = IntegerField('User ID', validators=[DataRequired()])
     shop_id = IntegerField('Shop ID', validators=[DataRequired()])
     name = StringField(
         'Name',
@@ -52,7 +53,7 @@ class ProductForm(FlaskForm):
     image_4 = FileField(validators=[FileAllowed(ALLOWED_EXTENSIONS)])
     image_5 = FileField(validators=[FileAllowed(ALLOWED_EXTENSIONS)])
 
-# Product form without images (temporary) or shop_id
+# Product form without images (temporary), user_id, or shop_id
 class EditProductForm(FlaskForm):
     name = StringField(
         'Name',

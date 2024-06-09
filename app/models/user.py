@@ -32,6 +32,11 @@ class User(db.Model, UserMixin):
         back_populates='owner',
         cascade='all, delete-orphan'
     )
+    products = db.relationship(
+        'Product',
+        back_populates='user',
+        cascade='all, delete-orphan'
+    )
     cart_products = db.relationship(
         'CartProduct',
         back_populates='user',
@@ -59,6 +64,10 @@ class User(db.Model, UserMixin):
             'shops': [
                 shop.to_dict(rels=False)
                 for shop in self.shops
+            ],
+            'products': [
+                product.to_dict(rels=False)
+                for product in self.products
             ],
             'cartProducts': [
                 cart_product.to_dict(rels=False)
