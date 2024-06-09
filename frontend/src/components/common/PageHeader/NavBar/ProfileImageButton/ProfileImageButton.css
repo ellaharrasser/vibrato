@@ -16,19 +16,19 @@
 }
 
 .profile-info {
-    width: fit-content;
-    margin: 5px;
+    width: max-content;
+    margin: 5px 0px;
     padding: 4px;
 
     position: sticky;
 
     list-style: none;
     background-color: var(--white-l);
-    border-left: 4px solid var(--grey-l);
+    border-left: 4px solid var(--grey-d);
     border-radius: 2px;
 }
 
-.profile-info::after {
+.profile-info::after { /* For the right side faded border effect */
     content: '';
     height: calc(100% - 4px); /* Unsure why the -4px is necessary */
     width: 10px;
@@ -38,6 +38,14 @@
     display: block;
 
     background: linear-gradient(90deg, var(--white-l), rgba(255, 255, 255, 0));
+    }
+
+.profile-info > li {
+    margin-bottom: 4px;
+}
+
+.profile-info > li:last-of-type {
+    margin: 0;
 }
 
 .invisible-container {
@@ -45,7 +53,7 @@
     height: fit-content;
 
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
 }
 
 .hidden {

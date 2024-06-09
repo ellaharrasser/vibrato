@@ -3,7 +3,7 @@ import './HomePage.css';
 
 function HomePage() {
     return <main id='home-page'>
-        <h1>Welcome to vibrato</h1>
+        <h1>Welcome!</h1>
         <FeaturedPanel />
         <footer>
             <h2>My Links</h2>
