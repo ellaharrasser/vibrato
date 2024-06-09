@@ -1,21 +1,30 @@
 :root {
     /* Global color scheme */
     --white-l: #f9f9f9;
+
     --l-grey-l: #eaeaea;
     --l-grey-m: #cdcdcd;
     --l-grey-d: #a4a4a4;
+
     --grey-l: #8c8c8c;
     --grey-m: #6a6a6a;
     --grey-d: #484848;
+
     --d-grey-l: #3e3e3e;
     --d-grey-m: #2d2d2d;
     --d-grey-d: #1c1c1c;
+
     --brown-l: #ad7050;
     --brown-m: #744d38;
     --brown-d: #4d3528;
+
     --cyan-l: #69ddc2;
     --cyan-m: #36d1ad;
     --cyan-d: #26a688;
+
+    --red-l: #da5870;
+    --red-m: #d23350;
+    --red-d: #b82843;
 }
 
 * {

@@ -1,0 +1,73 @@
+#delete-product-wrapper {
+    padding: 20px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 10px;
+
+    background-color: var(--white-l);
+    border: 2px solid var(--d-grey-d);
+    border-radius: 10px;
+    overflow: clip;
+}
+
+#delete-product-wrapper h1 {
+    margin: 20px 0px 0px;
+
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: 700;
+}
+
+#delete-product-wrapper p {
+    max-width: 80ch;
+
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+#delete-product-wrapper .buttons-container {
+    width: 80%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#delete-product-wrapper .delete-button,
+#delete-product-wrapper .cancel-button {
+    height: 40px;
+
+    flex: 1;
+
+    cursor: pointer;
+    color: white;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    border-radius: 5px;
+
+    transition: all 75ms ease-in-out;
+}
+
+#delete-product-wrapper .delete-button {
+    background-color: var(--red-l);
+    border: 2px solid var(--red-m);
+}
+
+#delete-product-wrapper .delete-button:hover {
+    background-color: var(--red-m);
+    border: 2px solid var(--red-d);
+}
+
+#delete-product-wrapper .cancel-button {
+    background-color: var(--grey-l);
+    border: 2px solid var(--grey-m);
+}
+
+#delete-product-wrapper .cancel-button:hover {
+    background-color: var(--grey-m);
+    border: 2px solid var(--grey-d);
+}

@@ -1,16 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useModal } from '../../../context/Modal';
 import { getKeys } from '../../../utils/misc';
 import conditions from '../../../utils/conditions';
-import { thunkEditProduct } from '../../../redux/products';
+import { thunkEditProduct, thunkLoadCurrentProduct, thunkLoadUserProducts } from '../../../redux/products';
 import './EditProductModal.css';
 
 
 function EditProductModal({ product }) {
     const dispatch = useDispatch();
-    const { closeModal } = useModal;
+    const { closeModal } = useModal();
+
+    const user = useSelector(state => state.session.user);
 
     const [name, setName] = useState(product.name);
     const [brand, setBrand] = useState(product.brand);
@@ -109,22 +111,28 @@ function EditProductModal({ product }) {
             thunkEditProduct(formData, product.id)
         );
 
-        if (serverResponse) {
-            setErrors(serverResponse);
-        } else {
+        if (serverResponse.product) {
+            dispatch(thunkLoadUserProducts(user));
+            dispatch(thunkLoadCurrentProduct(product.id));
             closeModal();
+        } else if (serverResponse) {
+            setErrors(serverResponse);
         }
     };
 
     return <div id='edit-product-wrapper'>
         <h1>Edit an existing Product</h1>
-        <form onSubmit={handleSubmit} encType='multipart/form-data'>
+        <form
+            id='edit-product-form'
+            onSubmit={handleSubmit}
+            encType='multipart/form-data'
+        >
+            <p className='form-error'>
+                {validations.name && validations.name
+                || errors.name && errors.name}
+            </p>
             <div className='form-item-container'>
                 <label htmlFor='name'>Name</label>
-                <p className='form-error'>
-                    {validations.name && validations.name
-                    || errors.name && errors.name}
-                </p>
                 <input
                     id='name'
                     type='text'
@@ -132,12 +140,12 @@ function EditProductModal({ product }) {
                     onChange={(e) => setName(e.target.value)}
                 />
             </div>
+            <p className='form-error'>
+                {validations.brand && validations.brand
+                || errors.brand && errors.brand}
+            </p>
             <div className='form-item-container'>
                 <label htmlFor='brand'>Brand</label>
-                <p className='form-error'>
-                    {validations.brand && validations.brand
-                    || errors.brand && errors.brand}
-                </p>
                 <input
                     id='brand'
                     type='text'
@@ -145,12 +153,12 @@ function EditProductModal({ product }) {
                     onChange={(e) => setBrand(e.target.value)}
                 />
             </div>
+            <p className='form-error'>
+                {validations.category && validations.category
+                || errors.category && errors.category}
+            </p>
             <div className='form-item-container'>
                 <label htmlFor='category'>Category</label>
-                <p className='form-error'>
-                    {validations.category && validations.category
-                    || errors.category && errors.category}
-                </p>
                 <input
                     id='category'
                     type='text'
@@ -158,12 +166,12 @@ function EditProductModal({ product }) {
                     onChange={(e) => setCategory(e.target.value)}
                 />
             </div>
+            <p className='form-error'>
+                {validations.condition && validations.condition
+                || errors.condition && errors.condition}
+            </p>
             <div className='form-item-container'>
                 <label htmlFor='condition'>Condition</label>
-                <p className='form-error'>
-                    {validations.condition && validations.condition
-                    || errors.condition && errors.condition}
-                </p>
                 <select
                     id='condition'
                     value={condition}
@@ -177,12 +185,12 @@ function EditProductModal({ product }) {
                     ))}
                 </select>
             </div>
+            <p className='form-error'>
+                {validations.description && validations.description
+                || errors.description && errors.description}
+            </p>
             <div className='form-item-container'>
                 <label htmlFor='description'>Description</label>
-                <p className='form-error'>
-                    {validations.description && validations.description
-                    || errors.description && errors.description}
-                </p>
                 <input
                     id='description'
                     type='text'
@@ -190,12 +198,12 @@ function EditProductModal({ product }) {
                     onChange={(e) => setDescription(e.target.value)}
                 />
             </div>
+            <p className='form-error'>
+                {validations.productPrice && validations.productPrice
+                || errors.productPrice && errors.productPrice}
+            </p>
             <div className='form-item-container'>
                 <label htmlFor='productPrice'>Product Price</label>
-                <p className='form-error'>
-                    {validations.productPrice && validations.productPrice
-                    || errors.productPrice && errors.productPrice}
-                </p>
                 <input
                     id='productPrice'
                     type='number'
@@ -203,12 +211,12 @@ function EditProductModal({ product }) {
                     onChange={(e) => setProductPrice(e.target.value)}
                 />
             </div>
+            <p className='form-error'>
+                {validations.shippingPrice && validations.shippingPrice
+                || errors.shippingPrice && errors.shippingPrice}
+            </p>
             <div className='form-item-container'>
                 <label htmlFor='shippingPrice'>Shipping Price</label>
-                <p className='form-error'>
-                    {validations.shippingPrice && validations.shippingPrice
-                    || errors.shippingPrice && errors.shippingPrice}
-                </p>
                 <input
                     id='shippingPrice'
                     type='number'
@@ -216,12 +224,12 @@ function EditProductModal({ product }) {
                     onChange={(e) => setShippingPrice(e.target.value)}
                 />
             </div>
+            <p className='form-error'>
+                {validations.quantity && validations.quantity
+                || errors.quantity && errors.quantity}
+            </p>
             <div className='form-item-container'>
                 <label htmlFor='quantity'>Quantity</label>
-                <p className='form-error'>
-                    {validations.quantity && validations.quantity
-                    || errors.quantity && errors.quantity}
-                </p>
                 <input
                     id='quantity'
                     type='number'
@@ -229,13 +237,22 @@ function EditProductModal({ product }) {
                     onChange={(e) => setQuantity(e.target.value)}
                 />
             </div>
-            <button
-                type='submit'
-                className={submitClass}
-                disabled={submitDisabled}
-            >
-                Edit Shop
-            </button>
+            <div className='buttons-container'>
+                <button
+                    type='submit'
+                    className={submitClass}
+                    disabled={submitDisabled}
+                >
+                    Edit Shop
+                </button>
+                <button
+                    type='button'
+                    className='cancel-button'
+                    onClick={closeModal}
+                >
+                    Cancel
+                </button>
+            </div>
         </form>
     </div>
 }

@@ -42,7 +42,7 @@ export const thunkLoadProducts = (filters) => async (dispatch) => {
         const data = await response.json();
         const products = {}; // Normalizing data
         data.products.forEach(product => products[product.id] = product);
-        dispatch(loadProducts(products, data.count));
+        await dispatch(loadProducts(products, data.count));
     } else if (response.status < 500) {
         const errors = await response.json();
         return errors;
@@ -71,7 +71,7 @@ export const thunkLoadCurrentProduct = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}`);
     if (response.ok) {
         const data = await response.json();
-        dispatch(loadCurrentProduct(data.product));
+        await dispatch(loadCurrentProduct(data.product));
     } else if (response.status < 500) {
         const errors = await response.json();
         return errors;
@@ -146,6 +146,7 @@ const productsReducer = (state = initialState, action) => {
             const newState = { ...state };
             if (newState.products) {
                 delete newState.products[action.productId];
+                newState.count -= 1;
             }
             return newState;
         }

@@ -27,6 +27,10 @@ function AccountPage() {
     const shops = useSelector(state => state.shops.shops);
     const products = useSelector(state => state.products.products);
 
+    // Hack to fix rerender issue when deleting products from store
+    const productCount = useSelector(state => state.products.count);
+    useEffect(() => {}, [productCount]);
+
     return (
         <main id='account-page'>
             <section id='my-account'>

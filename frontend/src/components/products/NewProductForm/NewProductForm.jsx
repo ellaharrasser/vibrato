@@ -124,6 +124,7 @@ function NewProductForm() {
         }
 
         const formData = new FormData();
+        formData.append('user_id', user.id);
         formData.append('shop_id', shopId);
         formData.append('name', name);
         formData.append('brand', brand);
@@ -151,6 +152,7 @@ function NewProductForm() {
     return dataLoaded ? (
         <main id='new-product-page'>
             <h1>List a new Product</h1>
+            {errors.server && <p className='server-error'>{errors.server}</p>}
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div className='form-item-container'>
                     <label htmlFor='shop'>Shop</label>

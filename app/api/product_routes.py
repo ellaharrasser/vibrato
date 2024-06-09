@@ -93,7 +93,7 @@ def product_by_id(product_id: int):
     elif request.method == 'DELETE':
         db.session.delete(product)
         db.session.commit()
-        return 204
+        return { 'message': 'Successfully deleted' }, 204
 
 
 @product_routes.route('/new', methods=['POST'])
@@ -107,6 +107,7 @@ def new_product():
 
     if form.validate_on_submit():
         product = Product(
+            user_id=form.data['user_id'],
             shop_id=form.data['shop_id'],
             name=form.data['name'],
             brand=form.data['brand'],
@@ -138,6 +139,6 @@ def new_product():
 
         db.session.add_all(images)
         db.session.commit()
-        return product.to_dict(rels=False)
+        return product.to_dict()
     else:
         return form.errors, 400
