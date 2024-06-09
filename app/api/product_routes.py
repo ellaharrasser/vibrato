@@ -75,6 +75,11 @@ def product_by_id(product_id: int):
 
         return form.errors, 400
 
+    elif request.method == 'DELETE':
+        db.session.delete(product)
+        db.session.commit()
+        return 204
+
 
 @product_routes.route('/new', methods=['POST'])
 @login_required
