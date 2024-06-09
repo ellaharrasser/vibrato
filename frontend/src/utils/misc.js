@@ -4,9 +4,9 @@ export const getValues = (item) => item ? Object.values(item) : [];
 export const getKeys = (item) => item ? Object.keys(item) : [];
 
 // Utility function to check if an index is within bounds of an array,
-// returning the element if so, otherwise returning undefined
+// returning the element if so, otherwise returning null
 export const getFromIndex = (array, index) => {
-    return (array.length >= (index - 1)) ? array[index] : undefined;
+    return (array.length >= (index - 1)) ? array[index] : null;
 }
 
 const USDFormatter = Intl.NumberFormat('en-us', {

@@ -8,10 +8,7 @@ from ..utils.conditions import CONDITIONS
 
 
 class ProductForm(FlaskForm):
-    shop_id = IntegerField(
-        'Shop ID',
-        validators=[DataRequired()],
-    )
+    shop_id = IntegerField('Shop ID', validators=[DataRequired()])
     name = StringField(
         'Name',
         validators=[DataRequired(), Length(max=255)]
@@ -26,7 +23,7 @@ class ProductForm(FlaskForm):
     )
     condition = StringField(
         'Brand',
-        validators=[DataRequired(), Length(max=255)] # Need condition validator
+        validators=[DataRequired(), Length(max=255)]
     )
     description = StringField(
         'Description',
@@ -51,12 +48,41 @@ class ProductForm(FlaskForm):
     image_2 = FileField(
         validators=[FileAllowed(ALLOWED_EXTENSIONS)]
     )
-    image_3 = FileField(
-        validators=[FileAllowed(ALLOWED_EXTENSIONS)]
+    image_3 = FileField(validators=[FileAllowed(ALLOWED_EXTENSIONS)])
+    image_4 = FileField(validators=[FileAllowed(ALLOWED_EXTENSIONS)])
+    image_5 = FileField(validators=[FileAllowed(ALLOWED_EXTENSIONS)])
+
+# Product form without images (temporary) or shop_id
+class EditProductForm(FlaskForm):
+    name = StringField(
+        'Name',
+        validators=[DataRequired(), Length(max=255)]
     )
-    image_4 = FileField(
-        validators=[FileAllowed(ALLOWED_EXTENSIONS)]
+    brand = StringField(
+        'Brand',
+        validators=[DataRequired(), Length(max=255)]
     )
-    image_5 = FileField(
-        validators=[FileAllowed(ALLOWED_EXTENSIONS)]
+    category = StringField(
+        'Brand',
+        validators=[DataRequired(), Length(max=255)]
+    )
+    condition = StringField(
+        'Brand',
+        validators=[DataRequired(), Length(max=255)]
+    )
+    description = StringField(
+        'Description',
+        validators=[DataRequired(), Length(max=255)]
+    )
+    product_price = IntegerField(
+        'Price',
+        validators=[DataRequired(), NumberRange(min=100)]
+    )
+    shipping_price = IntegerField(
+        'Shipping Price',
+        validators=[DataRequired(), NumberRange(min=0)]
+    )
+    quantity = IntegerField(
+        'Quantity',
+        validators=[DataRequired(), NumberRange(min=0)]
     )

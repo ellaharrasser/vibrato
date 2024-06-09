@@ -19,13 +19,9 @@ function AccountPage() {
     const [dataLoaded, setDataLoaded] = useState(false);
 
     useEffect(() => {
-        if (!user) return navigate('/');
-        const fetchUserData = async () => {
-            await dispatch(thunkLoadUserShops(user));
-            await dispatch(thunkLoadUserProducts(user));
-            setDataLoaded(true);
-        }
-        fetchUserData();
+        dispatch(thunkLoadUserShops(user));
+        dispatch(thunkLoadUserProducts(user));
+        setDataLoaded(true);
     }, [user, dispatch, navigate]);
 
     const shops = useSelector(state => state.shops.shops);

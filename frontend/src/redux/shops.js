@@ -74,10 +74,10 @@ export const thunkNewShop = (shop) => async (dispatch) => {
     }
 };
 
-export const thunkEditShop = (shop) => async (dispatch) => {
-    const response = await fetch(`/api/shops/${shop.id}`, {
+export const thunkEditShop = (formData, shopId) => async (dispatch) => {
+    const response = await fetch(`/api/shops/${shopId}`, {
         method: 'PUT',
-        body: shop,
+        body: formData,
     });
 
     if (response.ok) {

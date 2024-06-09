@@ -3,7 +3,7 @@ from flask_login import login_required
 
 from ..utils.aws import get_unique_filename, upload_file_to_s3
 from ..models import db, Product, ProductImage, Shop
-from ..forms.product_form import ProductForm
+from ..forms.product_form import ProductForm, EditProductForm
 
 
 product_routes = Blueprint('products', __name__)
@@ -44,7 +44,7 @@ def products(page: int = 1, per_page: int = 20):
     }
 
 
-@product_routes.route('/<product_id>')
+@product_routes.route('/<product_id>', methods=['GET', 'PUT', 'DELETE'])
 def product_by_id(product_id: int):
     """
     Query for a product by id.
@@ -52,7 +52,28 @@ def product_by_id(product_id: int):
     product = Product.query.get(product_id)
     if not product:
         return { 'errors': { 'message': 'Product not found' } }, 404
-    return { 'product': product.to_dict() }
+
+    if request.method == 'GET':
+        return { 'product': product.to_dict() }
+
+    elif request.method == 'PUT':
+        form = EditProductForm() # TODO: Add image editing
+        form['csrf_token'].data = request.cookies['csrf_token']
+
+        if form.validate_on_submit():
+            product.name = form.data['name']
+            product.brand = form.data['brand']
+            product.category = form.data['category']
+            product.condition = form.data['condition']
+            product.description = form.data['description']
+            product.product_price = form.data['product_price']
+            product.shipping_price = form.data['shipping_price']
+            product.quantity = form.data['quantity']
+
+            db.session.commit()
+            return product.to_dict()
+
+        return form.errors, 400
 
 
 @product_routes.route('/new', methods=['POST'])
@@ -82,9 +103,8 @@ def new_product():
 
         images = []
         for num in range(1, 6): # "Iterate" through form image fields
-            image_key = f'image_{num}'
-            if form.data[image_key]:
-                image = form.data[image_key]
+            if form.data[f'image_{num}']:
+                image = form.data[f'image_{num}']
                 image.filename = get_unique_filename(image.filename)
                 upload = upload_file_to_s3(image)
 

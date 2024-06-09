@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required
 
 from ..models import db, Shop
-from ..forms.shop_form import ShopForm
+from ..forms.shop_form import ShopForm, EditShopForm
 from ..utils.aws import get_unique_filename, upload_file_to_s3
 
 
@@ -38,25 +38,12 @@ def shop_by_id(shop_id: int):
         return { 'shop': shop.to_dict() }
 
     elif request.method == 'PUT':
-        form = ShopForm()
+        form = EditShopForm()
         form['csrf_token'].data = request.cookies['csrf_token']
 
         if form.validate_on_submit():
-            if 'name' in form.data:
-                shop.name = form.data['name']
-
-            if 'description' in form.data:
-                shop.description = form.data['description']
-
-            if 'image' in form.data:
-                image = form.data['image']
-                image.filename = get_unique_filename(image.filename)
-                upload = upload_file_to_s3(image)
-
-                if 'url' not in upload: # Check for errors while uploading
-                    return form.errors, 400
-
-                shop.image = upload['url']
+            shop.name = form.data['name']
+            shop.description = form.data['description']
 
             db.session.commit()
             return shop.to_dict()

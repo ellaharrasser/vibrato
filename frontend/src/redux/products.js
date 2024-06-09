@@ -52,7 +52,7 @@ export const thunkLoadProducts = (filters) => async (dispatch) => {
 };
 
 export const thunkLoadUserProducts = (user) => async (dispatch) => {
-    const url = '/api/products?owner_id=' + encodeURIComponent(`${user.id}`);
+    const url = '/api/products?user_id=' + encodeURIComponent(`${user.id}`);
     const response = await fetch(url);
     if (response.ok) {
         const data = await response.json();
@@ -98,10 +98,10 @@ export const thunkNewProduct = (product) => async (dispatch) => {
     }
 };
 
-export const thunkEditProduct = (product) => async (dispatch) => {
-    const response = await fetch(`/api/products/${product.id}`, {
+export const thunkEditProduct = (formData, productId) => async (dispatch) => {
+    const response = await fetch(`/api/products/${productId}`, {
         method: 'PUT',
-        body: product,
+        body: formData,
     });
 
     if (response.ok) {

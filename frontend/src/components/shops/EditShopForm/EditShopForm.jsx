@@ -15,37 +15,21 @@ function EditShopForm() {
 
     useEffect(() => {
         dispatch(thunkLoadCurrentShop(shopId));
-    }, [shopId, dispatch]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const shop = useSelector(state => state.shops.currentShop);
 
     const [name, setName] = useState(shop.name);
     const [description, setDescription] = useState(shop.description);
-    const [image, setImage] = useState(shop.image);
-    const [imageLoading, setImageLoading] = useState(false);
+    // const [image, setImage] = useState(shop.image);
+    // const [imageLoading, setImageLoading] = useState(false);
 
-    const [editedFields, setEditedFields] = useState({});
     const [validations, setValidations] = useState({});
     const [errors, setErrors] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [submitDisabled, setSubmitDisabled] = useState(false);
     const [submitClass, setSubmitClass] = useState('submit');
-
-    const getEditedFields = useCallback(() => {
-        const newEditedFields = {};
-
-        if (shop.name !== name) {
-            newEditedFields.name = name;
-        }
-        if (shop.description !== description) {
-            newEditedFields.description = description;
-        }
-        if (shop.image !== image) {
-            newEditedFields.image = image;
-        }
-
-        return newEditedFields;
-    }, [shop, name, description, image]);
 
     const setSubmitDisabledStatus = (disabled) => {
       (disabled)
@@ -69,25 +53,19 @@ function EditShopForm() {
             newValidations.description = 'Descriptions must be 255 or fewer characters.';
         }
 
-        if (!image) {
-            newValidations.image = 'An image is required.';
-        }
+        // if (!image) {
+        //     newValidations.image = 'An image is required.';
+        // }
 
         return newValidations;
-    }, [name, description, image]);
+    }, [name, description]);
 
     useEffect(() => {
         if (!hasSubmitted) return; // Prevent validations until initial submission
         const newValidations = getValidations();
         setValidations(newValidations);
-
-        const newEditedFields = getEditedFields();
-        setEditedFields(newEditedFields);
-
-        setSubmitDisabledStatus(
-            getKeys(newValidations).length || !getKeys(newEditedFields).length
-        );
-    }, [hasSubmitted, getValidations, getEditedFields]);
+        setSubmitDisabledStatus(getKeys(newValidations).length);
+    }, [hasSubmitted, getValidations]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -97,18 +75,15 @@ function EditShopForm() {
         if (!hasSubmitted) {
             setHasSubmitted(true);
             const newValidations = getValidations();
-            const newEditedFields = getEditedFields();
-            if (getKeys(newValidations).length || !getKeys(newEditedFields).length) return;
+            if (getKeys(newValidations).length) return;
         }
 
-        // Append only edited fields to form data object
         const formData = new FormData();
-        if (editedFields.name) formData.append('name', name);
-        if (editedFields.description) formData.append('description', description);
-        if (editedFields.image) formData.append('image', image);
-        setImageLoading(true);
+        formData.append('name', name);
+        formData.append('description', description);
+        // setImageLoading(true);
 
-        const serverResponse = await dispatch(thunkEditShop(formData));
+        const serverResponse = await dispatch(thunkEditShop(formData, shopId));
         if (serverResponse.shop) {
             navigate(`/shops/${serverResponse.shop.id}`);
         } else if (serverResponse) {
@@ -147,24 +122,6 @@ function EditShopForm() {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
-                <div className='form-item-container'>
-                    <label htmlFor='image'>Image</label>
-                    <p className='form-error'>
-                        {validations.image && validations.image
-                        || errors.image && errors.image}
-                    </p>
-                    <input
-                        type='file'
-                        accept='image/*'
-                        onChange={(e) => setImage(e.target.files[0])}
-                    />
-                    <p className='image-loading'>
-                        {imageLoading ? 'Loading...' : ''}
-                    </p>
-                </div>
-                {!getKeys(editedFields).length && (
-                    <p className='form-error'>No fields have changed.</p>
-                )}
                 <button
                     type='submit'
                     className={submitClass}

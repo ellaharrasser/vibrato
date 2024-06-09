@@ -19,8 +19,11 @@ class ShopForm(FlaskForm):
     )
 
 class EditShopForm(FlaskForm):
-    name = StringField('Name', validators=[Length(max=255)])
-    description = StringField('Description', validators=[Length(max=255)])
+    name = StringField('Name', validators=[DataRequired(), Length(max=255)])
+    description = StringField(
+        'Description',
+        validators=[DataRequired(), Length(max=255)]
+    )
     image = FileField(
         'Image',
         validators=[FileAllowed(list(ALLOWED_EXTENSIONS))]

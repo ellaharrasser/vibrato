@@ -2,9 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getKeys, getFromIndex } from '../../../utils/misc';
+import { getKeys } from '../../../utils/misc';
 import conditions from '../../../utils/conditions';
-import { thunkLoadUserShops } from '../../../redux/shops';
 import { thunkEditProduct, thunkLoadCurrentProduct } from '../../../redux/products';
 import './EditProductForm.css';
 
@@ -15,64 +14,52 @@ function EditProductForm() {
 
     const { productId } = useParams();
 
-    const user = useSelector(state => state.session.user);
     const product = useSelector(state => state.products.currentProduct);
 
-    const [name, setName] = useState(product?.name);
-    const [brand, setBrand] = useState(product?.brand);
-    const [category, setCategory] = useState(product?.category);
-    const [condition, setCondition] = useState(product?.condition);
-    const [description, setDescription] = useState(product?.description);
-    const [productPrice, setProductPrice] = useState(product?.productPrice);
-    const [shippingPrice, setShippingPrice] = useState(product?.shippingPrice);
-    const [quantity, setQuantity] = useState(product?.quantity);
-    // Check if images exist, and if so, set each initial state to their urls
-    const [image1, setImage1] = useState(
-        // getFromIndex(product.images, 0)?.image
-        null
-    );
-    const [image2, setImage2] = useState(
-        // getFromIndex(product.images, 1)?.image
-        null
-    );
-    const [image3, setImage3] = useState(
-        // getFromIndex(product.images, 2)?.image
-        null
-    );
-    const [image4, setImage4] = useState(
-        // getFromIndex(product.images, 3)?.image
-        null
-    );
-    const [image5, setImage5] = useState(
-        // getFromIndex(product.images, 4)?.image
-        null
-    );
+    useEffect(() => {
+        dispatch(thunkLoadCurrentProduct(productId));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        setName(product.name);
+        setBrand(product.brand);
+        setCategory(product.category);
+        setCondition(product.condition);
+        setDescription(product.description);
+        setProductPrice(product.productPrice);
+        setShippingPrice(product.shippingPrice);
+        setQuantity(product.quantity);
+        // setImage1(getFromIndex(product.images, 0)?.image);
+        // setImage2(getFromIndex(product.images, 1)?.image);
+        // setImage3(getFromIndex(product.images, 2)?.image);
+        // setImage4(getFromIndex(product.images, 3)?.image);
+        // setImage5(getFromIndex(product.images, 4)?.image);
+        setDataLoaded(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [product]);
+
+    const [name, setName] = useState('');
+    const [brand, setBrand] = useState('');
+    const [category, setCategory] = useState('');
+    const [condition, setCondition] = useState('');
+    const [description, setDescription] = useState('');
+    const [productPrice, setProductPrice] = useState('');
+    const [shippingPrice, setShippingPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
+    // const [image1, setImage1] = useState(null);
+    // const [image2, setImage2] = useState(null);
+    // const [image3, setImage3] = useState(null);
+    // const [image4, setImage4] = useState(null);
+    // const [image5, setImage5] = useState(null);
     const [imageLoading, setImageLoading] = useState(false);
 
-    // Utility state for submitting only the fields that have changed
-    const [editedFields, setEditedFields] = useState({});
+    const [dataLoaded, setDataLoaded] = useState(false);
     const [validations, setValidations] = useState({});
     const [errors, setErrors] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [submitDisabled, setSubmitDisabled] = useState(false);
     const [submitClass, setSubmitClass] = useState('submit');
-
-    const [dataLoaded, setDataLoaded] = useState(false);
-
-    // Load initial field states and initialFields object
-    const preloadStates = () => {
-
-    };
-
-    useEffect(() => {
-        if (!user) return navigate('/');
-        const fetchProduct = async () => {
-            await dispatch(thunkLoadCurrentProduct(productId));
-            setDataLoaded(true);
-        }
-        fetchProduct();
-        preloadStates();
-    }, [user, productId, dispatch, navigate, preloadStates]);
 
     const setSubmitDisabledStatus = (disabled) => {
       (disabled)
@@ -81,7 +68,6 @@ function EditProductForm() {
       setSubmitDisabled(disabled);
     };
 
-    // TODO: Add image validations (edit in NewProductForm and copy to here)
     const getValidations = useCallback(() => {
         const newValidations = {};
 
@@ -113,71 +99,20 @@ function EditProductForm() {
             newValidations.description = 'Descriptions must be 255 or fewer characters.';
         }
 
-        if (!image1) {
-            newValidations.image = 'At least one image is required.';
+        if (!productPrice) {
+            newValidations.productPrice = 'A product price is required.';
         }
+
+        if (!quantity) {
+            newValidations.quantity = 'A quantity is required.';
+        }
+
+        // if (!image1) {
+        //     newValidations.image = 'At least one image is required.';
+        // }
 
         return newValidations;
-    }, [
-        name, brand, category, condition, description, productPrice,
-        shippingPrice, quantity, image1, image2, image3, image4, image5,
-    ]);
-
-    const getEditedFields = useCallback(() => {
-        const newEditedFields = {};
-
-        if (product.name !== name) {
-            newEditedFields.name = name;
-        }
-        if (product.brand !== brand) {
-            newEditedFields.brand = brand;
-        }
-        if (product.category !== category) {
-            newEditedFields.category = category;
-        }
-        if (product.condition !== condition) {
-            newEditedFields.condition = condition;
-        }
-        if (product.description !== description) {
-            newEditedFields.description = description;
-        }
-        if (product.productPrice !== productPrice) {
-            newEditedFields.productPrice = description;
-        }
-        if (product.shippingPrice !== shippingPrice) {
-            newEditedFields.productPrice = productPrice;
-        }
-        if (product.quantity !== quantity) {
-            newEditedFields.quantity = quantity;
-        }
-        // if (getFromIndex(product.images, 0)?.image !== image1) {
-        //     newEditedFields.image1 = image1;
-        // }
-        // if (getFromIndex(product.images, 1)?.image !== image2) {
-        //     newEditedFields.image2 = image2;
-        // }
-        // if (getFromIndex(product.images, 2)?.image !== image3) {
-        //     newEditedFields.image3 = image3;
-        // }
-        // if (getFromIndex(product.images, 3)?.image !== image4) {
-        //     newEditedFields.image4 = image4;
-        // }
-        // if (getFromIndex(product.images, 4)?.image !== image5) {
-        //     newEditedFields.image5 = image5;
-        // }
-
-        return newEditedFields;
-    }, [
-        product, name, brand, category, condition, description, productPrice,
-        shippingPrice, quantity, image1, image2, image3, image4, image5,
-    ])
-
-    useEffect(() => {
-        const newEditedFields = getEditedFields();
-        // Disable submit button if no fields have changed
-        setSubmitDisabledStatus(getKeys(newEditedFields).length === 0);
-        setEditedFields(newEditedFields);
-    }, [getEditedFields]);
+    }, [name, brand, category, condition, description, productPrice, quantity]);
 
     useEffect(() => {
         // Prevent validations until initial submission
@@ -190,56 +125,36 @@ function EditProductForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Prevent submission if validation errors exist
+        /* Prevent submission if validation errors exist,
+        or if no fields have changed */
         if (!hasSubmitted) {
             setHasSubmitted(true);
             const newValidations = getValidations();
             if (getKeys(newValidations).length) return;
         }
 
+        // Append only edited fields to form data object
         const formData = new FormData();
-        if ('name' in editedFields) {
-            formData.append('name', name);
-        }
-        if ('brand' in editedFields) {
-            formData.append('brand', brand);
-        }
-        if ('category' in editedFields) {
-            formData.append('category', category);
-        }
-        if ('condition' in editedFields) {
-            formData.append('condition', condition);
-        }
-        if ('description' in editedFields) {
-            formData.append('description', description);
-        }
-        if ('productPrice' in editedFields) {
-            formData.append('product_price', productPrice);
-        }
-        if ('shippingPrice' in editedFields) {
-            formData.append('shipping_price', shippingPrice);
-        }
-        if ('quantity' in editedFields) {
-            formData.append('quantity', quantity);
-        }
-        if ('image1' in editedFields) {
-            formData.append('image_1', image1);
-        }
-        if ('image2' in editedFields) {
-            formData.append('image_2', image2);
-        }
-        if ('image3' in editedFields) {
-            formData.append('image_3', image3);
-        }
-        if ('image4' in editedFields) {
-            formData.append('image_4', image4);
-        }
-        if ('image5' in editedFields) {
-            formData.append('image_5', image5);
-        }
+        formData.append('shop_id', product.shop.id);
+        formData.append('name', name);
+        formData.append('brand', brand);
+        formData.append('category', category);
+        formData.append('condition', condition);
+        formData.append('description', description);
+        formData.append('product_price', productPrice);
+        formData.append('shipping_price', shippingPrice);
+        formData.append('quantity', quantity);
+        // formData.append('image_1', image1);
+        // formData.append('image_2', image2);
+        // formData.append('image_3', image3);
+        // formData.append('image_4', image4);
+        // formData.append('image_5', image5);
         setImageLoading(true);
 
-        const serverResponse = await dispatch(thunkEditProduct(formData));
+        const serverResponse = await dispatch(
+            thunkEditProduct(formData, productId)
+        );
+
         if (serverResponse.product) {
             navigate(`/products/${serverResponse.product.id}`);
         } else if (serverResponse) {
@@ -361,7 +276,7 @@ function EditProductForm() {
                         onChange={(e) => setQuantity(e.target.value)}
                     />
                 </div>
-                <div className='form-item-container form-image'>
+                {/* <div className='form-item-container form-image'>
                     <label htmlFor='image-1'>Image</label>
                     <p className='form-error'>
                         {validations.image1 && validations.image1
@@ -425,7 +340,7 @@ function EditProductForm() {
                         accept='image/*'
                         onChange={(e) => setImage5(e.target.files[0])}
                     />
-                </div>}
+                </div>} */}
                 <button
                     type='submit'
                     className={submitClass}
