@@ -11,7 +11,7 @@ function ShopDetailsPage() {
     const dispatch = useDispatch();
     const { shopId } = useParams();
 
-    // const user = useSelector(state => state.session.user);
+    const user = useSelector(state => state.session.user);
     const shop = useSelector(state => state.shops.currentShop);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function ShopDetailsPage() {
                     )} */}
                 </>
             ) : (
-                <p className='loading-message'>Loading...</p>
+                <p className='loading'>Loading...</p>
             )}
         </main>
     );
