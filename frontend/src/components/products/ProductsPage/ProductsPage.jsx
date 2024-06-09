@@ -20,7 +20,7 @@ function ProductsPage() {
             ? dispatch(thunkLoadProducts({ excludeUser: user }))
             : dispatch(thunkLoadProducts());
         setIsLoaded(true);
-    }, [dispatch]);
+    }, [user, dispatch]);
 
     return (
         <main>

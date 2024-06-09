@@ -53,7 +53,7 @@ def shop_by_id(shop_id: int):
     elif request.method == 'DELETE':
         db.session.delete(shop)
         db.session.commit()
-        return 204
+        return { 'message': 'Successfully deleted' }, 204
 
 
 

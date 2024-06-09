@@ -13,16 +13,10 @@ function ProductDetailsPage() {
 
     const user = useSelector(state => state.session.user);
     const product = useSelector(state => state.products.currentProduct);
-    const shop = useSelector(state => state.shops.currentShop);
 
     useEffect(() => {
         dispatch(thunkLoadCurrentProduct(productId));
     }, [productId, dispatch]);
-
-    useEffect(() => {
-        if (!product) return;
-        dispatch(loadCurrentShop(product.shop.id));
-    }, [product, dispatch])
 
     return (
         <main>
@@ -43,7 +37,7 @@ function ProductDetailsPage() {
                         <p className='shipping-price'>{product.shippingPrice}</p>
                         <p className='description'>{product.description}</p>
                         <div className='product-actions'>
-                            {product.shop.owner.id === user.id ? (
+                            {product.user.id === user.id ? (
                                 <>
                                     <NavLink
                                         to={`/products/${product.id}/edit`}
@@ -57,7 +51,7 @@ function ProductDetailsPage() {
                     <div className='shop-info'>
                         <img
                             className='shop-image'
-                            src={shop.image}
+                            src={product.shop.image}
                             alt='Shop Image'
                         />
                         <h2>{product.shop.name}</h2>

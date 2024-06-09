@@ -1,29 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
+import { useModal } from '../../../context/Modal';
 import { getKeys } from '../../../utils/misc';
-import { thunkEditShop, thunkLoadCurrentShop } from '../../../redux/shops';
-import './EditShopForm.css';
+import { thunkEditShop } from '../../../redux/shops';
+import './EditShopFormModal.css';
 
 
-function EditShopForm() {
+function EditShopFormModal({ shop }) {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const { shopId } = useParams();
-
-    useEffect(() => {
-        dispatch(thunkLoadCurrentShop(shopId));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const shop = useSelector(state => state.shops.currentShop);
+    const { closeModal } = useModal();
 
     const [name, setName] = useState(shop.name);
     const [description, setDescription] = useState(shop.description);
-    // const [image, setImage] = useState(shop.image);
-    // const [imageLoading, setImageLoading] = useState(false);
 
     const [validations, setValidations] = useState({});
     const [errors, setErrors] = useState({});
@@ -53,10 +42,6 @@ function EditShopForm() {
             newValidations.description = 'Descriptions must be 255 or fewer characters.';
         }
 
-        // if (!image) {
-        //     newValidations.image = 'An image is required.';
-        // }
-
         return newValidations;
     }, [name, description]);
 
@@ -83,16 +68,16 @@ function EditShopForm() {
         formData.append('description', description);
         // setImageLoading(true);
 
-        const serverResponse = await dispatch(thunkEditShop(formData, shopId));
+        const serverResponse = await dispatch(thunkEditShop(formData, shop.id));
         if (serverResponse.shop) {
-            navigate(`/shops/${serverResponse.shop.id}`);
+            closeModal();
         } else if (serverResponse) {
             setErrors(serverResponse);
         }
     };
 
-    return shop ? (
-        <main>
+    return (
+        <>
             <h1>Edit an existing Shop</h1>
             {errors.server && <p className='server-error'>{errors.server}</p>}
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
@@ -127,15 +112,11 @@ function EditShopForm() {
                     className={submitClass}
                     disabled={submitDisabled}
                 >
-                    Create Shop
+                    Confirm Edits
                 </button>
             </form>
-        </main>
-    ) : (
-        <main>
-            <p className='loading'>Loading...</p>
-        </main>
-    )
+        </>
+    );
 }
 
-export default EditShopForm;
+export default EditShopFormModal;
