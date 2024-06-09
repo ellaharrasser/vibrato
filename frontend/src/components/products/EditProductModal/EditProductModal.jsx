@@ -12,14 +12,14 @@ function EditProductModal({ product }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal;
 
-    const [name, setName] = useState('');
-    const [brand, setBrand] = useState('');
-    const [category, setCategory] = useState('');
-    const [condition, setCondition] = useState('');
-    const [description, setDescription] = useState('');
-    const [productPrice, setProductPrice] = useState('');
-    const [shippingPrice, setShippingPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [name, setName] = useState(product.name);
+    const [brand, setBrand] = useState(product.brand);
+    const [category, setCategory] = useState(product.category);
+    const [condition, setCondition] = useState(product.condition);
+    const [description, setDescription] = useState(product.description);
+    const [productPrice, setProductPrice] = useState(product.productPrice);
+    const [shippingPrice, setShippingPrice] = useState(product.shippingPrice);
+    const [quantity, setQuantity] = useState(product.quantity);
 
     const [validations, setValidations] = useState({});
     const [errors, setErrors] = useState({});
@@ -111,32 +111,14 @@ function EditProductModal({ product }) {
 
         if (serverResponse) {
             setErrors(serverResponse);
+        } else {
+            closeModal();
         }
     };
 
     return <>
         <h1>Edit an existing Product</h1>
         <form onSubmit={handleSubmit} encType='multipart/form-data'>
-            <div className='form-item-container'>
-                <label htmlFor='shop'>Shop</label>
-                <p className='form-error'>
-                    {validations.shop && validations.shop
-                    || errors.shop && errors.shop}
-                </p>
-                <select
-                    id='shop'
-                    name='shop'
-                    value={shopId}
-                    onChange={(e) => setShopId(e.target.value)}
-                >
-                    <option value=''>Please select a shop...</option>
-                    {getValues(shops).map(shop => (
-                        <option value={shop.id} key={shop.id}>
-                            {shop.name}
-                        </option>
-                    ))}
-                </select>
-            </div>
             <div className='form-item-container'>
                 <label htmlFor='name'>Name</label>
                 <p className='form-error'>
@@ -252,7 +234,7 @@ function EditProductModal({ product }) {
                 className={submitClass}
                 disabled={submitDisabled}
             >
-                Create Shop
+                Edit Shop
             </button>
         </form>
     </>

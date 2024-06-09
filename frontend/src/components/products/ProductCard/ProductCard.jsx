@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+
 import { centsToUSD } from '../../../utils/misc';
 import './ProductCard.css';
 

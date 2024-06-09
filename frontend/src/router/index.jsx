@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from './Layout';
 import HomePage from '../components/HomePage';
 import ProductsPage from '../components/products/ProductsPage';
+import ProductDetailsPage from '../components/products/ProductDetailsPage';
 import ShopDetailsPage from '../components/shops/ShopDetailsPage';
 import AccountPage from '../components/users/AccountPage';
 import NewShopForm from '../components/shops/NewShopForm';
@@ -24,10 +25,10 @@ export const router = createBrowserRouter([
         path: '/products/new',
         element: <NewProductForm />,
       },
-      // {
-      //   path: '/products/:productId',
-      //   element: <ProductDetailsPage />,
-      // },
+      {
+        path: '/products/:productId',
+        element: <ProductDetailsPage />,
+      },
       {
         path: '/shops/new',
         element: <NewShopForm />,

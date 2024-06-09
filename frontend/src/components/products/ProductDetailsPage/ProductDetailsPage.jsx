@@ -3,8 +3,10 @@ import { NavLink, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { thunkLoadCurrentProduct } from '../../../redux/products';
-import './ProductDetails.css';
-import { loadCurrentShop, thunkLoadCurrentShop } from '../../../redux/shops';
+import OpenModalButton from '../../common/OpenModalButton';
+import EditProductModal from '../EditProductModal';
+import DeleteProductModal from '../DeleteProductModal';
+import './ProductDetailsPage.css';
 
 
 function ProductDetailsPage() {
@@ -36,25 +38,31 @@ function ProductDetailsPage() {
                         <p className='price'>{product.productPrice}</p>
                         <p className='shipping-price'>{product.shippingPrice}</p>
                         <p className='description'>{product.description}</p>
-                        <div className='product-actions'>
-                            {product.user.id === user.id ? (
-                                <>
-                                    <NavLink
-                                        to={`/products/${product.id}/edit`}
-                                    >
-                                        Edit Product
-                                    </NavLink>
-                                </>
-                            ) : null /* Add purchase buttons later */ }
-                        </div>
+                        {product.user.id === user.id && (
+                            <div className='owner-actions'>
+                                <OpenModalButton
+                                    modalComponent={
+                                        <EditProductModal product={product}/>
+                                    }
+                                    buttonText={'Edit'}
+                                />
+                                <OpenModalButton
+                                    modalComponent={
+                                        <DeleteProductModal product={product}/>
+                                    }
+                                    buttonText={'Delete'}
+                                />
+                            </div>
+                        )}
                     </div>
                     <div className='shop-info'>
+                        <h2>About the Seller</h2>
                         <img
                             className='shop-image'
                             src={product.shop.image}
                             alt='Shop Image'
                         />
-                        <h2>{product.shop.name}</h2>
+                        <p>{product.shop.name}</p>
                         <NavLink to={`/shops/${product.shop.id}`}>
                             View Shop
                         </NavLink>
