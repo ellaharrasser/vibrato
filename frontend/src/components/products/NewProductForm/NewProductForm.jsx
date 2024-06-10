@@ -25,6 +25,8 @@ function NewProductForm() {
     const [shippingPrice, setShippingPrice] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [image1, setImage1] = useState(undefined);
+    const [file, setFile] = useState(null);
+    const [filename, setFilename] = useState('');
     // const [image2, setImage2] = useState(undefined);
     // const [image3, setImage3] = useState(undefined);
     // const [image4, setImage4] = useState(undefined);
@@ -96,14 +98,14 @@ function NewProductForm() {
             newValidations.quantity = 'A quantity must be 1 or more';
         }
 
-        if (!image1) {
+        if (!file) {
             newValidations.image1 = 'An image is required.';
         }
 
         // TODO: Add image validations
 
         return newValidations;
-    }, [shopId, name, brand, category, condition, description, quantity, image1]);
+    }, [shopId, name, brand, category, condition, description, quantity, file]);
 
     useEffect(() => {
         if (!hasSubmitted) return; // Prevent validations until initial submission
@@ -112,6 +114,26 @@ function NewProductForm() {
         setValidations(newValidations);
     }, [hasSubmitted, getValidations]);
 
+      // Helper function for generating thumbnail URL and setting image states
+    const fileWrap = (e) => {
+        e.stopPropagation();
+
+        const tempFile = e.target.files[0];
+
+        // Limit image size to 5 Mb
+        if (tempFile.size > 5000000) {
+            setFilename('Image must be less than 5 Mb.');
+            return;
+        }
+
+        // Generate local thumbnail URL
+        const newImageURL = URL.createObjectURL(tempFile);
+        setImage1(newImageURL);
+        setFile(tempFile);
+        setFilename(tempFile.name);
+    }
+
+    // Navigate to shop creation form if no shops exist
     if (dataLoaded && !getKeys(shops).length) return navigate('shops/new');
 
     const handleSubmit = async (e) => {
@@ -134,7 +156,7 @@ function NewProductForm() {
         formData.append('product_price', +productPrice);
         formData.append('shipping_price', +shippingPrice);
         formData.append('quantity', +quantity);
-        formData.append('image_1', image1);
+        formData.append('image_1', file);
         // image2 && formData.append('image_2', image2);
         // image3 && formData.append('image_3', image3);
         // image4 && formData.append('image_4', image4);
@@ -305,20 +327,28 @@ function NewProductForm() {
                         onChange={(e) => setQuantity(e.target.value)}
                     />
                 </div>
-                <div className='form-item-container form-image'>
+                <div className='form-item-container' id='image-upload-container'>
                     <div className='form-item-text'>
-                        <label htmlFor='image-1'>Image</label>
+                        <label>Image</label>
                         <p className='form-error'>
                             {validations.image1 && validations.image1
                             || errors.image1 && errors.image1}
                         </p>
                     </div>
+                    <label className='image-upload' htmlFor='image-1'>
+                        Upload Image
+                    </label>
                     <input
                         id='image-1'
                         type='file'
                         accept='image/*'
-                        onChange={(e) => setImage1(e.target.files[0])}
+                        onChange={fileWrap}
                     />
+                    <img
+                        className='image-upload-thumbnail'
+                        src={image1}
+                    />
+                    <span className='filename'>{filename || 'No file selected.'}</span>
                 </div>
                 {/* {image1 && <div className='form-item-container form-image'>
                     <label htmlFor='image-2'>Image</label>

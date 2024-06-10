@@ -16,6 +16,8 @@ function NewShopForm() {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(undefined);
+    const [file, setFile] = useState(null);
+    const [filename, setFilename] = useState('');
     const [imageLoading, setImageLoading] = useState(false);
 
     const [validations, setValidations] = useState({});
@@ -46,12 +48,12 @@ function NewShopForm() {
             newValidations.description = 'Descriptions must be 255 or fewer characters.';
         }
 
-        if (!image) {
+        if (!file) {
             newValidations.image = 'An image is required.';
         }
 
         return newValidations;
-    }, [name, description, image]);
+    }, [name, description, file]);
 
     useEffect(() => {
         if (!hasSubmitted) return; // Prevent validations until initial submission
@@ -59,6 +61,25 @@ function NewShopForm() {
         setSubmitDisabledStatus(getKeys(newValidations).length > 0);
         setValidations(newValidations);
     }, [hasSubmitted, getValidations]);
+
+    // Helper function for generating thumbnail URL and setting image states
+    const fileWrap = (e) => {
+        e.stopPropagation();
+
+        const tempFile = e.target.files[0];
+
+        // Limit image size to 5 Mb
+        if (tempFile.size > 5000000) {
+            setFilename('Image must be less than 5 Mb.');
+            return;
+        }
+
+        // Generate local thumbnail URL
+        const newImageURL = URL.createObjectURL(tempFile);
+        setImage(newImageURL);
+        setFile(tempFile);
+        setFilename(tempFile.name);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,7 +94,7 @@ function NewShopForm() {
         formData.append('owner_id', user.id);
         formData.append('name', name);
         formData.append('description', description);
-        formData.append('image', image);
+        formData.append('image', file);
         setImageLoading(true);
 
         const serverResponse = await dispatch(thunkNewShop(formData));
@@ -121,20 +142,28 @@ function NewShopForm() {
                     onChange={(e) => setDescription(e.target.value)}
                 />
             </div>
-            <div className='form-item-container'>
+            <div className='form-item-container' id='image-upload-container'>
                 <div className='form-item-text'>
-                    <label htmlFor='image'>Image</label>
+                    <label>Image</label>
                     <p className='form-error'>
                         {validations.image && validations.image
                         || errors.image && errors.image}
                     </p>
                 </div>
+                <label className='image-upload' htmlFor='image'>
+                    Upload Image
+                </label>
                 <input
                     id='image'
                     type='file'
                     accept='image/*'
-                    onChange={(e) => setImage(e.target.files[0])}
+                    onChange={fileWrap}
                 />
+                <img
+                    className='image-upload-thumbnail'
+                    src={image}
+                />
+                <span className='filename'>{filename || 'No file selected.'}</span>
             </div>
             {errors.server && <p className='server-error'>{errors.server}</p>}
             <div className='buttons-container'>

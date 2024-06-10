@@ -69,7 +69,7 @@ function SignupFormModal() {
     }
 
     return newValidations;
-  }, [email, name, description, profileImage, password, confirmPassword]);
+  }, [email, name, description, file, password, confirmPassword]);
 
   useEffect(() => {
     if (!hasSubmitted) return; // Prevent validations until initial submission
@@ -181,9 +181,6 @@ function SignupFormModal() {
         />
         <span className='filename'>{filename || 'No file selected.'}</span>
       </div>
-      {errors.profileImage && (
-        <p className='form-error'>{errors.profileImage}</p>
-      )}
       <div className='form-item-container'>
         <div className='form-item-text'>
           <label htmlFor='description'>Description</label>
