@@ -20,7 +20,9 @@
     margin: 5px 0px;
     padding: 4px;
 
-    position: sticky;
+    position: relative;
+    top: 0;
+    right: 60px;
 
     list-style: none;
     background-color: var(--white-l);
@@ -32,6 +34,7 @@
     content: '';
     height: calc(100% - 4px); /* Unsure why the -4px is necessary */
     width: 10px;
+
     position: absolute;
     top: 0;
     right: -10px;

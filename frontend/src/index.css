@@ -66,6 +66,7 @@ html, body {
 #page-content-wrapper {
     height: 100%;
     margin-top: 80px; /* Account for header */
+    padding: 0 20px;
 
     display: flex;
     justify-content: center;
