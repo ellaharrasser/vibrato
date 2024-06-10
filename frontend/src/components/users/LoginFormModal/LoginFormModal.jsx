@@ -32,28 +32,56 @@ function LoginFormModal() {
 
   return <div id='login-wrapper'>
     <h1>Log In</h1>
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email
+    <form
+      id='login-form'
+      onSubmit={handleSubmit}
+    >
+      <div className='form-item-container'>
+        <div className='form-item-text'>
+          <label htmlFor='email'>Email</label>
+          <span className='form-error'>
+            {errors.email && errors.email}
+          </span>
+        </div>
         <input
+          id='email'
           type='text'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
-      </label>
-      {errors.email && <p>{errors.email}</p>}
-      <label>
-        Password
+      </div>
+      <div className='form-item-container'>
+        <div className='form-item-text'>
+          <label htmlFor='password'>Password</label>
+          <span className='form-error'>
+            {errors.password && errors.password}
+          </span>
+        </div>
         <input
+          id='password'
           type='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
-      </label>
-      {errors.password && <p>{errors.password}</p>}
-      <button type='submit'>Log In</button>
+      </div>
+      <p className='form-error'>
+        {errors.server && errors.server}
+      </p>
+      <div className='buttons-container'>
+        <button
+          type='submit'
+          className='submit'
+        >
+          Log In
+        </button>
+        <button
+          type='button'
+          className='cancel-button'
+          onClick={closeModal}
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   </div>;
 }
