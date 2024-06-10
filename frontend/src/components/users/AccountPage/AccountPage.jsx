@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getValues } from '../../../utils/misc';
 import { thunkLoadUserShops } from '../../../redux/shops';
-import { thunkLoadUserProducts } from '../../../redux/products';
+import { loadCurrentProduct, thunkLoadUserProducts } from '../../../redux/products';
 import MyShopCard from './MyShopCard';
 import MyProductCard from './MyProductCard';
 import './AccountPage.css';
@@ -27,33 +27,44 @@ function AccountPage() {
     const shops = useSelector(state => state.shops.shops);
     const products = useSelector(state => state.products.products);
 
-    // Hack to fix rerender issue when deleting products/shops
+    // Fixes rerender issue when editing/deleting products/shops
     const productCount = useSelector(state => state.products.count);
+    const currentProduct = useSelector(state => state.products.currentProduct);
+    useEffect(() => {
+        dispatch(thunkLoadUserProducts(user));
+    }, [productCount, currentProduct]);
+
     const shopsCount = useSelector(state => state.shops.count);
-    useEffect(() => {}, [productCount, shopsCount]);
+    const currentShop = useSelector(state => state.shops.currentShop);
+    useEffect(() => {
+        dispatch(thunkLoadUserShops(user));
+    }, [shopsCount, currentShop]);
 
     return (
         <main id='account-page'>
             <section id='my-account'>
                 <h1>My Account</h1>
-                <ul className='user-info'>
-                    <li className='name'>{user.name}</li>
-                    <li className='email'>{user.email}</li>
-                    <li className='description'>{user.description}</li>
-                    <li>
-                        <img
-                            src={user.profileImage}
-                            alt='User Image'
-                        />
-                    </li>
-                </ul>
+                <div id='user-info'>
+                    <img
+                        className='user-image'
+                        src={user.profileImage}
+                        alt='User Image'
+                    />
+                    <div className='user-info-text'>
+                        <div className='name-email'>
+                            <p className='name'>{user.name}</p>
+                            <p className='email'>{user.email}</p>
+                        </div>
+                        <p className='description'>{user.description}</p>
+                    </div>
+                </div>
             </section>
             <section id='my-shops'>
-                <h2>My Shops</h2>
-                <div className='shop-links'>
+                <div id='my-shops-header'>
+                    <h2>My Shops</h2>
                     <NavLink to='/shops/new'>Create a Shop</NavLink>
                 </div>
-                <ul className='my-shops-list'>
+                <ul id='my-shops-list'>
                     {dataLoaded ? (<>
                         {getValues(shops).map(shop => (
                             <MyShopCard shop={shop} key={shop.id} />
@@ -62,11 +73,11 @@ function AccountPage() {
                 </ul>
             </section>
             <section id='my-products'>
-                <h2>My Products</h2>
-                <div className='product-links'>
+                <div id='my-products-header'>
+                    <h2>My Products</h2>
                     <NavLink to='/products/new'>Create a Product</NavLink>
                 </div>
-                <ul className='my-products-list'>
+                <ul id='my-products-list'>
                     {dataLoaded ? (<>
                         {getValues(products).map(product => (
                             <MyProductCard product={product} key={product.id} />

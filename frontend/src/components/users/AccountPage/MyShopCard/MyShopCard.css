@@ -1,0 +1,97 @@
+.my-shop-card {
+    width: 200px;
+    padding: 10px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    gap: 10px;
+
+    cursor: pointer;
+
+    border: 2px solid var(--d-grey-d);
+    border-radius: 10px;
+}
+
+.my-shop-info {
+    width: 176px;
+    max-height: 300px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    gap: 10px;
+}
+
+.my-shop-card img {
+    width: auto;
+    max-height: 176px;
+    max-width: 176px;
+
+    align-self: center;
+
+    border: 1px solid var(--grey-l);
+    border-radius: 5px;
+}
+
+.my-shop-info p {
+    margin: 0;
+}
+
+.my-shop-info .name {
+    max-height: 2.5rem;
+
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+}
+
+.my-shop-info .description {
+    font-size: 1rem;
+    line-height: 1rem;
+
+    overflow: scroll;
+}
+
+.my-shop-actions {
+    width: 100%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.my-shop-actions > button {
+    flex: 1;
+
+    cursor: pointer;
+
+    color: white;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+
+    transition: all 75ms ease-in-out;
+}
+
+.my-shop-actions > button:first-of-type {
+    background-color: var(--cyan-l);
+    border: 2px solid var(--cyan-m);
+}
+
+.my-shop-actions > button:first-of-type:hover {
+    background-color: var(--cyan-m);
+    border: 2px solid var(--cyan-d);
+}
+
+.my-shop-actions > button:last-of-type {
+    background-color: var(--red-l);
+    border: 2px solid var(--red-m);
+}
+
+.my-shop-actions > button:last-of-type:hover {
+    background-color: var(--red-m);
+    border: 2px solid var(--red-d);
+}
