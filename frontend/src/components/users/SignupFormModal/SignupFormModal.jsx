@@ -189,13 +189,13 @@ function SignupFormModal() {
             || errors.description && errors.description}
           </span>
         </div>
+        <input
+          id='description'
+          type='text'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
       </div>
-      <input
-        id='description'
-        type='text'
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
       <div className='form-item-container'>
         <div className='form-item-text'>
           <label htmlFor='password'>Password</label>
