@@ -20,9 +20,10 @@ def shops():
     if owner_id:
         shops_query = shops_query.filter_by(owner_id=owner_id)
 
+    count = shops_query.count()
     shops = [shop.to_dict() for shop in shops_query]
 
-    return { 'shops': shops }
+    return { 'shops': shops, 'count': count }
 
 
 @shop_routes.route('/<shop_id>', methods=['GET'])

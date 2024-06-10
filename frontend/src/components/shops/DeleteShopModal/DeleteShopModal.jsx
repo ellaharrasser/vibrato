@@ -14,11 +14,11 @@ function DeleteShopModal({ shop }) {
 
     const handleDelete = () => {
         dispatch(thunkDeleteShop(shop.id));
-        closeModal();
         // Navigate to homepage if on shop details page currently
         if (location.pathname.startsWith('/shops/')) {
             navigate('/');
         }
+        closeModal();
     };
 
     return (

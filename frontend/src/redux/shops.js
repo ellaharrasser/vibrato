@@ -4,10 +4,11 @@ const LOAD_SHOPS = 'shops/loadShops';
 const LOAD_CURRENT_SHOP = 'shops/loadCurrentShop';
 const DELETE_SHOP = 'shops/deleteShop';
 
-export const loadShops = (shops) => {
+export const loadShops = (shops, count) => {
     return {
         type: LOAD_SHOPS,
         shops,
+        count,
     };
 };
 
@@ -34,7 +35,7 @@ export const thunkLoadUserShops = (user) => async (dispatch) => {
         const data = await response.json();
         const shops = {}; // Normalizing data
         data.shops.forEach(shop => shops[shop.id] = shop);
-        await dispatch(loadShops(shops));
+        await dispatch(loadShops(shops, data.count));
     } else if (response.status < 500) {
         const errors = await response.json();
         return errors;
@@ -100,6 +101,7 @@ export const thunkDeleteShop = (shopId) => async (dispatch) => {
 
     if (response.ok) {
         await dispatch(deleteShop(shopId));
+        return { 'shopId': shopId };
     } else if (response.status < 500) {
         const errors = await response.json();
         return errors;
@@ -110,18 +112,19 @@ export const thunkDeleteShop = (shopId) => async (dispatch) => {
 
 // Reducer
 
-const initialState = { shops: null, currentShop: null };
+const initialState = { shops: null, currentShop: null, count: 0 };
 
 const shopsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SHOPS:
-            return { ...state, shops: action.shops };
+            return { ...state, shops: action.shops, count: action.count };
         case LOAD_CURRENT_SHOP:
             return { ...state, currentShop: action.currentShop };
         case DELETE_SHOP: {
             const newState = { ...state };
             if (newState.shops) {
                 delete newState.shops[action.shopId];
+                newState.count -= 1;
             }
             return newState;
         }

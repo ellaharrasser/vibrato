@@ -8,11 +8,15 @@ import LoginFormModal from '../../../users/LoginFormModal';
 import SignupFormModal from '../../../users/SignupFormModal';
 import ProfileImageButton from './ProfileImageButton';
 import './NavBar.css';
+import { useEffect } from 'react';
 
 
 function NavBar() {
-  const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+
+  const user = useSelector(state => state.session.user);
+
+  useEffect(() => {}, [user?.shops?.length]);
 
   const demoLogin = () => dispatch(thunkLogin({
     email: 'demo@aa.io', password: 'password',
