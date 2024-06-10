@@ -97,7 +97,7 @@ function NewProductForm() {
         }
 
         if (!image1) {
-            newValidations.image = 'At least one image is required.';
+            newValidations.image1 = 'An image is required.';
         }
 
         // TODO: Add image validations
@@ -152,14 +152,19 @@ function NewProductForm() {
     return dataLoaded ? (
         <main id='new-product-page'>
             <h1>List a new Product</h1>
-            {errors.server && <p className='server-error'>{errors.server}</p>}
-            <form onSubmit={handleSubmit} encType='multipart/form-data'>
+            <form
+                id='new-product-form'
+                onSubmit={handleSubmit}
+                encType='multipart/form-data'
+            >
                 <div className='form-item-container'>
-                    <label htmlFor='shop'>Shop</label>
-                    <p className='form-error'>
-                        {validations.shop && validations.shop
-                        || errors.shop && errors.shop}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='shop'>Shop</label>
+                        <p className='form-error'>
+                            {validations.shop && validations.shop
+                            || errors.shop && errors.shop}
+                        </p>
+                    </div>
                     <select
                         id='shop'
                         name='shop'
@@ -175,11 +180,13 @@ function NewProductForm() {
                     </select>
                 </div>
                 <div className='form-item-container'>
-                    <label htmlFor='name'>Name</label>
-                    <p className='form-error'>
-                        {validations.name && validations.name
-                        || errors.name && errors.name}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='name'>Name</label>
+                        <p className='form-error'>
+                            {validations.name && validations.name
+                            || errors.name && errors.name}
+                        </p>
+                    </div>
                     <input
                         id='name'
                         type='text'
@@ -188,11 +195,13 @@ function NewProductForm() {
                     />
                 </div>
                 <div className='form-item-container'>
-                    <label htmlFor='brand'>Brand</label>
-                    <p className='form-error'>
-                        {validations.brand && validations.brand
-                        || errors.brand && errors.brand}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='brand'>Brand</label>
+                        <p className='form-error'>
+                            {validations.brand && validations.brand
+                            || errors.brand && errors.brand}
+                        </p>
+                    </div>
                     <input
                         id='brand'
                         type='text'
@@ -201,11 +210,13 @@ function NewProductForm() {
                     />
                 </div>
                 <div className='form-item-container'>
-                    <label htmlFor='category'>Category</label>
-                    <p className='form-error'>
-                        {validations.category && validations.category
-                        || errors.category && errors.category}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='category'>Category</label>
+                        <p className='form-error'>
+                            {validations.category && validations.category
+                            || errors.category && errors.category}
+                        </p>
+                    </div>
                     <input
                         id='category'
                         type='text'
@@ -214,11 +225,13 @@ function NewProductForm() {
                     />
                 </div>
                 <div className='form-item-container'>
-                    <label htmlFor='condition'>Condition</label>
-                    <p className='form-error'>
-                        {validations.condition && validations.condition
-                        || errors.condition && errors.condition}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='condition'>Condition</label>
+                        <p className='form-error'>
+                            {validations.condition && validations.condition
+                            || errors.condition && errors.condition}
+                        </p>
+                    </div>
                     <select
                         id='condition'
                         value={condition}
@@ -233,11 +246,13 @@ function NewProductForm() {
                     </select>
                 </div>
                 <div className='form-item-container'>
-                    <label htmlFor='description'>Description</label>
-                    <p className='form-error'>
-                        {validations.description && validations.description
-                        || errors.description && errors.description}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='description'>Description</label>
+                        <p className='form-error'>
+                            {validations.description && validations.description
+                            || errors.description && errors.description}
+                        </p>
+                    </div>
                     <input
                         id='description'
                         type='text'
@@ -246,11 +261,13 @@ function NewProductForm() {
                     />
                 </div>
                 <div className='form-item-container'>
-                    <label htmlFor='productPrice'>Product Price</label>
-                    <p className='form-error'>
-                        {validations.productPrice && validations.productPrice
-                        || errors.productPrice && errors.productPrice}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='productPrice'>Product Price</label>
+                        <p className='form-error'>
+                            {validations.productPrice && validations.productPrice
+                            || errors.productPrice && errors.productPrice}
+                        </p>
+                    </div>
                     <input
                         id='productPrice'
                         type='number'
@@ -259,11 +276,13 @@ function NewProductForm() {
                     />
                 </div>
                 <div className='form-item-container'>
-                    <label htmlFor='shippingPrice'>Shipping Price</label>
-                    <p className='form-error'>
-                        {validations.shippingPrice && validations.shippingPrice
-                        || errors.shippingPrice && errors.shippingPrice}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='shippingPrice'>Shipping Price</label>
+                        <p className='form-error'>
+                            {validations.shippingPrice && validations.shippingPrice
+                            || errors.shippingPrice && errors.shippingPrice}
+                        </p>
+                    </div>
                     <input
                         id='shippingPrice'
                         type='number'
@@ -272,11 +291,13 @@ function NewProductForm() {
                     />
                 </div>
                 <div className='form-item-container'>
-                    <label htmlFor='quantity'>Quantity</label>
-                    <p className='form-error'>
-                        {validations.quantity && validations.quantity
-                        || errors.quantity && errors.quantity}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='quantity'>Quantity</label>
+                        <p className='form-error'>
+                            {validations.quantity && validations.quantity
+                            || errors.quantity && errors.quantity}
+                        </p>
+                    </div>
                     <input
                         id='quantity'
                         type='number'
@@ -285,11 +306,13 @@ function NewProductForm() {
                     />
                 </div>
                 <div className='form-item-container form-image'>
-                    <label htmlFor='image-1'>Image</label>
-                    <p className='form-error'>
-                        {validations.image1 && validations.image1
-                        || errors.image1 && errors.image1}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='image-1'>Image</label>
+                        <p className='form-error'>
+                            {validations.image1 && validations.image1
+                            || errors.image1 && errors.image1}
+                        </p>
+                    </div>
                     <input
                         id='image-1'
                         type='file'
@@ -349,14 +372,17 @@ function NewProductForm() {
                         onChange={(e) => setImage5(e.target.files[0])}
                     />
                 </div>} */}
-                <button
-                    type='submit'
-                    className={submitClass}
-                    disabled={submitDisabled}
-                >
-                    Create Shop
-                </button>
-                <p className='image-loading'>
+                <p className='server-error'>{errors.server && errors.server}</p>
+                <div className='buttons-container'>
+                    <button
+                        type='submit'
+                        className={submitClass}
+                        disabled={submitDisabled}
+                    >
+                        Create Product
+                    </button>
+                </div>
+                <p className='loading'>
                     {imageLoading && 'Loading...'}
                 </p>
             </form>

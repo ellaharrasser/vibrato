@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getValues } from '../../../utils/misc';
 import { thunkLoadUserShops } from '../../../redux/shops';
-import { loadCurrentProduct, thunkLoadUserProducts } from '../../../redux/products';
+import { thunkLoadUserProducts } from '../../../redux/products';
 import MyShopCard from './MyShopCard';
 import MyProductCard from './MyProductCard';
 import './AccountPage.css';
@@ -12,7 +12,6 @@ import './AccountPage.css';
 
 function AccountPage() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const user = useSelector(state => state.session.user);
 
@@ -22,7 +21,7 @@ function AccountPage() {
         dispatch(thunkLoadUserShops(user));
         dispatch(thunkLoadUserProducts(user));
         setDataLoaded(true);
-    }, [user, dispatch, navigate]);
+    }, []);
 
     const shops = useSelector(state => state.shops.shops);
     const products = useSelector(state => state.products.products);
@@ -30,15 +29,13 @@ function AccountPage() {
     // Fixes rerender issue when editing/deleting products/shops
     const productCount = useSelector(state => state.products.count);
     const currentProduct = useSelector(state => state.products.currentProduct);
-    useEffect(() => {
-        dispatch(thunkLoadUserProducts(user));
-    }, [productCount, currentProduct]);
-
     const shopsCount = useSelector(state => state.shops.count);
     const currentShop = useSelector(state => state.shops.currentShop);
+
     useEffect(() => {
+        dispatch(thunkLoadUserProducts(user));
         dispatch(thunkLoadUserShops(user));
-    }, [shopsCount, currentShop]);
+    }, [user, dispatch, productCount, currentProduct, shopsCount, currentShop]);
 
     return (
         <main id='account-page'>

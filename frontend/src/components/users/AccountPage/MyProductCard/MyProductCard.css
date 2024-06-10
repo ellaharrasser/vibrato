@@ -28,9 +28,9 @@
 }
 
 .my-product-card img {
+    width: 176px;
     height: auto;
     max-height: 176px;
-    max-width: 176px;
 
     border: 1px solid var(--l-grey-d);
     border-radius: 5px;

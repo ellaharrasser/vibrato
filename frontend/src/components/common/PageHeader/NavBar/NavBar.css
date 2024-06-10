@@ -12,7 +12,7 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 
   list-style: none;
 }

@@ -27,7 +27,7 @@ function NavBar() {
       <ul>
         <li>
           {/* Placeholder for testing */}
-          <NavLink to='/products'>Products</NavLink>
+          <NavLink to='/products'>Browse Products</NavLink>
         </li>
         {user ? (<>
           <li>

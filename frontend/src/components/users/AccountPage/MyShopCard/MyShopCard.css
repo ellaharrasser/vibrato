@@ -24,9 +24,9 @@
 }
 
 .my-shop-card img {
-    width: auto;
+    width: 176px;
+    height: auto;
     max-height: 176px;
-    max-width: 176px;
 
     align-self: center;
 
