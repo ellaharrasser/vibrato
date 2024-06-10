@@ -32,6 +32,7 @@ function ShopDetailsPage() {
             {shop ? <>
                 <div id='shop-info'>
                     <img
+                        className='shop-image'
                         src={shop.image}
                         alt='Shop Image'
                     />
@@ -56,11 +57,11 @@ function ShopDetailsPage() {
                         </div>
                     )}
                 </div>
-                {products && <ul className='products-list'>
+                <ul className='products-list'>
                     {getValues(products).map(product => (
                         <ProductCard product={product} key={product.id} />
                     ))}
-                </ul>}
+                </ul>
             </> : <h1>{dataLoaded ? 'No Shop Found...' : 'Loading...'}</h1>}
         </main>
     );
