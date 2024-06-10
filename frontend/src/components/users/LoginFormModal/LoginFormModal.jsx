@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { thunkLogin } from '../../../redux/session';
 import { useModal } from '../../../context/Modal';
-import './LoginForm.css';
+import './LoginFormModal.css';
 
 function LoginFormModal() {
   const dispatch = useDispatch();

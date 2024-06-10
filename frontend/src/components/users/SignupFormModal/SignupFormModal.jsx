@@ -15,7 +15,9 @@ function SignupFormModal() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [profileImage, setProfileImage] = useState(undefined);
+  const [profileImage, setProfileImage] = useState(null);
+  const [file, setFile] = useState(null);
+  const [filename, setFilename] = useState('');
   const [imageLoading, setImageLoading] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -54,7 +56,7 @@ function SignupFormModal() {
       newValidations.description = 'Descriptions must be 255 or fewer characters.';
     }
 
-    if (!profileImage) {
+    if (!file) {
       newValidations.profileImage = 'A profile image is required.';
     }
 
@@ -76,6 +78,25 @@ function SignupFormModal() {
     setValidations(newValidations);
   }, [hasSubmitted, getValidations]);
 
+  // Helper function for generating thumbnail URL and setting image states
+  const fileWrap = (e) => {
+    e.stopPropagation();
+
+    const tempFile = e.target.files[0];
+
+    // Limit image size to 5 Mb
+    if (tempFile.size > 5000000) {
+      setFilename('Image must be less than 5 Mb.');
+      return;
+    }
+
+    // Generate local thumbnail URL
+    const newImageURL = URL.createObjectURL(tempFile);
+    setProfileImage(newImageURL);
+    setFile(tempFile);
+    setFilename(tempFile.name);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -89,7 +110,7 @@ function SignupFormModal() {
     formData.append('email', email);
     formData.append('name', name);
     formData.append('password', password);
-    formData.append('profile_image', profileImage);
+    formData.append('profile_image', file);
     formData.append('description', description);
     setImageLoading(true);
 
@@ -103,92 +124,130 @@ function SignupFormModal() {
 
   return <div id='signup-wrapper'>
     <h1>Sign Up</h1>
-    {errors.server && <p className='server-error'>{errors.server}</p>}
-    <form onSubmit={handleSubmit} encType='multipart/form-data'>
-      <label>
-        Email
+    <form
+      id='signup-form'
+      onSubmit={handleSubmit}
+      encType='multipart/form-data'
+    >
+      <div className='form-item-container'>
+        <div className='form-item-text'>
+          <label htmlFor='email'>Email</label>
+          <span className='form-error'>
+            {validations.email && validations.email
+            || errors.email && errors.email}
+          </span>
+        </div>
         <input
           type='text'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-      </label>
-      {validations.email && (
-        <p className='form-error'>{validations.email}</p>
-      ) || errors.email && (
-        <p className='form-error'>{errors.email}</p>
-      )}
-      <label>
-        Name
+      </div>
+      <div className='form-item-container'>
+        <div className='form-item-text'>
+          <label htmlFor='name'>Name</label>
+          <span className='form-error'>
+            {validations.name && validations.name
+            || errors.name && errors.name}
+          </span>
+        </div>
         <input
+          id='name'
           type='text'
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-      </label>
-      {validations.name && (
-        <p className='form-error'>{validations.name}</p>
-      ) || errors.name && (
-        <p className='form-error'>{errors.name}</p>
-      )}
-      <label>
-        Profile Image
+      </div>
+      <div className='form-item-container' id='image-upload-container'>
+        <div className='form-item-text'>
+          <label htmlFor='profile-image'>Profile Image</label>
+          <span className='form-error'>
+            {validations.profileImage && validations.profileImage
+            || errors.profileImage && errors.profileImage}
+          </span>
+        </div>
+        <label className='image-upload' htmlFor='profile-image'>
+          Upload Image
+        </label>
         <input
+          id='profile-image'
           type='file'
           accept='image/*'
-          onChange={(e) => setProfileImage(e.target.files[0])}
+          onChange={fileWrap}
         />
-      </label>
+        <img
+          className='image-upload-thumbnail'
+          src={profileImage}
+        />
+        <span className='filename'>{filename || 'No file selected.'}</span>
+      </div>
       {errors.profileImage && (
         <p className='form-error'>{errors.profileImage}</p>
       )}
-      <p className='image-loading'>
-        {imageLoading ? 'Loading...' : ''}
-      </p>
-      <label>
-        Description
+      <div className='form-item-container'>
+        <div className='form-item-text'>
+          <label htmlFor='description'>Description</label>
+          <span className='form-error'>
+            {validations.description && validations.description
+            || errors.description && errors.description}
+          </span>
+        </div>
+      </div>
+      <textarea
+        id='description'
+        type='text'
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <div className='form-item-container'>
+        <div className='form-item-text'>
+          <label htmlFor='password'>Password</label>
+          <span className='form-error'>
+            {validations.password && validations.password
+            || errors.password && errors.password}
+          </span>
+        </div>
         <input
-          type='text'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </label>
-      {validations.description && (
-        <p className='form-error'>{validations.description}</p>
-      ) || errors.description && (
-        <p className='form-error'>{errors.description}</p>
-      )}
-      <label>
-        Password
-        <input
+          id='password'
           type='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-      </label>
-      {validations.password && (
-        <p className='form-error'>{validations.password}</p>
-      ) || errors.password && (
-        <p className='form-error'>{errors.password}</p>
-      )}
-      <label>
-        Confirm Password
+      </div>
+      <div className='form-item-container'>
+        <div className='form-item-text'>
+          <label htmlFor='confirm-password'>Confirm Password</label>
+          <span className='form-error'>
+            {validations.confirmPassword && validations.confirmPassword}
+          </span>
+        </div>
         <input
+          id='confirm-password'
           type='password'
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-      </label>
-      {validations.confirmPassword && (
-        <p className='form-error'>{validations.confirmPassword}</p>
-      )}
-      <button
-        type='submit'
-        className={submitClass}
-        disabled={submitDisabled}
-      >
-        Sign Up
-      </button>
+      </div>
+      {errors.server && <p className='server-error'>{errors.server}</p>}
+      <div className='buttons-container'>
+        <button
+          type='submit'
+          className={submitClass}
+          disabled={submitDisabled}
+        >
+          Sign Up
+        </button>
+        <button
+          type='button'
+          className='cancel-button'
+          onClick={closeModal}
+        >
+          Cancel
+        </button>
+      <p className='image-loading'>
+        {imageLoading && 'Loading...'}
+      </p>
+      </div>
     </form>
   </div>
 }

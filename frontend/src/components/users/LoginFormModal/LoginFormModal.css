@@ -59,7 +59,7 @@
     font-weight: 500;
 }
 
-#login-form-wrapper .buttons-container {
+#login-wrapper .buttons-container {
     width: 100%;
 
     align-self: center;
@@ -70,8 +70,8 @@
     gap: 10px;
 }
 
-#login-form-wrapper .submit,
-#login-form-wrapper .cancel-button {
+#login-wrapper .submit,
+#login-wrapper .cancel-button {
     height: 40px;
 
     flex: 1;
@@ -86,22 +86,22 @@
     transition: all 75ms ease-in-out;
 }
 
-#login-form-wrapper .submit {
+#login-wrapper .submit {
     background-color: var(--cyan-l);
     border: 2px solid var(--cyan-m);
 }
 
-#login-form-wrapper .submit:hover {
+#login-wrapper .submit:hover {
     background-color: var(--cyan-m);
     border: 2px solid var(--cyan-d);
 }
 
-#login-form-wrapper .cancel-button {
+#login-wrapper .cancel-button {
     background-color: var(--grey-l);
     border: 2px solid var(--grey-m);
 }
 
-#login-form-wrapper .cancel-button:hover {
+#login-wrapper .cancel-button:hover {
     background-color: var(--grey-m);
     border: 2px solid var(--grey-d);
 }

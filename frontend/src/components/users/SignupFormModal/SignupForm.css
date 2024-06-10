@@ -1,0 +1,131 @@
+#signup-wrapper {
+    padding: 20px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 10px;
+
+    background-color: var(--white-l);
+    border: 2px solid var(--d-grey-d);
+    border-radius: 10px;
+    overflow: clip;
+}
+
+#signup-wrapper h1 {
+    margin: 20px 0px;
+
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: 700;
+}
+
+#signup-form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+}
+
+#signup-form .form-error {
+    height: 1rem;
+    margin: 0;
+
+    color: var(--red-m);
+    font-size: 1rem;
+    line-height: 1rem;
+}
+
+#signup-form .form-item-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#signup-form .form-item-container {
+    min-width: 40ch;
+    width: 100%;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+#signup-form .form-item-container label {
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+    font-weight: 500;
+}
+
+#signup-form #image-upload-container input[type='file'] {
+    display: none;
+}
+
+#signup-form #image-upload-container .image-upload {
+    padding: 2.5px;
+
+    display: inline-flex;
+    justify-content: center;
+
+    cursor: pointer;
+    border: 1px solid var(--grey-l);
+    border-radius: 2.5px;
+
+    font-size: 1rem;
+    line-height: 1rem;
+}
+
+#signup-form .image-upload-thumbnail {
+    height: auto;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+#signup-wrapper .buttons-container {
+    width: 100%;
+
+    align-self: center;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#signup-wrapper .submit,
+#signup-wrapper .cancel-button {
+    height: 40px;
+
+    flex: 1;
+
+    cursor: pointer;
+    color: white;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    border-radius: 5px;
+
+    transition: all 75ms ease-in-out;
+}
+
+#signup-wrapper .submit {
+    background-color: var(--cyan-l);
+    border: 2px solid var(--cyan-m);
+}
+
+#signup-wrapper .submit:hover {
+    background-color: var(--cyan-m);
+    border: 2px solid var(--cyan-d);
+}
+
+#signup-wrapper .cancel-button {
+    background-color: var(--grey-l);
+    border: 2px solid var(--grey-m);
+}
+
+#signup-wrapper .cancel-button:hover {
+    background-color: var(--grey-m);
+    border: 2px solid var(--grey-d);
+}
