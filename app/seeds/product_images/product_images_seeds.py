@@ -49,4 +49,24 @@ product_images = [
         product_id=12,
         image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
     ),
+    ProductImage(
+        product_id=13,
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+    ),
+    ProductImage(
+        product_id=14,
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+    ),
+    ProductImage(
+        product_id=15,
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+    ),
+    ProductImage(
+        product_id=16,
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+    ),
+    ProductImage(
+        product_id=17,
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+    ),
 ]
