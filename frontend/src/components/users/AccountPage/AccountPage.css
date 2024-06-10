@@ -15,13 +15,13 @@
     border-bottom: 1px solid var(--grey-l);
 }
 
-#my-account {
+#account-page #my-account {
     display: flex;
     flex-flow: column nowrap;
     align-items: start;
 }
 
-#my-account > h1 {
+#account-page #my-account > h1 {
     margin: 40px 0;
 
     font-size: 2rem;
@@ -29,7 +29,7 @@
     font-weight: 700;
 }
 
-#user-info {
+#account-page #user-info {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -40,7 +40,7 @@
     justify-content: start;
 }
 
-#user-info .user-image {
+#account-page #user-info .user-image {
     width: auto;
     max-height: 100px;
 
@@ -48,34 +48,34 @@
     border-radius: 5px;
 }
 
-#user-info .user-info-text {
+#account-page #user-info .user-info-text {
     width: 100%;
     padding: 20px;
 
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: column wrap;
     align-items: start;
     gap: 10px;
 }
 
-#user-info .user-info-text p {
+#account-page #user-info .user-info-text p {
     margin: 0;
 }
 
-#user-info .name-email {
+#account-page #user-info .name-email {
     display: flex;
     flex-flow: row wrap;
     align-items: end;
     gap: 20px;
 }
 
-#user-info .name {
+#account-page #user-info .name {
     font-size: 1.75rem;
     line-height: 1.75rem;
     font-weight: 700;
 }
 
-#user-info .name-email .email {
+#account-page #user-info .name-email .email {
     margin: 0px 0px 0.0625rem; /* Align better with bottom of name */
 
     font-size: 1.5rem;
@@ -84,14 +84,14 @@
     color: var(--grey-d);
 }
 
-#my-shops {
+#account-page #my-shops {
     display: flex;
     flex-flow: column nowrap;
     align-items: start;
 }
 
-#my-shops-header,
-#my-products-header {
+#account-page #my-shops-header,
+#account-page #my-products-header {
     display: flex;
     flex-flow: row nowrap;
     justify-content: start;
@@ -99,8 +99,8 @@
     gap: 20px;
 }
 
-#my-shops-header > h2,
-#my-products-header > h2 {
+#account-page #my-shops-header > h2,
+#account-page #my-products-header > h2 {
     margin: 40px 0;
 
     font-size: 1.625rem;
@@ -108,8 +108,8 @@
     font-weight: 600;
 }
 
-#my-shops-header > a,
-#my-products-header > a {
+#account-page #my-shops-header > a,
+#account-page #my-products-header > a {
     padding: 5px;
 
     color: white;
@@ -124,14 +124,14 @@
     transition: all 75ms ease-in-out;
 }
 
-#my-shops-header > a:hover,
-#my-products-header > a:hover {
+#account-page #my-shops-header > a:hover,
+#account-page #my-products-header > a:hover {
     background-color: var(--cyan-m);
     border: 2px solid var(--cyan-d);
 }
 
-#my-shops-list,
-#my-products-list {
+#account-page #my-shops-list,
+#account-page #my-products-list {
     width: 100%;
     margin: 0;
     padding: 10px;

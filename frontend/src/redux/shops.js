@@ -1,5 +1,7 @@
 // Actions
 
+import { loadProducts } from "./products";
+
 const LOAD_SHOPS = 'shops/loadShops';
 const LOAD_CURRENT_SHOP = 'shops/loadCurrentShop';
 const DELETE_SHOP = 'shops/deleteShop';
@@ -49,6 +51,9 @@ export const thunkLoadCurrentShop = (shopId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         await dispatch(loadCurrentShop(data.shop));
+        const products = {};
+        data.shopProducts.forEach(product => products[product.id] = product);
+        await dispatch(loadProducts(products));
     } else if (response.status < 500) {
         const errors = await response.json();
         return errors;

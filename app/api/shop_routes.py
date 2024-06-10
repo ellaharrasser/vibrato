@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
 
-from ..models import db, Shop
+from ..models import db, Shop, Product
 from ..forms.shop_form import ShopForm, EditShopForm
 from ..utils.aws import get_unique_filename, upload_file_to_s3
 
@@ -33,10 +33,13 @@ def get_shop_by_id(shop_id: int):
     """
     shop = Shop.query.get(shop_id)
 
+    shop_products = Product.query.join(Shop).filter(Shop.id == shop_id).all()
+    shop_products = [shop.to_dict() for shop in shop_products]
+
     if not shop:
         return { 'errors': { 'message': 'Shop not found' } }, 404
 
-    return { 'shop': shop.to_dict() }
+    return { 'shop': shop.to_dict(), 'shopProducts': shop_products }
 
 
 @shop_routes.route('/<shop_id>', methods=['PUT', 'DELETE'])

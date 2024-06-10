@@ -24,9 +24,9 @@ function ProductDetailsPage() {
     const user = useSelector(state => state.session.user);
     const product = useSelector(state => state.products.currentProduct);
 
-    const productPriceText = centsToUSD(product.productPrice);
-    const shippingPriceText = (product.shippingPrice > 0)
-        ? `+ ${centsToUSD(product.shippingPrice)} Shipping`
+    const productPriceText = centsToUSD(product?.productPrice);
+    const shippingPriceText = (product?.shippingPrice > 0)
+        ? `+ ${centsToUSD(product?.shippingPrice)} Shipping`
         : 'Free Shipping';
 
     return (
