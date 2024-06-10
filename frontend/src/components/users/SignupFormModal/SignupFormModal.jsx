@@ -163,7 +163,7 @@ function SignupFormModal() {
           <label htmlFor='profile-image'>Profile Image</label>
           <span className='form-error'>
             {validations.profileImage && validations.profileImage
-            || errors.profileImage && errors.profileImage}
+            || errors.profile_image && errors.profile_image}
           </span>
         </div>
         <label className='image-upload' htmlFor='profile-image'>

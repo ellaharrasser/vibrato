@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useModal } from '../../../context/Modal';
 import { getKeys } from '../../../utils/misc';
+import { validateUSD } from '../../../utils/validate';
 import conditions from '../../../utils/conditions';
 import { thunkEditProduct, thunkLoadCurrentProduct, thunkLoadUserProducts } from '../../../redux/products';
 import './EditProductModal.css';
@@ -69,6 +70,12 @@ function EditProductModal({ product }) {
 
         if (!productPrice) {
             newValidations.productPrice = 'A product price is required.';
+        } if (!validateUSD(productPrice)) {
+            newValidations.productPrice = 'The product price format is invalid.';
+        }
+
+        if (!validateUSD(shippingPrice)) {
+            newValidations.shippingPrice = 'The shipping price format is invalid.';
         }
 
         if (+quantity <= 0) {
@@ -76,7 +83,10 @@ function EditProductModal({ product }) {
         }
 
         return newValidations;
-    }, [name, brand, category, condition, description, productPrice, quantity]);
+    }, [
+        name, brand, category, condition, description, productPrice,
+        shippingPrice, quantity,
+    ]);
 
     useEffect(() => {
         // Prevent validations until initial submission
@@ -103,8 +113,8 @@ function EditProductModal({ product }) {
         formData.append('category', category);
         formData.append('condition', condition);
         formData.append('description', description);
-        formData.append('product_price', +productPrice);
-        formData.append('shipping_price', +shippingPrice);
+        formData.append('product_price', +productPrice * 100);
+        formData.append('shipping_price', +shippingPrice * 100);
         formData.append('quantity', +quantity);
 
         const serverResponse = await dispatch(
@@ -213,7 +223,7 @@ function EditProductModal({ product }) {
                     <label htmlFor='productPrice'>Product Price</label>
                     <p className='form-error'>
                         {validations.productPrice && validations.productPrice
-                        || errors.productPrice && errors.productPrice}
+                        || errors.product_price && errors.product_price}
                     </p>
                 </div>
                 <input
@@ -228,7 +238,7 @@ function EditProductModal({ product }) {
                     <label htmlFor='shippingPrice'>Shipping Price</label>
                     <p className='form-error'>
                         {validations.shippingPrice && validations.shippingPrice
-                        || errors.shippingPrice && errors.shippingPrice}
+                        || errors.shipping_price && errors.shipping_price}
                     </p>
                 </div>
                 <input

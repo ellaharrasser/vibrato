@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getKeys, getValues } from '../../../utils/misc';
+import { validateUSD } from '../../../utils/validate';
 import conditions from '../../../utils/conditions';
 import { thunkLoadUserShops } from '../../../redux/shops';
 import { thunkNewProduct } from '../../../redux/products';
@@ -94,7 +95,17 @@ function NewProductForm() {
             newValidations.description = 'Descriptions must be 255 or fewer characters.';
         }
 
-        if (+quantity <= 0) {
+        if (!productPrice) {
+            newValidations.productPrice = 'A product price is required.';
+        } else if (!validateUSD(productPrice)) {
+            newValidations.productPrice = 'The product price format is invalid.';
+        }
+
+        if (!validateUSD(shippingPrice)) {
+            newValidations.shippingPrice = 'The shipping price format is invalid.';
+        }
+
+        if (quantity <= 0) {
             newValidations.quantity = 'A quantity must be 1 or more';
         }
 
@@ -105,7 +116,10 @@ function NewProductForm() {
         // TODO: Add image validations
 
         return newValidations;
-    }, [shopId, name, brand, category, condition, description, quantity, file]);
+    }, [
+        shopId, name, brand, category, condition, description, productPrice,
+        shippingPrice, quantity, file
+    ]);
 
     useEffect(() => {
         if (!hasSubmitted) return; // Prevent validations until initial submission
@@ -153,8 +167,8 @@ function NewProductForm() {
         formData.append('category', category);
         formData.append('condition', condition);
         formData.append('description', description);
-        formData.append('product_price', +productPrice);
-        formData.append('shipping_price', +shippingPrice);
+        formData.append('product_price', +productPrice * 100);
+        formData.append('shipping_price', +shippingPrice * 100);
         formData.append('quantity', +quantity);
         formData.append('image_1', file);
         // image2 && formData.append('image_2', image2);
@@ -287,7 +301,7 @@ function NewProductForm() {
                         <label htmlFor='productPrice'>Product Price</label>
                         <p className='form-error'>
                             {validations.productPrice && validations.productPrice
-                            || errors.productPrice && errors.productPrice}
+                            || errors.product_price && errors.product_price}
                         </p>
                     </div>
                     <input
@@ -302,7 +316,7 @@ function NewProductForm() {
                         <label htmlFor='shippingPrice'>Shipping Price</label>
                         <p className='form-error'>
                             {validations.shippingPrice && validations.shippingPrice
-                            || errors.shippingPrice && errors.shippingPrice}
+                            || errors.shipping_price && errors.shipping_price}
                         </p>
                     </div>
                     <input
