@@ -190,7 +190,7 @@ function SignupFormModal() {
           </span>
         </div>
       </div>
-      <textarea
+      <input
         id='description'
         type='text'
         value={description}

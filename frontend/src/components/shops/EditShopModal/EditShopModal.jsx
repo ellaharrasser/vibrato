@@ -107,7 +107,7 @@ function EditShopModal({ shop }) {
                             || errors.description && errors.description}
                         </span>
                     </div>
-                    <textarea
+                    <input
                         id='description'
                         type='text'
                         value={description}
