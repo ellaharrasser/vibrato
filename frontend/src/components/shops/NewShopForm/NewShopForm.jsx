@@ -84,50 +84,60 @@ function NewShopForm() {
         }
     };
 
-    return (
-        <main id='new-shop-page'>
-            <h1>Create a Shop</h1>
-            {errors.server && <p className='server-error'>{errors.server}</p>}
-            <form onSubmit={handleSubmit} encType='multipart/form-data'>
-                <div className='form-item-container'>
+    return <main id='new-shop-page'>
+        <h1>Create a Shop</h1>
+        <form
+            id='new-product-form'
+            onSubmit={handleSubmit}
+            encType='multipart/form-data'
+        >
+            <div className='form-item-container'>
+                <div className='form-item-text'>
                     <label htmlFor='name'>Name</label>
                     <p className='form-error'>
                         {validations.name && validations.name
                         || errors.name && errors.name}
                     </p>
-                    <input
-                        id='name'
-                        type='text'
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
                 </div>
-                <div className='form-item-container'>
+                <input
+                    id='name'
+                    type='text'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </div>
+            <div className='form-item-container'>
+                <div className='form-item-text'>
                     <label htmlFor='description'>Description</label>
                     <p className='form-error'>
                         {validations.description && validations.description
                         || errors.description && errors.description}
                     </p>
-                    <input
-                        id='description'
-                        type='text'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
                 </div>
-                <div className='form-item-container'>
+                <input
+                    id='description'
+                    type='text'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+            </div>
+            <div className='form-item-container'>
+                <div className='form-item-text'>
                     <label htmlFor='image'>Image</label>
                     <p className='form-error'>
                         {validations.image && validations.image
                         || errors.image && errors.image}
                     </p>
-                    <input
-                        id='image'
-                        type='file'
-                        accept='image/*'
-                        onChange={(e) => setImage(e.target.files[0])}
-                    />
                 </div>
+                <input
+                    id='image'
+                    type='file'
+                    accept='image/*'
+                    onChange={(e) => setImage(e.target.files[0])}
+                />
+            </div>
+            {errors.server && <p className='server-error'>{errors.server}</p>}
+            <div className='buttons-container'>
                 <button
                     type='submit'
                     className={submitClass}
@@ -135,12 +145,12 @@ function NewShopForm() {
                 >
                     Create Shop
                 </button>
-                <p className='image-loading'>
-                    {imageLoading && 'Loading...'}
-                </p>
-            </form>
-        </main>
-    )
+            </div>
+            <p className='loading'>
+                {imageLoading && 'Loading...'}
+            </p>
+        </form>
+    </main>
 }
 
 export default NewShopForm;

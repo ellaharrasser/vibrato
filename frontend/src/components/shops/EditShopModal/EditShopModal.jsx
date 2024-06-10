@@ -79,14 +79,19 @@ function EditShopModal({ shop }) {
     return (
         <div id='edit-shop-wrapper'>
             <h1>Edit an existing Shop</h1>
-            {errors.server && <p className='server-error'>{errors.server}</p>}
-            <form onSubmit={handleSubmit} encType='multipart/form-data'>
+            <form
+                id='edit-shop-form'
+                onSubmit={handleSubmit}
+                encType='multipart/form-data'
+            >
                 <div className='form-item-container'>
-                    <label htmlFor='name'>Name</label>
-                    <p className='form-error'>
-                        {validations.name && validations.name
-                        || errors.name && errors.name}
-                    </p>
+                    <div className='form-item-text'>
+                        <label htmlFor='name'>Name</label>
+                        <span className='form-error'>
+                            {validations.name && validations.name
+                            || errors.name && errors.name}
+                        </span>
+                    </div>
                     <input
                         id='name'
                         type='text'
@@ -95,25 +100,39 @@ function EditShopModal({ shop }) {
                     />
                 </div>
                 <div className='form-item-container'>
-                    <label htmlFor='description'>Description</label>
-                    <p className='form-error'>
-                        {validations.description && validations.description
-                        || errors.description && errors.description}
-                    </p>
-                    <input
+                    <div className='form-item-text'>
+                        <label htmlFor='description'>Description</label>
+                        <span className='form-error'>
+                            {validations.description && validations.description
+                            || errors.description && errors.description}
+                        </span>
+                    </div>
+                    <textarea
                         id='description'
                         type='text'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
-                <button
-                    type='submit'
-                    className={submitClass}
-                    disabled={submitDisabled}
-                >
-                    Confirm Edits
-                </button>
+                <p className='form-error'>
+                    {errors.server && errors.server}
+                </p>
+                <div className='buttons-container'>
+                    <button
+                        type='submit'
+                        className={submitClass}
+                        disabled={submitDisabled}
+                    >
+                        Confirm Edits
+                    </button>
+                    <button
+                        type='button'
+                        className='cancel-button'
+                        onClick={closeModal}
+                    >
+                        Cancel
+                    </button>
+                </div>
             </form>
         </div>
     );

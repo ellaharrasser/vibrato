@@ -25,10 +25,10 @@ function NewProductForm() {
     const [shippingPrice, setShippingPrice] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [image1, setImage1] = useState(undefined);
-    const [image2, setImage2] = useState(undefined);
-    const [image3, setImage3] = useState(undefined);
-    const [image4, setImage4] = useState(undefined);
-    const [image5, setImage5] = useState(undefined);
+    // const [image2, setImage2] = useState(undefined);
+    // const [image3, setImage3] = useState(undefined);
+    // const [image4, setImage4] = useState(undefined);
+    // const [image5, setImage5] = useState(undefined);
     const [imageLoading, setImageLoading] = useState(false);
 
     const [validations, setValidations] = useState({});
@@ -135,10 +135,10 @@ function NewProductForm() {
         formData.append('shipping_price', +shippingPrice);
         formData.append('quantity', +quantity);
         formData.append('image_1', image1);
-        image2 && formData.append('image_2', image2);
-        image3 && formData.append('image_3', image3);
-        image4 && formData.append('image_4', image4);
-        image5 && formData.append('image_5', image5);
+        // image2 && formData.append('image_2', image2);
+        // image3 && formData.append('image_3', image3);
+        // image4 && formData.append('image_4', image4);
+        // image5 && formData.append('image_5', image5);
         setImageLoading(true);
 
         const serverResponse = await dispatch(thunkNewProduct(formData));
@@ -297,7 +297,7 @@ function NewProductForm() {
                         onChange={(e) => setImage1(e.target.files[0])}
                     />
                 </div>
-                {image1 && <div className='form-item-container form-image'>
+                {/* {image1 && <div className='form-item-container form-image'>
                     <label htmlFor='image-2'>Image</label>
                     <p className='form-error'>
                         {validations.image2 && validations.image2
@@ -348,7 +348,7 @@ function NewProductForm() {
                         accept='image/*'
                         onChange={(e) => setImage5(e.target.files[0])}
                     />
-                </div>}
+                </div>} */}
                 <button
                     type='submit'
                     className={submitClass}

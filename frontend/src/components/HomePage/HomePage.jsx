@@ -19,7 +19,7 @@ function HomePage() {
             <div className='link-container'>
                 <p className='link-label'>LinkedIn:</p>
                 <p
-                    className='dev-link'
+                    className='disabled-dev-link'
                 >
                     Coming Soon
                 </p>

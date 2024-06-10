@@ -10,9 +10,7 @@ function MyProductCard({ product }) {
     const navigate = useNavigate();
 
     return (
-        <li
-            className='my-product-card'
-        >
+        <li className='my-product-card'>
             <div
                 className='my-product-info'
                 onClick={() => navigate(`/products/${product.id}`)}

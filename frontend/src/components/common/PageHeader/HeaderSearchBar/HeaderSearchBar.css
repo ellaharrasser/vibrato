@@ -1,6 +1,8 @@
 #header-search-bar {
     height: 100%;
     flex: 1;
+
+    display: none; /* Disable while unimplemented */
 }
 
 #header-search-bar input {

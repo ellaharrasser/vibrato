@@ -10,9 +10,7 @@ function MyShopCard({ shop }) {
     const navigate = useNavigate();
 
     return (
-        <li
-            className='my-shop-card'
-        >
+        <li className='my-shop-card'>
             <div
                 className='my-shop-info'
                 onClick={() => navigate(`/shops/${shop.id}`)}

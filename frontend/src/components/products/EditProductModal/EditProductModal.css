@@ -13,7 +13,7 @@
 }
 
 #edit-product-wrapper h1 {
-    margin: 20px 0px 0px;
+    margin: 20px 0px;
 
     font-size: 2rem;
     line-height: 2rem;
@@ -25,7 +25,7 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: start;
-    gap: 10px;
+    gap: 20px;
 }
 
 #edit-product-form .form-error {
@@ -37,11 +37,19 @@
     line-height: 1rem;
 }
 
+#edit-product-form .form-item-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 #edit-product-form .form-item-container {
+    min-width: 40ch;
     width: 100%;
 
     display: flex;
-    align-items: center;
+    flex-flow: column nowrap;
+    justify-content: center;
     gap: 5px;
 }
 
@@ -52,7 +60,7 @@
 }
 
 #edit-product-wrapper .buttons-container {
-    width: 80%;
+    width: 100%;
 
     align-self: center;
 

@@ -1,3 +1,7 @@
+#category-nav-bar {
+    display: none; /* Disable while unimplemented */
+}
+
 #category-nav-bar > ul {
     margin: 0;
     padding: 0;

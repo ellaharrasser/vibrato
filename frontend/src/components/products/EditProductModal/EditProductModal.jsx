@@ -127,12 +127,14 @@ function EditProductModal({ product }) {
             onSubmit={handleSubmit}
             encType='multipart/form-data'
         >
-            <p className='form-error'>
-                {validations.name && validations.name
-                || errors.name && errors.name}
-            </p>
             <div className='form-item-container'>
-                <label htmlFor='name'>Name</label>
+                <div className='form-item-text'>
+                    <label htmlFor='name'>Name</label>
+                    <p className='form-error'>
+                        {validations.name && validations.name
+                        || errors.name && errors.name}
+                    </p>
+                </div>
                 <input
                     id='name'
                     type='text'
@@ -140,12 +142,14 @@ function EditProductModal({ product }) {
                     onChange={(e) => setName(e.target.value)}
                 />
             </div>
-            <p className='form-error'>
-                {validations.brand && validations.brand
-                || errors.brand && errors.brand}
-            </p>
             <div className='form-item-container'>
-                <label htmlFor='brand'>Brand</label>
+                <div className='form-item-text'>
+                    <label htmlFor='brand'>Brand</label>
+                    <p className='form-error'>
+                        {validations.brand && validations.brand
+                        || errors.brand && errors.brand}
+                    </p>
+                </div>
                 <input
                     id='brand'
                     type='text'
@@ -153,12 +157,14 @@ function EditProductModal({ product }) {
                     onChange={(e) => setBrand(e.target.value)}
                 />
             </div>
-            <p className='form-error'>
-                {validations.category && validations.category
-                || errors.category && errors.category}
-            </p>
             <div className='form-item-container'>
-                <label htmlFor='category'>Category</label>
+                <div className='form-item-text'>
+                    <label htmlFor='category'>Category</label>
+                    <p className='form-error'>
+                        {validations.category && validations.category
+                        || errors.category && errors.category}
+                    </p>
+                </div>
                 <input
                     id='category'
                     type='text'
@@ -166,12 +172,14 @@ function EditProductModal({ product }) {
                     onChange={(e) => setCategory(e.target.value)}
                 />
             </div>
-            <p className='form-error'>
-                {validations.condition && validations.condition
-                || errors.condition && errors.condition}
-            </p>
             <div className='form-item-container'>
-                <label htmlFor='condition'>Condition</label>
+                <div className='form-item-text'>
+                    <label htmlFor='condition'>Condition</label>
+                    <p className='form-error'>
+                        {validations.condition && validations.condition
+                        || errors.condition && errors.condition}
+                    </p>
+                </div>
                 <select
                     id='condition'
                     value={condition}
@@ -185,12 +193,14 @@ function EditProductModal({ product }) {
                     ))}
                 </select>
             </div>
-            <p className='form-error'>
-                {validations.description && validations.description
-                || errors.description && errors.description}
-            </p>
             <div className='form-item-container'>
-                <label htmlFor='description'>Description</label>
+                <div className='form-item-text'>
+                    <label htmlFor='description'>Description</label>
+                    <p className='form-error'>
+                        {validations.description && validations.description
+                        || errors.description && errors.description}
+                    </p>
+                </div>
                 <input
                     id='description'
                     type='text'
@@ -198,12 +208,14 @@ function EditProductModal({ product }) {
                     onChange={(e) => setDescription(e.target.value)}
                 />
             </div>
-            <p className='form-error'>
-                {validations.productPrice && validations.productPrice
-                || errors.productPrice && errors.productPrice}
-            </p>
             <div className='form-item-container'>
-                <label htmlFor='productPrice'>Product Price</label>
+                <div className='form-item-text'>
+                    <label htmlFor='productPrice'>Product Price</label>
+                    <p className='form-error'>
+                        {validations.productPrice && validations.productPrice
+                        || errors.productPrice && errors.productPrice}
+                    </p>
+                </div>
                 <input
                     id='productPrice'
                     type='number'
@@ -211,12 +223,14 @@ function EditProductModal({ product }) {
                     onChange={(e) => setProductPrice(e.target.value)}
                 />
             </div>
-            <p className='form-error'>
-                {validations.shippingPrice && validations.shippingPrice
-                || errors.shippingPrice && errors.shippingPrice}
-            </p>
             <div className='form-item-container'>
-                <label htmlFor='shippingPrice'>Shipping Price</label>
+                <div className='form-item-text'>
+                    <label htmlFor='shippingPrice'>Shipping Price</label>
+                    <p className='form-error'>
+                        {validations.shippingPrice && validations.shippingPrice
+                        || errors.shippingPrice && errors.shippingPrice}
+                    </p>
+                </div>
                 <input
                     id='shippingPrice'
                     type='number'
@@ -224,12 +238,14 @@ function EditProductModal({ product }) {
                     onChange={(e) => setShippingPrice(e.target.value)}
                 />
             </div>
-            <p className='form-error'>
-                {validations.quantity && validations.quantity
-                || errors.quantity && errors.quantity}
-            </p>
             <div className='form-item-container'>
-                <label htmlFor='quantity'>Quantity</label>
+                <div className='form-item-text'>
+                    <label htmlFor='quantity'>Quantity</label>
+                    <p className='form-error'>
+                        {validations.quantity && validations.quantity
+                        || errors.quantity && errors.quantity}
+                    </p>
+                </div>
                 <input
                     id='quantity'
                     type='number'
@@ -237,6 +253,9 @@ function EditProductModal({ product }) {
                     onChange={(e) => setQuantity(e.target.value)}
                 />
             </div>
+            <p className='form-error'>
+                {errors.server && errors.server}
+            </p>
             <div className='buttons-container'>
                 <button
                     type='submit'

@@ -32,7 +32,7 @@
     line-height: 100%;
 }
 
-#home-page footer .link-container {
+#home-page .link-container {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -40,11 +40,11 @@
     gap: 5px;
 }
 
-#home-page footer .link-label {
+#home-page .link-label {
     margin: 0;
 }
 
-#home-page footer .dev-link {
+#home-page .dev-link {
     margin: 0;
 
     color: black;
@@ -58,6 +58,18 @@
     transition: all 75ms ease-in-out;
 }
 
-#home-page footer .dev-link:hover {
+#home-page .dev-link:hover {
     color: var(--cyan-d);
+}
+
+#home-page .disabled-dev-link {
+    margin: 0;
+
+    color: black;
+    text-decoration: none;
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+    font-weight: 500;
+
+    cursor: not-allowed;
 }
