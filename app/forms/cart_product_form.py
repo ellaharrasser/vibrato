@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import IntegerField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms.validators import InputRequired, NumberRange
 
 
 class CartProductForm(FlaskForm):
     quantity = IntegerField(
         'Quantity',
-        validators=[DataRequired(), NumberRange(min=1)]
+        validators=[InputRequired(), NumberRange(min=1)]
     )

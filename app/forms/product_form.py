@@ -1,46 +1,46 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import IntegerField, StringField, FileField
-from wtforms.validators import DataRequired, Length, NumberRange
+from wtforms.validators import InputRequired, Length, NumberRange, AnyOf
 
 from ..utils.aws import ALLOWED_EXTENSIONS
 from ..utils.conditions import CONDITIONS
 
 
 class ProductForm(FlaskForm):
-    user_id = IntegerField('User ID', validators=[DataRequired()])
-    shop_id = IntegerField('Shop ID', validators=[DataRequired()])
+    user_id = IntegerField('User ID', validators=[InputRequired()])
+    shop_id = IntegerField('Shop ID', validators=[InputRequired()])
     name = StringField(
         'Name',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     brand = StringField(
         'Brand',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     category = StringField(
         'Brand',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     condition = StringField(
         'Brand',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), AnyOf(CONDITIONS)]
     )
     description = StringField(
         'Description',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     product_price = IntegerField(
         'Price',
-        validators=[DataRequired(), NumberRange(min=100)]
+        validators=[InputRequired(), NumberRange(min=100)]
     )
     shipping_price = IntegerField(
         'Shipping Price',
-        validators=[DataRequired(), NumberRange(min=0)]
+        validators=[InputRequired(), NumberRange(min=0)]
     )
     quantity = IntegerField(
         'Quantity',
-        validators=[DataRequired(), NumberRange(min=0)]
+        validators=[InputRequired(), NumberRange(min=0)]
     )
     # One image is required, 4 extras are optional
     image_1 = FileField(
@@ -57,33 +57,33 @@ class ProductForm(FlaskForm):
 class EditProductForm(FlaskForm):
     name = StringField(
         'Name',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     brand = StringField(
         'Brand',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     category = StringField(
         'Brand',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     condition = StringField(
         'Brand',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), AnyOf(CONDITIONS)]
     )
     description = StringField(
         'Description',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     product_price = IntegerField(
         'Price',
-        validators=[DataRequired(), NumberRange(min=100)]
+        validators=[InputRequired(), NumberRange(min=100)]
     )
     shipping_price = IntegerField(
         'Shipping Price',
-        validators=[DataRequired(), NumberRange(min=0)]
+        validators=[InputRequired(), NumberRange(min=0)]
     )
     quantity = IntegerField(
         'Quantity',
-        validators=[DataRequired(), NumberRange(min=0)]
+        validators=[InputRequired(), NumberRange(min=0)]
     )
