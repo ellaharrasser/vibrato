@@ -38,6 +38,9 @@ Migrate(app, db)
 # Application Security
 CORS(app)
 
+# Global CSRF Protection
+csrf = CSRFProtect()
+csrf.init_app(app)
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.
