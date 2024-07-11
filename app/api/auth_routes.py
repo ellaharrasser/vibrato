@@ -75,6 +75,7 @@ def sign_up():
 
         login_user(user)
         return user.to_dict()
+
     return form.errors, 400
 
 

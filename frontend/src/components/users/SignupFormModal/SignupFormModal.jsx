@@ -5,7 +5,7 @@ import { useModal } from '../../../context/Modal';
 import { getKeys } from '../../../utils/misc';
 import { validateEmail } from '../../../utils/validate';
 import { thunkSignup } from '../../../redux/session';
-import './SignupForm.css';
+import './SignupFormModal.css';
 
 
 function SignupFormModal() {
@@ -128,6 +128,7 @@ function SignupFormModal() {
       id='signup-form'
       onSubmit={handleSubmit}
       encType='multipart/form-data'
+      method='post'
     >
       <div className='form-item-container'>
         <div className='form-item-text'>

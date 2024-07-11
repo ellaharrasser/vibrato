@@ -1,17 +1,17 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import IntegerField, StringField, FileField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import InputRequired, Length
 
 from ..utils.aws import ALLOWED_EXTENSIONS
 
 
 class ShopForm(FlaskForm):
-    owner_id = IntegerField('Owner ID', validators=[DataRequired()])
-    name = StringField('Name', validators=[DataRequired(), Length(max=255)])
+    owner_id = IntegerField('Owner ID', validators=[InputRequired()])
+    name = StringField('Name', validators=[InputRequired(), Length(max=255)])
     description = StringField(
         'Description',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     image = FileField(
         'Image',
@@ -19,10 +19,10 @@ class ShopForm(FlaskForm):
     )
 
 class EditShopForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(max=255)])
+    name = StringField('Name', validators=[InputRequired(), Length(max=255)])
     description = StringField(
         'Description',
-        validators=[DataRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=255)]
     )
     image = FileField(
         'Image',

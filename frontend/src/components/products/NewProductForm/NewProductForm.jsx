@@ -101,7 +101,7 @@ function NewProductForm() {
             newValidations.productPrice = 'The product price format is invalid.';
         }
 
-        if (!validateUSD(shippingPrice)) {
+        if (shippingPrice > 0 && !validateUSD(shippingPrice)) {
             newValidations.shippingPrice = 'The shipping price format is invalid.';
         }
 
