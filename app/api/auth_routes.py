@@ -60,7 +60,7 @@ def sign_up():
         upload = upload_file_to_s3(profile_image)
 
         if 'url' not in upload: # Check for errors while uploading
-            form.errors['geogre'] = 'bush'
+            print('error reaching here')
             return form.errors, 400
 
         user = User(
@@ -76,6 +76,8 @@ def sign_up():
 
         login_user(user)
         return user.to_dict()
+
+    print('error reaching here')
     return form.errors, 400
 
 
