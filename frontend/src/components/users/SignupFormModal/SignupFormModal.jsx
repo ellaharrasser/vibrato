@@ -5,7 +5,7 @@ import { useModal } from '../../../context/Modal';
 import { getKeys } from '../../../utils/misc';
 import { validateEmail } from '../../../utils/validate';
 import { thunkSignup } from '../../../redux/session';
-import './SignupForm.css';
+import './SignupFormModal.css';
 
 
 function SignupFormModal() {
@@ -190,13 +190,13 @@ function SignupFormModal() {
             || errors.description && errors.description}
           </span>
         </div>
+        <input
+          id='description'
+          type='text'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
       </div>
-      <input
-        id='description'
-        type='text'
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
       <div className='form-item-container'>
         <div className='form-item-text'>
           <label htmlFor='password'>Password</label>
