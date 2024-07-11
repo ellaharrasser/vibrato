@@ -1,6 +1,6 @@
 .my-shop-card {
     width: 200px;
-    padding: 10px;
+    padding: 10px 10px 20px;
 
     display: flex;
     flex-flow: column nowrap;
@@ -11,6 +11,17 @@
 
     border: 2px solid var(--d-grey-d);
     border-radius: 10px;
+
+    transition: all 125ms ease-in-out;
+}
+
+.my-shop-card:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4), 0 -15px 10px -5px rgba(105, 221, 194, 0.7) inset;
+    transform: scale(1.01);
+
+    :is(img) {
+        transform: scale(1.01);
+    }
 }
 
 .my-shop-info {
@@ -64,13 +75,14 @@
 }
 
 .my-shop-actions > button {
+    margin-top: 10px;
     flex: 1;
 
     cursor: pointer;
 
     color: white;
-    font-size: 1.25rem;
-    line-height: 1.25rem;
+    font-size: 1rem;
+    line-height: 1rem;
     font-weight: 500;
 
     transition: all 75ms ease-in-out;
