@@ -60,7 +60,7 @@ function ProfileButton({ user }) {
           {user && (
             <>
               <li>
-                <NavLink to={`/users/${user.id}`}>My Profile</NavLink>
+                <NavLink to={`/users/${user.id}`}>My Account</NavLink>
               </li>
               <li onClick={logout}>Log Out</li>
             </>

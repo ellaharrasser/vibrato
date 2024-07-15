@@ -5,7 +5,7 @@ import { useModal } from '../../../context/Modal';
 import { getKeys, endsWithOne, imageSuffixes } from '../../../utils/misc';
 import { validateUSD } from '../../../utils/validate';
 import conditions from '../../../utils/conditions';
-import { thunkEditProduct, thunkLoadCurrentProduct, thunkLoadUserProducts } from '../../../redux/products';
+import { thunkEditProduct, thunkLoadUserProducts } from '../../../redux/products';
 import './EditProductModal.css';
 
 
@@ -157,8 +157,6 @@ function EditProductModal({ product }) {
         );
 
         if (serverResponse.product) {
-            dispatch(thunkLoadUserProducts(user));
-            dispatch(thunkLoadCurrentProduct(product.id));
             closeModal();
         } else if (serverResponse) {
             setErrors(serverResponse);

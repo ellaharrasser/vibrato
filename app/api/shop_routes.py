@@ -64,6 +64,16 @@ def shop_by_id(shop_id: int):
             shop.name = form.data['name']
             shop.description = form.data['description']
 
+            if form.data['image']: # Only edit image if form sent new data
+                image = form.data['image']
+                image.filename = get_unique_filename(image.filename)
+                upload = upload_file_to_s3(image)
+
+                if 'url' not in upload: # Check for errors while uploading
+                    return form.errors, 400
+
+                shop.image = upload['url']
+
             db.session.commit()
             return shop.to_dict()
 

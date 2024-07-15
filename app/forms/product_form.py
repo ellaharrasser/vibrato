@@ -88,5 +88,5 @@ class EditProductForm(FlaskForm):
         validators=[InputRequired(), NumberRange(min=0)]
     )
     image_1 = FileField(
-        validators=[FileAllowed(ALLOWED_EXTENSIONS)]
+        validators=[FileAllowed(list(ALLOWED_EXTENSIONS))]
     )

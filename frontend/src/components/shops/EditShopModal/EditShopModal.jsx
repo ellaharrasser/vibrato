@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useModal } from '../../../context/Modal';
-import { getKeys } from '../../../utils/misc';
-import { thunkEditShop } from '../../../redux/shops';
+import { getKeys, endsWithOne, imageSuffixes } from '../../../utils/misc';
+import { thunkEditShop, thunkLoadUserShops } from '../../../redux/shops';
 import './EditShopModal.css';
 
 
@@ -11,8 +11,14 @@ function EditShopModal({ shop }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
+    const user = useSelector(state => state.session.user);
+
     const [name, setName] = useState(shop.name);
     const [description, setDescription] = useState(shop.description);
+    const [image, setImage] = useState(undefined);
+    const [file, setFile] = useState(null);
+    const [filename, setFilename] = useState('');
+    const [imageLoading, setImageLoading] = useState(false);
 
     const [validations, setValidations] = useState({});
     const [errors, setErrors] = useState({});
@@ -42,8 +48,12 @@ function EditShopModal({ shop }) {
             newValidations.description = 'Descriptions must be 255 or fewer characters.';
         }
 
+        if (file && !endsWithOne(filename, imageSuffixes)) {
+            newValidations.image = 'An image must be a pdf, png, jpg, jpeg, or gif.'
+        }
+
         return newValidations;
-    }, [name, description]);
+    }, [name, description, file, filename]);
 
     useEffect(() => {
         if (!hasSubmitted) return; // Prevent validations until initial submission
@@ -51,6 +61,25 @@ function EditShopModal({ shop }) {
         setValidations(newValidations);
         setSubmitDisabledStatus(getKeys(newValidations).length);
     }, [hasSubmitted, getValidations]);
+
+    // Helper function for generating thumbnail URL and setting image states
+        const fileWrap = (e) => {
+        e.stopPropagation();
+
+        const tempFile = e.target.files[0];
+
+        // Limit image size to 5 Mb
+        if (tempFile.size > 5000000) {
+            setFilename('Image must be less than 5 Mb.');
+            return;
+        }
+
+        // Generate local thumbnail URL
+        const newImageURL = URL.createObjectURL(tempFile);
+        setImage(newImageURL);
+        setFile(tempFile);
+        setFilename(tempFile.name);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -66,13 +95,18 @@ function EditShopModal({ shop }) {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('description', description);
-        // setImageLoading(true);
+        if (file) formData.append('image', file);
+        setImageLoading(true);
 
-        const serverResponse = await dispatch(thunkEditShop(formData, shop.id));
+        const serverResponse = await dispatch(
+            thunkEditShop(formData, shop.id)
+        );
+
         if (serverResponse.shop) {
             closeModal();
         } else if (serverResponse) {
             setErrors(serverResponse);
+            setImageLoading(false);
         }
     };
 
@@ -114,6 +148,29 @@ function EditShopModal({ shop }) {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
+                <div className='form-item-container' id='image-upload-container'>
+                    <div className='form-item-text'>
+                        <label>Image</label>
+                        <p className='form-error'>
+                            {validations.image && validations.image
+                            || errors.image && errors.image}
+                        </p>
+                    </div>
+                    <label className='image-upload' htmlFor='image'>
+                        Upload Image
+                    </label>
+                    <input
+                        id='image'
+                        type='file'
+                        accept='image/*'
+                        onChange={fileWrap}
+                    />
+                    <img
+                        className='image-upload-thumbnail'
+                        src={image}
+                    />
+                    <span className='filename'>{filename || 'No file selected - image will not be updated.'}</span>
+                </div>
                 <p className='form-error'>
                     {errors.server && errors.server}
                 </p>
@@ -133,6 +190,9 @@ function EditShopModal({ shop }) {
                         Cancel
                     </button>
                 </div>
+                <p className='loading'>
+                    {imageLoading && 'Loading...'}
+                </p>
             </form>
         </div>
     );

@@ -93,7 +93,7 @@ def product_by_id(product_id: int):
                 if 'url' not in upload: # Check for errors while uploading
                     return form.errors, 400
 
-                # Fetch id from
+                # Fetch record id from parent product and replace file
                 product_image_id = product.images[0].to_dict()['id']
                 product_image = ProductImage.query.get(product_image_id)
                 product_image.image = upload['url']

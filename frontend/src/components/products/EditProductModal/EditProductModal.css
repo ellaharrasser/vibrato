@@ -73,8 +73,8 @@
     border: 1px solid var(--grey-l);
     border-radius: 2.5px;
 
-    font-size: 1rem;
-    line-height: 1rem;
+    font-size: 0.875rem;
+    line-height: 0.875rem;
 }
 
 #edit-product-form .image-upload-thumbnail {

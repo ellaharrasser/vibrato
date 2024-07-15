@@ -132,7 +132,7 @@ function NewProductForm() {
         setValidations(newValidations);
     }, [hasSubmitted, getValidations]);
 
-      // Helper function for generating thumbnail URL and setting image states
+    // Helper function for generating thumbnail URL and setting image states
     const fileWrap = (e) => {
         e.stopPropagation();
 
