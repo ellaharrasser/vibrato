@@ -56,6 +56,30 @@
     font-weight: 500;
 }
 
+#new-product-form #image-upload-container input[type='file'] {
+    display: none;
+}
+
+#new-product-form #image-upload-container .image-upload {
+    padding: 2.5px;
+
+    display: inline-flex;
+    justify-content: center;
+
+    cursor: pointer;
+    border: 1px solid var(--grey-l);
+    border-radius: 2.5px;
+
+    font-size: 1rem;
+    line-height: 1rem;
+}
+
+#new-product-form .image-upload-thumbnail {
+    height: auto;
+    max-width: 50px;
+    max-height: 50px;
+}
+
 #new-product-page .buttons-container {
     width: 100%;
 

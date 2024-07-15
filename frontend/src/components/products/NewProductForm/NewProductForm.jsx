@@ -2,7 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getKeys, getValues } from '../../../utils/misc';
+import {
+    getKeys, getValues, endsWithOne, imageSuffixes
+} from '../../../utils/misc';
 import { validateUSD } from '../../../utils/validate';
 import conditions from '../../../utils/conditions';
 import { thunkLoadUserShops } from '../../../redux/shops';
@@ -111,6 +113,8 @@ function NewProductForm() {
 
         if (!file) {
             newValidations.image1 = 'An image is required.';
+        } else if (!endsWithOne(filename, imageSuffixes)) {
+            newValidations.image1 = 'An image must be a pdf, png, jpg, jpeg, or gif.'
         }
 
         // TODO: Add image validations
@@ -118,7 +122,7 @@ function NewProductForm() {
         return newValidations;
     }, [
         shopId, name, brand, category, condition, description, productPrice,
-        shippingPrice, quantity, file
+        shippingPrice, quantity, file, filename
     ]);
 
     useEffect(() => {

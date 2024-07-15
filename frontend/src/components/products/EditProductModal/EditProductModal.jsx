@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useModal } from '../../../context/Modal';
-import { getKeys } from '../../../utils/misc';
+import { getKeys, endsWithOne, imageSuffixes } from '../../../utils/misc';
 import { validateUSD } from '../../../utils/validate';
 import conditions from '../../../utils/conditions';
 import { thunkEditProduct, thunkLoadCurrentProduct, thunkLoadUserProducts } from '../../../redux/products';
@@ -20,15 +20,25 @@ function EditProductModal({ product }) {
     const [category, setCategory] = useState(product.category);
     const [condition, setCondition] = useState(product.condition);
     const [description, setDescription] = useState(product.description);
-    const [productPrice, setProductPrice] = useState(product.productPrice);
-    const [shippingPrice, setShippingPrice] = useState(product.shippingPrice);
+    const [productPrice, setProductPrice] = useState(
+        Math.floor(product.productPrice / 100)
+    );
+    const [shippingPrice, setShippingPrice] = useState(
+        Math.floor(product.shippingPrice / 100)
+    );
     const [quantity, setQuantity] = useState(product.quantity);
+    const [image1, setImage1] = useState(undefined);
+    const [file, setFile] = useState(null);
+    const [filename, setFilename] = useState('');
+    const [imageLoading, setImageLoading] = useState(false);
 
     const [validations, setValidations] = useState({});
     const [errors, setErrors] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [submitDisabled, setSubmitDisabled] = useState(false);
     const [submitClass, setSubmitClass] = useState('submit');
+
+    // const [dataLoaded, setDataLoaded] = useState(false);
 
     const setSubmitDisabledStatus = (disabled) => {
         (disabled)
@@ -82,11 +92,34 @@ function EditProductModal({ product }) {
             newValidations.quantity = 'A quantity must be 1 or more';
         }
 
+        if (file && !endsWithOne(filename, imageSuffixes)) {
+            newValidations.image1 = 'An image must be a pdf, png, jpg, jpeg, or gif.'
+        }
+
         return newValidations;
     }, [
         name, brand, category, condition, description, productPrice,
-        shippingPrice, quantity,
+        shippingPrice, quantity, file, filename,
     ]);
+
+    // Helper function for generating thumbnail URL and setting image states
+    const fileWrap = (e) => {
+        e.stopPropagation();
+
+        const tempFile = e.target.files[0];
+
+        // Limit image size to 5 Mb
+        if (tempFile.size > 5000000) {
+            setFilename('Image must be less than 5 Mb.');
+            return;
+        }
+
+        // Generate local thumbnail URL
+        const newImageURL = URL.createObjectURL(tempFile);
+        setImage1(newImageURL);
+        setFile(tempFile);
+        setFilename(tempFile.name);
+    }
 
     useEffect(() => {
         // Prevent validations until initial submission
@@ -116,6 +149,8 @@ function EditProductModal({ product }) {
         formData.append('product_price', +productPrice * 100);
         formData.append('shipping_price', +shippingPrice * 100);
         formData.append('quantity', +quantity);
+        if (file) formData.append('image_1', file);
+        setImageLoading(true);
 
         const serverResponse = await dispatch(
             thunkEditProduct(formData, product.id)
@@ -127,6 +162,7 @@ function EditProductModal({ product }) {
             closeModal();
         } else if (serverResponse) {
             setErrors(serverResponse);
+            setImageLoading(false);
         }
     };
 
@@ -263,6 +299,29 @@ function EditProductModal({ product }) {
                     onChange={(e) => setQuantity(e.target.value)}
                 />
             </div>
+            <div className='form-item-container' id='image-upload-container'>
+                <div className='form-item-text'>
+                    <label>Image</label>
+                    <p className='form-error'>
+                        {validations.image1 && validations.image1
+                        || errors.image1 && errors.image1}
+                    </p>
+                </div>
+                <label className='image-upload' htmlFor='image-1'>
+                    Upload Image
+                </label>
+                <input
+                    id='image-1'
+                    type='file'
+                    accept='image/*'
+                    onChange={fileWrap}
+                />
+                <img
+                    className='image-upload-thumbnail'
+                    src={image1}
+                />
+                <span className='filename'>{filename || 'No file selected - image will not be updated.'}</span>
+            </div>
             <p className='form-error'>
                 {errors.server && errors.server}
             </p>
@@ -282,6 +341,9 @@ function EditProductModal({ product }) {
                     Cancel
                 </button>
             </div>
+            <p className='loading'>
+                {imageLoading && 'Loading...'}
+            </p>
         </form>
     </div>
 }

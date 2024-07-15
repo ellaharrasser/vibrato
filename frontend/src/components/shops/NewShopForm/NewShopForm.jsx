@@ -108,7 +108,7 @@ function NewShopForm() {
     return <main id='new-shop-page'>
         <h1>Create a Shop</h1>
         <form
-            id='new-product-form'
+            id='new-shop-form'
             onSubmit={handleSubmit}
             encType='multipart/form-data'
         >

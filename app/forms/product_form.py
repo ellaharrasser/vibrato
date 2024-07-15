@@ -87,3 +87,6 @@ class EditProductForm(FlaskForm):
         'Quantity',
         validators=[InputRequired(), NumberRange(min=0)]
     )
+    image_1 = FileField(
+        validators=[FileAllowed(ALLOWED_EXTENSIONS)]
+    )

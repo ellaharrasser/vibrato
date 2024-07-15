@@ -85,6 +85,19 @@ def product_by_id(product_id: int):
             product.shipping_price = form.data['shipping_price']
             product.quantity = form.data['quantity']
 
+            if form.data['image_1']: # Only edit image if form sent new data
+                image = form.data['image_1']
+                image.filename = get_unique_filename(image.filename)
+                upload = upload_file_to_s3(image)
+
+                if 'url' not in upload: # Check for errors while uploading
+                    return form.errors, 400
+
+                # Fetch id from
+                product_image_id = product.images[0].to_dict()['id']
+                product_image = ProductImage.query.get(product_image_id)
+                product_image.image = upload['url']
+
             db.session.commit()
             return product.to_dict()
 

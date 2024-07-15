@@ -17,7 +17,7 @@
     font-weight: 700;
 }
 
-#new-product-form {
+#new-shop-form {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -25,7 +25,7 @@
     gap: 20px;
 }
 
-#new-product-form .form-error {
+#new-shop-form .form-error {
     height: 1rem;
     margin: 0;
 
@@ -34,13 +34,13 @@
     line-height: 1rem;
 }
 
-#new-product-form .form-item-text {
+#new-shop-form .form-item-text {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-#new-product-form .form-item-container {
+#new-shop-form .form-item-container {
     min-width: 40ch;
     max-width: 80ch;
 
@@ -50,17 +50,17 @@
     gap: 5px;
 }
 
-#new-product-form .form-item-container label {
+#new-shop-form .form-item-container label {
     font-size: 1.125rem;
     line-height: 1.125rem;
     font-weight: 500;
 }
 
-#new-product-form #image-upload-container input[type='file'] {
+#new-shop-form #image-upload-container input[type='file'] {
     display: none;
 }
 
-#new-product-form #image-upload-container .image-upload {
+#new-shop-form #image-upload-container .image-upload {
     padding: 2.5px;
 
     display: inline-flex;
@@ -74,7 +74,7 @@
     line-height: 1rem;
 }
 
-#new-product-form .image-upload-thumbnail {
+#new-shop-form .image-upload-thumbnail {
     height: auto;
     max-width: 50px;
     max-height: 50px;

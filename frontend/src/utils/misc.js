@@ -18,3 +18,13 @@ const USDFormatter = Intl.NumberFormat('en-us', {
 export const centsToUSD = (cents) => {
     return USDFormatter.format(cents / 100);
 };
+
+// Utility array / function for validating image file uploads
+export const endsWithOne = (string, suffixArray) => {
+    for (const suffix of suffixArray) {
+        if (string.endsWith(suffix)) return true;
+    }
+    return false;
+};
+
+export const imageSuffixes = ['.pdf', '.png', '.jpg', '.jpeg', '.gif'];
