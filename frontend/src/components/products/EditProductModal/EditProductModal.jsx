@@ -1,19 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { useModal } from '../../../context/Modal';
 import { getKeys, endsWithOne, imageSuffixes } from '../../../utils/misc';
 import { validateUSD } from '../../../utils/validate';
 import conditions from '../../../utils/conditions';
-import { thunkEditProduct, thunkLoadUserProducts } from '../../../redux/products';
+import { thunkEditProduct } from '../../../redux/products';
 import './EditProductModal.css';
 
 
 function EditProductModal({ product }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-
-    const user = useSelector(state => state.session.user);
 
     const [name, setName] = useState(product.name);
     const [brand, setBrand] = useState(product.brand);
