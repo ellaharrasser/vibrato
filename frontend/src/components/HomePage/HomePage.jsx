@@ -1,10 +1,12 @@
 import FeaturedPanel from './FeaturedPanel';
+import NewCarousel from './NewCarousel/NewCarousel';
 import './HomePage.css';
 
 function HomePage() {
     return <main id='home-page'>
         <h1>Welcome!</h1>
         <FeaturedPanel />
+        <NewCarousel />
         <footer>
             <h2>My Links</h2>
             <div className='link-container'>

@@ -2,6 +2,7 @@
 
 const LOAD_PRODUCTS = 'products/loadProducts';
 const LOAD_CURRENT_PRODUCT = 'products/loadCurrentProduct';
+const LOAD_NEW_PRODUCTS = 'products/loadNewProducts';
 const DELETE_PRODUCT = '/products/deleteProduct';
 
 export const loadProducts = (products, count) => {
@@ -19,6 +20,14 @@ export const loadCurrentProduct = (currentProduct) => {
     }
 };
 
+export const loadNewProducts = (products, count) => {
+    return {
+        type: LOAD_NEW_PRODUCTS,
+        products,
+        count,
+    }
+};
+
 export const deleteProduct = (productId) => {
     return {
         type: DELETE_PRODUCT,
@@ -29,7 +38,6 @@ export const deleteProduct = (productId) => {
 // Thunks
 
 export const thunkLoadProducts = (filters) => async (dispatch) => {
-    console.log(filters);
     let url = 'api/products';
     if (filters) {
         if ('excludeUser' in filters) {
@@ -79,6 +87,18 @@ export const thunkLoadCurrentProduct = (productId) => async (dispatch) => {
         return { server: 'Something went wrong. Please try again' };
     }
 };
+
+export const thunkLoadNewProducts = (user) => async (dispatch) => {
+    const url = (user)
+        ? '/api/products?sort_by=newest'
+        : `/api/products?exclude_user_id=${user.id}&sort_by=newest`;
+    const response = await fetch(url);
+
+    if (response.ok) {
+        const data = await response.json();
+        await dispatch(loadNewProducts(data.products));
+    }
+}
 
 export const thunkNewProduct = (product) => async (dispatch) => {
     const response = await fetch('/api/products/new', {
@@ -134,14 +154,30 @@ export const thunkDeleteProduct = (productId) => async (dispatch) => {
 
 // Reducer
 
-const initialState = { products: null, currentProduct: null };
+const initialState = {
+    products: null,
+    productsCount: 0,
+    currentProduct: null,
+    newProducts: null,
+    newProductsCount: 0,
+};
 
 const productsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_PRODUCTS:
-            return { ...state, products: action.products, count: action.count };
+            return {
+                ...state,
+                products: action.products,
+                productsCount: action.count,
+            };
         case LOAD_CURRENT_PRODUCT:
             return { ...state, currentProduct: action.currentProduct };
+        case LOAD_NEW_PRODUCTS:
+            return {
+                ...state,
+                newProducts: action.products,
+                newProductsCount: action.count,
+            };
         case DELETE_PRODUCT: {
             const newState = { ...state };
             if (newState.products) {

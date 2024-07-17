@@ -12,7 +12,7 @@ function ProductsPage() {
 
     const user = useSelector(state => state.session.user);
     const products = useSelector(state => state.products.products);
-    const productCount = useSelector(state => state.products.count);
+    const productsCount = useSelector(state => state.products.productsCount);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ function ProductsPage() {
             {isLoaded ? <>
                 <div className='info'>
                     <h1>All Products</h1>
-                    <p className='count'>{productCount} results</p>
+                    <p className='count'>{productsCount} results</p>
                 </div>
                 <ul>
                     {getValues(products).map(product => (

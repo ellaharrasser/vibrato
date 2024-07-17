@@ -27,7 +27,7 @@ function AccountPage() {
     const products = useSelector(state => state.products.products);
 
     // Fixes rerender issue when editing/deleting products/shops
-    const productCount = useSelector(state => state.products.count);
+    const productsCount = useSelector(state => state.products.productsCount);
     const currentProduct = useSelector(state => state.products.currentProduct);
     const shopsCount = useSelector(state => state.shops.count);
     const currentShop = useSelector(state => state.shops.currentShop);
@@ -35,7 +35,7 @@ function AccountPage() {
     useEffect(() => {
         dispatch(thunkLoadUserProducts(user));
         dispatch(thunkLoadUserShops(user));
-    }, [user, dispatch, productCount, currentProduct, shopsCount, currentShop]);
+    }, [user, dispatch, productsCount, currentProduct, shopsCount, currentShop]);
 
     return (
         <main id='account-page'>

@@ -1,8 +1,9 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
+from sqlalchemy import desc
 
 from ..utils.aws import get_unique_filename, upload_file_to_s3
-from ..models import db, Product, ProductImage, User, Shop
+from ..models import db, Product, ProductImage, User
 from ..forms.product_form import ProductForm, EditProductForm
 
 
@@ -29,6 +30,13 @@ def products(page: int = 1, per_page: int = 20):
     # category = request.args.get('category', type=str)
     # if category:
     #     base_query = base_query.filter_by(category=category)
+
+    sort_by = request.args.get('sort_by', type=str)
+    if sort_by:
+        if sort_by == 'newest':
+            base_query = base_query.order_by(Product.created_at.asc())
+        elif sort_by == 'oldest':
+            base_query = base_query.order_by(Product.created_at.desc())
 
     products_count = base_query.count()
     products_query = base_query.paginate(
