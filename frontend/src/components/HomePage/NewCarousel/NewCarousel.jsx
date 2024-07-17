@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 
 import { thunkLoadNewProducts } from '../../../redux/products';
 import ProductCarouselItem from '../ProductCarouselItem/ProductCarouselItem';
@@ -38,6 +39,16 @@ function NewCarousel() {
         <div id='new-carousel' className='carousel-container'>
             <h2 className='carousel-header'>New Products</h2>
             <ul className='carousel'>
+                <button
+                    type='button'
+                    className='carousel-prev-button'
+                    onClick={clickPrevious}
+                >
+                    <FaAngleLeft style={{
+                        width: '20px',
+                        height: '20px',
+                    }}/>
+                </button>
                 {productsLoaded && carouselProducts.map(product => (
                     <li className='carousel-item-container' key={product.id}>
                         <ProductCarouselItem
@@ -45,17 +56,17 @@ function NewCarousel() {
                         />
                     </li>
                 ))}
+                <button
+                    type='button'
+                    className='carousel-next-button'
+                    onClick={clickNext}
+                >
+                    <FaAngleRight style={{
+                        width: '20px',
+                        height: '20px',
+                    }}/>
+                </button>
             </ul>
-            <button
-                type='button'
-                className='carousel-prev-button'
-                onClick={clickPrevious}
-            ></button>
-            <button
-                type='button'
-                className='carousel-next-button'
-                onClick={clickNext}
-            ></button>
         </div>
     )
 }
