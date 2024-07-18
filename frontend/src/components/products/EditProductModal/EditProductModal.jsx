@@ -36,8 +36,6 @@ function EditProductModal({ product }) {
     const [submitDisabled, setSubmitDisabled] = useState(false);
     const [submitClass, setSubmitClass] = useState('submit');
 
-    // const [dataLoaded, setDataLoaded] = useState(false);
-
     const setSubmitDisabledStatus = (disabled) => {
         (disabled)
           ? setSubmitClass('submit disabled')

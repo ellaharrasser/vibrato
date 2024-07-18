@@ -368,58 +368,6 @@ function NewProductForm() {
                     />
                     <span className='filename'>{filename || 'No file selected.'}</span>
                 </div>
-                {/* {image1 && <div className='form-item-container form-image'>
-                    <label htmlFor='image-2'>Image</label>
-                    <p className='form-error'>
-                        {validations.image2 && validations.image2
-                        || errors.image2 && errors.image2}
-                    </p>
-                    <input
-                        id='image-2'
-                        type='file'
-                        accept='image/*'
-                        onChange={(e) => setImage2(e.target.files[0])}
-                    />
-                </div>}
-                {image2 && <div className='form-item-container form-image'>
-                    <label htmlFor='image-3'>Image</label>
-                    <p className='form-error'>
-                        {validations.image3 && validations.image3
-                        || errors.image3 && errors.image3}
-                    </p>
-                    <input
-                        id='image-3'
-                        type='file'
-                        accept='image/*'
-                        onChange={(e) => setImage3(e.target.files[0])}
-                    />
-                </div>}
-                {image3 && <div className='form-item-container form-image'>
-                    <label htmlFor='image-4'>Image</label>
-                    <p className='form-error'>
-                        {validations.image4 && validations.image4
-                        || errors.image4 && errors.image4}
-                    </p>
-                    <input
-                        id='image4'
-                        type='file'
-                        accept='image/*'
-                        onChange={(e) => setImage4(e.target.files[0])}
-                    />
-                </div>}
-                {image4 && <div className='form-item-container form-image'>
-                    <label htmlFor='image-5'>Image</label>
-                    <p className='form-error'>
-                        {validations.image5 && validations.image5
-                        || errors.image5 && errors.image5}
-                    </p>
-                    <input
-                        id='image-5'
-                        type='file'
-                        accept='image/*'
-                        onChange={(e) => setImage5(e.target.files[0])}
-                    />
-                </div>} */}
                 <p className='server-error'>{errors.server && errors.server}</p>
                 <div className='buttons-container'>
                     <button

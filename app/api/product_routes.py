@@ -14,10 +14,10 @@ product_routes = Blueprint('products', __name__)
 def products(page: int = 1, per_page: int = 20):
     """
     Query for all products with pagination.
-
-    If logged in, excludes returned products belonging to the current user.
     """
     base_query = Product.query
+
+    # Query params
 
     user_id = request.args.get('user_id', type=int)
     if user_id:
