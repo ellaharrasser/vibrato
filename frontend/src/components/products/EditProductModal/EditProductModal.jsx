@@ -18,12 +18,8 @@ function EditProductModal({ product }) {
     const [category, setCategory] = useState(product.category);
     const [condition, setCondition] = useState(product.condition);
     const [description, setDescription] = useState(product.description);
-    const [productPrice, setProductPrice] = useState(
-        Math.floor(product.productPrice / 100)
-    );
-    const [shippingPrice, setShippingPrice] = useState(
-        Math.floor(product.shippingPrice / 100)
-    );
+    const [productPrice, setProductPrice] = useState(product.productPrice / 100);
+    const [shippingPrice, setShippingPrice] = useState(product.shippingPrice / 100);
     const [quantity, setQuantity] = useState(product.quantity);
     const [image1, setImage1] = useState(undefined);
     const [file, setFile] = useState(null);
