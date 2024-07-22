@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     getKeys, getValues, endsWithOne, imageSuffixes
 } from '../../../utils/misc';
-import { validateUSD } from '../../../utils/validate';
+// import { validateUSD } from '../../../utils/validate';
 import conditions from '../../../utils/conditions';
 import { thunkLoadUserShops } from '../../../redux/shops';
 import { thunkNewProduct } from '../../../redux/products';
@@ -95,11 +95,17 @@ function NewProductForm() {
 
         if (!productPrice) {
             newValidations.productPrice = 'A product price is required.';
-        } else if (!validateUSD(productPrice)) {
+        } else if (productPrice < 1) {
+            newValidations.productPrice = 'Product prices must be $1.00 or greater.';
+        } else if (Number.isNaN(productPrice)) {
             newValidations.productPrice = 'The product price format is invalid.';
         }
 
-        if (shippingPrice > 0 && !validateUSD(shippingPrice)) {
+        if (!shippingPrice) {
+            newValidations.shippingPrice = 'A shipping price is required.';
+        } else if (shippingPrice < 0) {
+            newValidations.shippingPrice = 'Shipping prices must be $0.00 or greater.';
+        } else if (Number.isNaN(productPrice)) {
             newValidations.shippingPrice = 'The shipping price format is invalid.';
         }
 
@@ -165,8 +171,8 @@ function NewProductForm() {
         formData.append('category', category);
         formData.append('condition', condition);
         formData.append('description', description);
-        formData.append('product_price', +productPrice * 100);
-        formData.append('shipping_price', +shippingPrice * 100);
+        formData.append('product_price', Number.parseInt(productPrice * 100));
+        formData.append('shipping_price', Number.parseInt(shippingPrice * 100));
         formData.append('quantity', +quantity);
         formData.append('image_1', file);
         setImageLoading(true);
