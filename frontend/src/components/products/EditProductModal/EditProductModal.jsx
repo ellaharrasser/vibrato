@@ -72,18 +72,18 @@ function EditProductModal({ product }) {
 
         if (!productPrice) {
             newValidations.productPrice = 'A product price is required.';
-        } else if (productPrice < 1) {
-            newValidations.productPrice = 'Product prices must be $1.00 or greater.';
         } else if (Number.isNaN(productPrice)) {
             newValidations.productPrice = 'The product price format is invalid.';
+        } else if (productPrice < 1) {
+            newValidations.productPrice = 'Product prices must be $1.00 or greater.';
         }
 
         if (!shippingPrice) {
             newValidations.shippingPrice = 'A shipping price is required.';
-        } else if (shippingPrice < 0) {
-            newValidations.shippingPrice = 'Shipping prices must be $0.00 or greater.';
         } else if (Number.isNaN(productPrice)) {
             newValidations.shippingPrice = 'The shipping price format is invalid.';
+        } else if (shippingPrice < 0) {
+            newValidations.shippingPrice = 'Shipping prices must be $0.00 or greater.';
         }
 
         if (quantity <= 0) {
@@ -144,8 +144,8 @@ function EditProductModal({ product }) {
         formData.append('category', category);
         formData.append('condition', condition);
         formData.append('description', description);
-        formData.append('product_price', Number.parseInt(productPrice * 100));
-        formData.append('shipping_price', Number.parseInt(shippingPrice * 100));
+        formData.append('product_price', Math.round(productPrice * 100));
+        formData.append('shipping_price', Math.round(shippingPrice * 100));
         formData.append('quantity', +quantity);
         if (file) formData.append('image_1', file);
         setImageLoading(true);
