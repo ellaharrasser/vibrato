@@ -30,10 +30,6 @@ function NewProductForm() {
     const [image1, setImage1] = useState(undefined);
     const [file, setFile] = useState(null);
     const [filename, setFilename] = useState('');
-    // const [image2, setImage2] = useState(undefined);
-    // const [image3, setImage3] = useState(undefined);
-    // const [image4, setImage4] = useState(undefined);
-    // const [image5, setImage5] = useState(undefined);
     const [imageLoading, setImageLoading] = useState(false);
 
     const [validations, setValidations] = useState({});
@@ -117,8 +113,6 @@ function NewProductForm() {
             newValidations.image1 = 'An image must be a pdf, png, jpg, jpeg, or gif.'
         }
 
-        // TODO: Add image validations
-
         return newValidations;
     }, [
         shopId, name, brand, category, condition, description, productPrice,
@@ -175,10 +169,6 @@ function NewProductForm() {
         formData.append('shipping_price', +shippingPrice * 100);
         formData.append('quantity', +quantity);
         formData.append('image_1', file);
-        // image2 && formData.append('image_2', image2);
-        // image3 && formData.append('image_3', image3);
-        // image4 && formData.append('image_4', image4);
-        // image5 && formData.append('image_5', image5);
         setImageLoading(true);
 
         const serverResponse = await dispatch(thunkNewProduct(formData));

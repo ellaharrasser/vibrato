@@ -3,7 +3,8 @@
 const LOAD_PRODUCTS = 'products/loadProducts';
 const LOAD_CURRENT_PRODUCT = 'products/loadCurrentProduct';
 const LOAD_NEW_PRODUCTS = 'products/loadNewProducts';
-const DELETE_PRODUCT = '/products/deleteProduct';
+const DELETE_PRODUCT = 'products/deleteProduct';
+const RESET_PRODUCTS = 'products/resetProducts';
 
 export const loadProducts = (products, count) => {
     return {
@@ -33,6 +34,10 @@ export const deleteProduct = (productId) => {
         type: DELETE_PRODUCT,
         productId,
     };
+};
+
+export const resetProducts = () => {
+    return { type: RESET_PRODUCTS };
 };
 
 // Thunks
@@ -90,8 +95,8 @@ export const thunkLoadCurrentProduct = (productId) => async (dispatch) => {
 
 export const thunkLoadNewProducts = (user) => async (dispatch) => {
     const url = (user)
-        ? '/api/products?sort_by=newest'
-        : `/api/products?exclude_user_id=${user.id}&sort_by=newest`;
+        ? `/api/products?exclude_user_id=${user.id}&sort_by=newest`
+        : '/api/products?sort_by=newest';
     const response = await fetch(url);
 
     if (response.ok) {
@@ -186,6 +191,8 @@ const productsReducer = (state = initialState, action) => {
             }
             return newState;
         }
+        case RESET_PRODUCTS:
+            return { ...state, products: null, productsCount: 0 };
         default:
             return state;
     }

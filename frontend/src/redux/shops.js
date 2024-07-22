@@ -5,6 +5,7 @@ import { loadProducts } from "./products";
 const LOAD_SHOPS = 'shops/loadShops';
 const LOAD_CURRENT_SHOP = 'shops/loadCurrentShop';
 const DELETE_SHOP = 'shops/deleteShop';
+const RESET_SHOPS = 'shops/resetShops';
 
 export const loadShops = (shops, count) => {
     return {
@@ -26,6 +27,10 @@ export const deleteShop = (shopId) => {
         type: DELETE_SHOP,
         shopId,
     };
+};
+
+export const resetShops = () => {
+    return { type: RESET_SHOPS };
 };
 
 // Thunks
@@ -133,6 +138,8 @@ const shopsReducer = (state = initialState, action) => {
             }
             return newState;
         }
+        case RESET_SHOPS:
+            return { ...state, shops: null, count: 0 };
         default:
             return state;
     }

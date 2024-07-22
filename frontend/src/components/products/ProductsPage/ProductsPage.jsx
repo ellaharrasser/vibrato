@@ -13,6 +13,7 @@ function ProductsPage() {
     const user = useSelector(state => state.session.user);
     const products = useSelector(state => state.products.products);
     const productsCount = useSelector(state => state.products.productsCount);
+
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {

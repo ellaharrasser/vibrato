@@ -1,5 +1,8 @@
 // Actions
 
+import { resetProducts } from "./products";
+import { resetShops } from "./shops";
+
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 
@@ -21,7 +24,6 @@ export const thunkAuthenticate = () => async (dispatch) => {
 		if (data.errors) {
 			return;
 		}
-
 		dispatch(setUser(data));
 	}
 };
@@ -33,14 +35,14 @@ export const thunkLogin = (credentials) => async dispatch => {
     body: JSON.stringify(credentials)
   });
 
-  if(response.ok) {
+  if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data));
   } else if (response.status < 500) {
     const errors = await response.json();
-    return errors
+    return errors;
   } else {
-    return { server: 'Something went wrong. Please try again' }
+    return { server: 'Something went wrong. Please try again' };
   }
 };
 
@@ -64,6 +66,8 @@ export const thunkSignup = (user) => async (dispatch) => {
 export const thunkLogout = () => async (dispatch) => {
   await fetch('/api/auth/logout');
   dispatch(removeUser());
+  dispatch(resetProducts());
+  dispatch(resetShops());
 };
 
 // Reducer

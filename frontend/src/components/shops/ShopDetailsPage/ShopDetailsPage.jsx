@@ -22,7 +22,7 @@ function ShopDetailsPage() {
     useEffect(() => {
         dispatch(thunkLoadCurrentShop(shopId));
         setDataLoaded(true);
-    }, [dispatch, shopId]);
+    }, [dispatch, shopId, user]);
 
     const shop = useSelector(state => state.shops.currentShop);
     const products = useSelector(state => state.products.products);

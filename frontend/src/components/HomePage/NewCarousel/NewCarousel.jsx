@@ -8,6 +8,7 @@ import './NewCarousel.css';
 
 function NewCarousel() {
     const dispatch = useDispatch();
+
     const user = useSelector(state => state.session.user);
     const newProducts = useSelector(state => state.products.newProducts);
 
@@ -16,7 +17,7 @@ function NewCarousel() {
     useEffect(() => {
         dispatch(thunkLoadNewProducts(user));
         setProductsLoaded(true);
-    }, [user, dispatch]);
+    }, []);
 
     const [index, setIndex] = useState(0);
     const carouselProducts = useMemo(() => newProducts ? [
@@ -39,33 +40,33 @@ function NewCarousel() {
         <div id='new-carousel' className='carousel-container'>
             <h2 className='carousel-header'>New Products</h2>
             <ul className='carousel'>
-                <button
-                    type='button'
-                    className='carousel-prev-button'
-                    onClick={clickPrevious}
-                >
-                    <FaAngleLeft style={{
-                        width: '20px',
-                        height: '20px',
-                    }}/>
-                </button>
-                {productsLoaded && carouselProducts.map(product => (
-                    <li className='carousel-item-container' key={product.id}>
-                        <ProductCarouselItem
-                            product={product}
-                        />
-                    </li>
-                ))}
-                <button
-                    type='button'
-                    className='carousel-next-button'
-                    onClick={clickNext}
-                >
-                    <FaAngleRight style={{
-                        width: '20px',
-                        height: '20px',
-                    }}/>
-                </button>
+                {productsLoaded && <>
+                    <button
+                        type='button'
+                        className='carousel-prev-button'
+                        onClick={clickPrevious}
+                    >
+                        <FaAngleLeft style={{
+                            width: '20px',
+                            height: '20px',
+                        }}/>
+                    </button>
+                    {carouselProducts.map(product => (
+                        <li className='carousel-item-container' key={product.id}>
+                            <ProductCarouselItem product={product}/>
+                        </li>
+                    ))}
+                    <button
+                        type='button'
+                        className='carousel-next-button'
+                        onClick={clickNext}
+                    >
+                        <FaAngleRight style={{
+                            width: '20px',
+                            height: '20px',
+                        }}/>
+                    </button>
+                </>}
             </ul>
         </div>
     )
