@@ -3,70 +3,70 @@ from ...models import ProductImage
 product_images = [
     ProductImage(
         product_id=1,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Fender+American+Standard+Stratocaster+1978.jpg',
     ),
     ProductImage(
         product_id=2,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Vox+AC30C2+Tube+Combo+Amp.jpg',
     ),
     ProductImage(
         product_id=3,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/BOSS+TU-3+Chromatic+Tuner.jpg',
     ),
     ProductImage(
         product_id=4,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Arturia+DrumBrute+2017.jpg',
     ),
     ProductImage(
         product_id=5,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/AKAI+MPK+Mini+MkIII+25-Key+MIDI+Controller.jpg',
     ),
     ProductImage(
         product_id=6,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Taylor+314ce+Acoustic-Electric+Guitar.jpg',
     ),
     ProductImage(
         product_id=7,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Martin+000-15SM+Acoustic+Guitar.jpg',
     ),
     ProductImage(
         product_id=8,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Hohner+Special+20+Harmonica+-+Key+of+C.jpg',
     ),
     ProductImage(
         product_id=9,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/KORG+microKORG+Synthesizer+with+Vocoder.jpg',
     ),
     ProductImage(
         product_id=10,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Neumann+TLM+103+Large-Diaphragm+Condensor+Mic.jpg',
     ),
     ProductImage(
         product_id=11,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Line+6+DL4+MkII.jpg',
     ),
     ProductImage(
         product_id=12,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Arturia+KeyStep+Pro+37-Key+Midi+Controller.jpg',
     ),
     ProductImage(
         product_id=13,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Fender+American+Professional+II+Precision+Bass+V.jpg',
     ),
     ProductImage(
         product_id=14,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Focusrite+Scarlett+4i4+3rd+Gen+Audio+Interface.jpg',
     ),
     ProductImage(
         product_id=15,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Audio+Technica+ATH-M20x+Studio+Monitoring+Headphones.jpg',
     ),
     ProductImage(
         product_id=16,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Arturia+MicroFreak+with+Vocoder+Mic+Bundle.jpg',
     ),
     ProductImage(
         product_id=17,
-        image='https://vibrato-images.s3.us-west-1.amazonaws.com/default_instrument.png',
+        image='https://vibrato-images.s3.us-west-1.amazonaws.com/Electro-Harmonix+V256+Vocoder.jpg',
     ),
 ]
