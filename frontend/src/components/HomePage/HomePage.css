@@ -1,49 +1,9 @@
-#home-page {
+/* #home-page {
     max-width: 1200px;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-}
-
-#home-page h1 {
-    margin: 60px;
-
-    font-size: 2.5rem;
-    line-height: 2.5rem;
-}
-
-#home-page footer {
-    width: 100%;
-    height: 100px;
-
-    position: absolute;
-    bottom: 0;
-
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-
-    border-top: 1px solid var(--d-grey-l)
-}
-
-#home-page footer h2 {
-    margin: 0;
-    line-height: 100%;
-}
-
-#home-page .link-container {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-}
-
-#home-page .link-label {
-    margin: 0;
-}
+} */
 
 #home-page .dev-link {
     margin: 0;
