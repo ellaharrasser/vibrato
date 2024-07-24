@@ -95,8 +95,8 @@ export const thunkLoadCurrentProduct = (productId) => async (dispatch) => {
 
 export const thunkLoadNewProducts = (user) => async (dispatch) => {
     const url = (user)
-        ? `/api/products?exclude_user_id=${user.id}&sort_by=newest`
-        : '/api/products?sort_by=newest';
+        ? `/api/products?exclude_user_id=${user.id}&sort_by=newest&per_page=6`
+        : '/api/products?sort_by=newest&per_page=6';
     const response = await fetch(url);
 
     if (response.ok) {

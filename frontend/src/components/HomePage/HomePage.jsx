@@ -1,13 +1,13 @@
 import HomeFooter from './HomeFooter';
 import FeaturedPanel from './FeaturedPanel';
-// import NewCarousel from './NewCarousel/NewCarousel';
+import RecentPanel from './RecentPanel';
 
 function HomePage() {
     return (
         <>
-            <main className='container p-4 flex flex-col gap-4'>
+            <main className='container h-max p-4 pb-16 flex flex-col gap-4'>
                 <FeaturedPanel />
-                {/* <NewCarousel /> */}
+                <RecentPanel />
             </main>
             <HomeFooter />
         </>

@@ -11,7 +11,7 @@ product_routes = Blueprint('products', __name__)
 
 
 @product_routes.route('')
-def products(page: int = 1, per_page: int = 20):
+def products():
     """
     Query for all products with pagination.
     """
@@ -37,6 +37,9 @@ def products(page: int = 1, per_page: int = 20):
             base_query = base_query.order_by(Product.created_at.asc())
         elif sort_by == 'oldest':
             base_query = base_query.order_by(Product.created_at.desc())
+
+    page = request.args.get('page', type=int) or 1
+    per_page = request.args.get('per_page', type=int) or 20
 
     products_count = base_query.count()
     products_query = base_query.paginate(
