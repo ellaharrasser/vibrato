@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import Layout from './Layout';
 import AuthRequiredRoute from './AuthRequiredRoute';
-import HomePage from '../components/HomePage';
+import { HomePage } from '../components/HomePage';
 import ProductsPage from '../components/products/ProductsPage';
 import ProductDetailsPage from '../components/products/ProductDetailsPage';
 import ShopDetailsPage from '../components/shops/ShopDetailsPage';

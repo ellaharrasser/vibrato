@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { thunkLoadNewProducts } from '../../redux/products';
-import ProductCarouselItem from './ProductCarouselItem/ProductCarouselItem';
+import HomeProductCard from './HomeProductCard';
 
 
 function RecentPanel() {
@@ -25,7 +25,7 @@ function RecentPanel() {
             <ul className='grid grid-cols-2 grid-rows-2 gap-8 list-none sm:flex sm:gap-4'>
                 {newProducts?.map(product => (
                     <li className='container h-auto max-sm:[&:nth-child(n+5)]:hidden max-md:last:hidden' key={product.id}>
-                        <ProductCarouselItem product={product}/>
+                        <HomeProductCard product={product}/>
                     </li>
                 ))}
             </ul>
