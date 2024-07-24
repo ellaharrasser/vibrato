@@ -7,13 +7,16 @@ function HomeProductCard({ product }) {
     const navigate = useNavigate();
 
     const productPriceText = centsToUSD(product.productPrice);
+    const shippingPriceText = (product.shippingPrice > 0)
+        ? `${centsToUSD(product.shippingPrice)} Shipping`
+        : 'Free Shipping';
 
     return (
         <div
             className='container h-full flex flex-col cursor-pointer group'
             onClick={() => navigate(`/products/${product.id}`)}
         >
-            <img src={product.images[0].image} className='w-full h-auto border rounded-xl mb-2 shadow-md'/>
+            <img src={product.images[0].image} className='w-full h-auto border border-stone-200 rounded-xl mb-2 shadow-md'/>
             <div className='container flex-1 p-1 rounded-lg bg-transparent transition-all group-hover:bg-orange-200'>
                 <p className='text-sm md:text-base lg:text-lg font-semibold overflow-ellipsis line-clamp-2'>
                     {product.brand}
@@ -23,6 +26,9 @@ function HomeProductCard({ product }) {
                 </p>
                 <p className='text-base md:text-lg lg:text-xl font-bold overflow-ellipsis'>
                     {productPriceText}
+                </p>
+                <p className='text-xs md:text-sm lg:text-base font-semibold text-stone-700 overflow-ellipsis'>
+                    {shippingPriceText}
                 </p>
             </div>
         </div>

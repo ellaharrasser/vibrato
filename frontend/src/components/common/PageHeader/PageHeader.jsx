@@ -8,14 +8,14 @@ import { NavLink } from 'react-router-dom';
 function PageHeader() {
     return (
         <>
-            <div id='top-header-container'>
-                <div id='top-header'>
+            <div className='w-full px-4 py-1 flex flex-row flex-nowrap justify-center border-b border-stone-500'>
+                <div className='container flex flex-row flex-nowrap justify-between'>
                     <NavLink id='site-name' to='/'>vibrato</NavLink>
                     <HeaderSearchBar />
                     <NavBar />
                 </div>
             </div>
-            <div id='bottom-header-container'>
+            <div className='w-full px-4 py-1 flex flex-row flex-nowrap justify-center border-b border-stone-500'>
                 <div id='bottom-header'>
                     <CategoryNavBar />
                 </div>

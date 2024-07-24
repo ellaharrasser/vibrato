@@ -68,7 +68,7 @@ html, body {
 
 #page-content-wrapper {
     height: 100%;
-    margin-top: 80px; /* Account for header */
+    margin-top: 90px; /* Account for header */
     display: flex;
     justify-content: center;
 }
