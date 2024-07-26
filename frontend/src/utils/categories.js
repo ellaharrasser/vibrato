@@ -1,144 +1,159 @@
-const categories = {
-    'guitars': {
+const categories = [
+    {
+        id: 'guitars',
         text: 'Guitars',
-        children: {
-            'acousticGuitars': { text: 'Acoustic Guitars' },
-            'electricGuitars': { text: 'Electric Guitars' },
-            'bassGuitars': { text: 'Bass Guitars' },
-            'guitarPartsAccessories': {
+        children: [
+            { id: 'acousticGuitars', text: 'Acoustic Guitars' },
+            { id: 'electricGuitars', text: 'Electric Guitars' },
+            { id: 'bassGuitars', text: 'Bass Guitars' },
+            {
+                id: 'guitarPartsAccessories',
                 text: 'Guitar Parts and Accessories',
-                children: {
-                    'guitarStrings': { text: 'Strings' },
-                    'guitarPickups': { text: 'Pickups' },
-                    'guitarParts': { text: 'Parts' },
-                },
+                children: [
+                    { id: 'guitarStrings', text: 'Strings' },
+                    { id: 'guitarPickups', text: 'Pickups' },
+                    { id: 'guitarParts', text: 'Parts' },
+                ],
             },
-        },
+        ],
     },
-    'keyboardsSynths': {
+    {
+        id: 'keyboardsSynths',
         text: 'Keyboards and Synths',
-        children: {
-            'keyboards': {
+        children: [
+            {
+                id: 'keyboards',
                 text: 'Keyboards',
-                children: {
-                    'acousticPianos': { text: 'Acoustic Pianos' },
-                    'digitalPianos': { text: 'Digital Pianos' },
-                    'electricPianos': { text: 'Electric Pianos' },
-                    'workstationKeyboards': { text: 'Workstation Keyboards' },
-                    'organs': { text: 'Organs' },
-                    'midiControllers': { text: 'MIDI Controllers' },
-                },
+                children: [
+                    { id: 'acousticPianos', text: 'Acoustic Pianos' },
+                    { id: 'digitalPianos', text: 'Digital Pianos' },
+                    { id: 'electricPianos', text: 'Electric Pianos' },
+                    { id: 'workstationKeyboards', text: 'Workstation Keyboards' },
+                    { id: 'organs', text: 'Organs' },
+                    { id: 'midiControllers', text: 'MIDI Controllers' },
+                ],
             },
-            'synths': {
+            {
+                id: 'synths',
                 text: 'Synths',
-                children: {
-                    'analogSynths': { text: 'Analog Synths' },
-                    'digitalSynths': { text: 'Digital Synths' },
-                    'modularSynths': { text: 'Modular Synths' },
-                },
+                children: [
+                    { id: 'analogSynths', text: 'Analog Synths' },
+                    { id: 'digitalSynths', text: 'Digital Synths' },
+                    { id: 'modularSynths', text: 'Modular Synths' },
+                ],
             },
-            'miscKeysSynths': {
+            {
+                id: 'miscKeysSynths',
                 text: 'Miscellaneous',
-                children: {
-                    'samplers': { text: 'Samplers' },
-                    'softwareKeysSynths': { text: 'Software' },
-                },
+                children: [
+                    { id: 'samplers', text: 'Samplers' },
+                    { id: 'softwareKeysSynths', text: 'Software' },
+                ],
             },
-        },
+        ],
     },
-    'drumsPercussion': {
+    {
+        id: 'drumsPercussion',
         text: 'Drums and Percussion',
-        children: {
-            'acousticDrums': {
+        children: [
+            {
+                id: 'acousticDrums',
                 text: 'Acoustic Drums',
-                children: {
-                    'acousticKits': { text: 'Full Kits' },
-                    'acousticKitSnareDrums': { text: 'Snare Drums' },
-                    'acousticKitBassDrums': { text: 'Bass Drums' },
-                },
+                children: [
+                    { id: 'acousticKits', text: 'Full Kits' },
+                    { id: 'acousticKitSnareDrums', text: 'Snare Drums' },
+                    { id: 'acousticKitBassDrums', text: 'Bass Drums' },
+                ],
             },
-            'electronicDrums': {
+            {
+                id: 'electronicDrums',
                 text: 'Electronic Drums',
-                children: {
-                    'electronicKits': { text: 'Electronic Kits' },
-                    'electronicKitModules': { text: 'Modules' },
-                    'drumMachines': { text: 'Drum Machines' },
-                },
+                children: [
+                    { id: 'electronicKits', text: 'Electronic Kits' },
+                    { id: 'electronicKitModules', text: 'Modules' },
+                    { id: 'drumMachines', text: 'Drum Machines' },
+                ],
             },
-            'cymbals': {
+            {
+                id: 'cymbals',
                 text: 'Cymbals',
-                children: {
-                    'hihatCymbals': { text: 'Hi-hats' },
-                    'rideCymbals': { text: 'Rides' },
-                    'crashCymbals': { text: 'Crashes' },
-                    'splashCymbals': { text: 'Splashes' },
-                },
+                children: [
+                    { id: 'hihatCymbals', text: 'Hi-hats' },
+                    { id: 'rideCymbals', text: 'Rides' },
+                    { id: 'crashCymbals', text: 'Crashes' },
+                    { id: 'splashCymbals', text: 'Splashes' },
+                ],
             },
-            'auxiliaryPercussion': { text: 'Auxiliary Percussion' },
-            // 'concertPercussion': {
-            //     text: 'Concert Percussion',
-            //     children: {},
-            // },
-            // 'malletPercussion': {
-            //     text: 'Mallet Percussion',
-            //     children: {},
-            // },
-            'drumPartsAccessories': { text: 'Drum Parts and Accessories' },
-        },
+            { id: 'auxiliaryPercussion', text: 'Auxiliary Percussion' },
+            {
+                id: 'concertPercussion',
+                text: 'Concert Percussion',
+                // children: [
+                //
+                // ],
+            },
+            { id: 'malletPercussion', text: 'Mallet Percussion' },
+            { id: 'drumPartsAccessories', text: 'Drum Parts and Accessories' },
+        ],
     },
-    'pedalsAmplifiers': {
+    {
+        id: 'pedalsAmplifiers',
         text: 'Pedals and Amplifiers',
-        children: {
-            'effectsPedals': {
+        children: [
+            {
+                id: 'effectsPedals',
                 text: 'Effects and Pedals',
-                children: {
-                    'boostEffects': { text: 'Boost' },
-                    'overdriveEffects': { text: 'Overdrive' },
-                    'distortionEffects': { text: 'Distortion' },
-                    'fuzzEffects': { text: 'Fuzz' },
-                    'compressorEffects': { text: 'Compressor' },
-                    'delayEffects': { text: 'Delay' },
-                    'reverbEffects': { text: 'Reverb' },
-                    'tremoloEffects': { text: 'Tremolo' },
-                    'chorusEffects': { text: 'Chorus' },
-                    'vibratoEffects': { text: 'Vibrato' },
-                    'flangerEffects': { text: 'Flanger' },
-                    'phaserEffects': { text: 'Phaser' },
-                    'octavePitchEffects': { text: 'Octave and Pitch' },
-                    'wahFilterEffects': { text: 'Wah and Filter' },
-                    'eqEffects': { text: 'EQ' },
-                    'tunerEffects': { text: 'Tuner' },
-                    'volumeExpressionEffects': { text: 'Volume and Expression' },
-                },
+                children: [
+                    { id: 'effectsBoost', text: 'Boost' },
+                    { id: 'effectsOverdrive', text: 'Overdrive' },
+                    { id: 'effectsDistortion', text: 'Distortion' },
+                    { id: 'effectsFuzz', text: 'Fuzz' },
+                    { id: 'effectsCompressor', text: 'Compressor' },
+                    { id: 'effectsDelay', text: 'Delay' },
+                    { id: 'effectsReverb', text: 'Reverb' },
+                    { id: 'effectsTremolo', text: 'Tremolo' },
+                    { id: 'effectsChorus', text: 'Chorus' },
+                    { id: 'effectsVibrato', text: 'Vibrato' },
+                    { id: 'effectsFlanger', text: 'Flanger' },
+                    { id: 'effectsPhaser', text: 'Phaser' },
+                    { id: 'effectsOctavePitch', text: 'Octave and Pitch' },
+                    { id: 'effectsWahFilter', text: 'Wah and Filter' },
+                    { id: 'effectsEQ', text: 'EQ' },
+                    { id: 'effectsTuner', text: 'Tuner' },
+                    { id: '', text: 'Volume and Expression' },
+                ],
             },
-            'pedalUtilities': {
+            {
+                id: 'pedalUtilities',
                 text: 'Pedal Utilities',
-                children: {
-                    'pedalboards': { text: 'Pedalboards' },
-                    'powerSupplies': { text: 'Power Supplies' },
-                },
+                children: [
+                    { id: 'pedalboards', text: 'Pedalboards' },
+                    { id: 'powerSupplies', text: 'Power Supplies' },
+                ],
             },
-            'amplifiers': { text: 'Amplifiers' },
-        },
+            { id: 'amplifiers', text: 'Amplifiers' },
+        ],
     },
-    'recordingAudio': {
+    {
+        id: 'recordingAudio',
         text: 'Recording and Audio',
-        children: {
-            'microphones': { text: 'Microphones' },
-            'audioInterfaces': { text: 'Audio Interfaces' },
-            'recordingEquipment': { text: 'Recording Equipment' },
-            'speakers': { text: 'Speakers' },
-            'headphones': { text: 'Headphones' },
-        },
+        children: [
+            { id: 'microphones', text: 'Microphones' },
+            { id: 'audioInterfaces', text: 'Audio Interfaces' },
+            { id: 'recordingEquipment', text: 'Recording Equipment' },
+            { id: 'speakers', text: 'Speakers' },
+            { id: 'headphones', text: 'Headphones' },
+        ],
     },
-    'toolsAccessories': {
+    {
+        id: 'toolsAccessories',
         text: 'Tools and Accessories',
-        children: {
-            'cables': { text: 'Cables' },
-            'stands': { text: 'Stands' },
-            'tools': { text: 'Tools' },
-        },
+        children: [
+            { id: 'cables', text: 'Cables' },
+            { id: 'stands', text: 'Stands' },
+            { id: 'tools', text: 'Tools' },
+        ],
     },
-};
+];
 
 export default categories;
