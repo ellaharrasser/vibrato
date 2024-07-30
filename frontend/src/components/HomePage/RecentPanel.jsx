@@ -12,7 +12,9 @@ function RecentPanel() {
     const user = useSelector(state => state.session.user);
     const newProducts = useSelector(state => state.products.newProducts);
 
-    useEffect(() => dispatch(thunkLoadNewProducts(user)), []);
+    useEffect(() => {
+        dispatch(thunkLoadNewProducts(user))
+    }, [dispatch, user]);
 
     return (
         <div className='container flex flex-col flex-nowrap gap-4'>
@@ -30,7 +32,7 @@ function RecentPanel() {
                 ))}
             </ul>
         </div>
-    )
+    );
 }
 
 export default RecentPanel;

@@ -41,7 +41,10 @@ function NewProductForm() {
     const [dataLoaded, setDataLoaded] = useState(false);
 
     useEffect(() => {
-        if (!user) return navigate('/');
+        if (!user) {
+            navigate('/');
+            return;
+        }
         const fetchUserShops = async () => {
             await dispatch(thunkLoadUserShops(user));
             setDataLoaded(true);

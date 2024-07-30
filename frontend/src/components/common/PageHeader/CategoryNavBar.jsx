@@ -7,7 +7,7 @@ function CategoryNavBar() {
     }
 
     return (
-        <nav className='container'>
+        <nav className='container max-sm:hidden'>
             <ul className='container flex flex-row flex-nowrap justify-center gap-4'>
                 <li
                     className='text-base transition-colors hover:text-teal-400'

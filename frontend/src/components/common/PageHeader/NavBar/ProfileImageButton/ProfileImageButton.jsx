@@ -10,8 +10,8 @@ import './ProfileImageButton.css';
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  const [imageClass, setImageClass] = useState('profile-image');
-  const [infoClass, setInfoClass] = useState('profile-image hidden');
+  const [selectedStyle, setSelectedStyle] = useState('');
+  const [hiddenStyle, setHiddenStyle] = useState('invisible opacity-0');
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
@@ -21,11 +21,11 @@ function ProfileButton({ user }) {
 
   useEffect(() => {
     if (!showMenu) {
-      setImageClass('profile-image');
-      setInfoClass('profile-info hidden');
+      setSelectedStyle('border-stone-400 ');
+      setHiddenStyle('hidden ');
     } else {
-      setImageClass('profile-image selected');
-      setInfoClass('profile-info visible');
+      setSelectedStyle('border-stone-600 ');
+      setHiddenStyle('visible ');
     }
 
     const closeMenu = (e) => {
@@ -48,26 +48,34 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <li>
+    <div className='w-[36px] h-full'>
       <img
-        className={imageClass}
+        className={selectedStyle + 'w-auto h-full rounded-full border-solid border-2 cursor-pointer transition-all hover:border-stone-600'}
         src={user.profileImage}
         alt='Profile Image'
         onClick={toggleMenu}
       ></img>
-      <div className='invisible-container'>
-        <ul className={infoClass} ref={ulRef}>
+      <div className='w-0 h-fit flex flex-col flex-nowrap'>
+        <ul
+          id='profile-info'
+          className={hiddenStyle + 'transition-all w-max mx-[5px] p-1 relative top-0 right-[60px] list-none border-l-[4px] border-solid border-stone-600 rounded-[2px] bg-white'}
+          ref={ulRef}
+        >
           {user && (
             <>
-              <li>
-                <NavLink to={`/users/${user.id}`}>My Account</NavLink>
+              <li className='mb-1 transition-colors hover:text-teal-500 cursor-pointer'>
+                <NavLink to={`/users/${user.id}`} className=''>
+                  My Account
+                </NavLink>
               </li>
-              <li onClick={logout}>Log Out</li>
+              <li onClick={logout} className=' transition-colors hover:text-teal-500 cursor-pointer'>
+                Log Out
+              </li>
             </>
           )}
         </ul>
       </div>
-    </li>
+    </div>
   );
 }
 

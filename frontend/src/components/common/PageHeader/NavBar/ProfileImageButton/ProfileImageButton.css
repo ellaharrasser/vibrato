@@ -1,63 +1,14 @@
-.profile-image {
-    width: auto;
-    max-width: 40px;
-    max-height: 40px;
-
-    cursor: pointer;
-
-    border: 2px solid var(--grey-l);
-    border-radius: 20px;
-
-    transition: border 75ms ease-in-out;
-}
-
-.profile-image:hover,
-.selected {
-    border: 2px solid var(--d-grey-d)
-}
-
-.profile-info {
-    width: max-content;
-    margin: 5px 0px;
-    padding: 4px;
-
-    position: relative;
-    top: 0;
-    right: 60px;
-
-    list-style: none;
-    background-color: var(--white-l);
-    border-left: 4px solid var(--grey-d);
-    border-radius: 2px;
-}
-
-.profile-info::after { /* For the right side faded border effect */
+#profile-info::after { /* For the right side faded border effect */
     content: '';
     height: calc(100% - 4px); /* Unsure why the -4px is necessary */
     width: 10px;
 
-    position: absolute;
+    position: relative;
     top: 0;
     right: -10px;
     display: block;
 
     background: linear-gradient(90deg, var(--white-l), rgba(255, 255, 255, 0));
-    }
-
-.profile-info > li {
-    margin-bottom: 4px;
-}
-
-.profile-info > li:last-of-type {
-    margin: 0;
-}
-
-.invisible-container {
-    width: 0;
-    height: fit-content;
-
-    display: flex;
-    flex-flow: column nowrap;
 }
 
 .hidden {
