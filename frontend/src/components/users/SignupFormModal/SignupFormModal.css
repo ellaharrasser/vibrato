@@ -1,4 +1,4 @@
-#signup-wrapper {
+/* #signup-wrapper {
     padding: 20px;
 
     display: flex;
@@ -10,9 +10,9 @@
     border: 2px solid var(--d-grey-d);
     border-radius: 10px;
     overflow: clip;
-}
+} */
 
-#signup-wrapper h1 {
+/* #signup-wrapper h1 {
     margin: 20px 0px;
 
     font-size: 2rem;
@@ -26,16 +26,16 @@
     justify-content: center;
     align-items: start;
     gap: 20px;
-}
+} */
 
-#signup-form .form-error {
+/* #signup-form .form-error {
     height: 1rem;
     margin: 0;
 
     color: var(--red-m);
     font-size: 1rem;
     line-height: 1rem;
-}
+} */
 
 #signup-form .form-item-text {
     display: flex;

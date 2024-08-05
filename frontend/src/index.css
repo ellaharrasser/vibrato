@@ -2,7 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@layer components {
+    .button-submit {
+        @apply px-4 py-1 rounded-full text-lg bg-teal-300 transition-colors hover:bg-teal-200;
+    }
+    .button-submit-disabled {
+        @apply px-4 py-1 rounded-full text-lg cursor-not-allowed bg-stone-400 transition-colors hover:bg-red-400;
+    }
+    .button-cancel {
+        @apply px-4 py-1 rounded-full text-lg bg-stone-400 transition-colors hover:bg-stone-300;
+    }
+}
 :root {
     /* Global color scheme */
     --white-l: #f9f9f9;
