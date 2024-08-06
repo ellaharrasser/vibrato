@@ -1,24 +1,14 @@
-#profile-info::after { /* For the right side faded border effect */
-    content: '';
-    height: calc(100% - 4px); /* Unsure why the -4px is necessary */
-    width: 10px;
+@tailwind components;
 
-    position: relative;
-    top: 0;
-    right: -10px;
-    display: block;
-
-    background: linear-gradient(90deg, var(--white-l), rgba(255, 255, 255, 0));
-}
-
-.hidden {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 75ms ease-in-out, visibility 0ms 75ms;
-}
-
-.visible {
-    visibility: visible;
-    opacity: 1;
-    transition: visibility 0ms, opacity 75ms ease-in-out;
+@layer components {
+    .transition-hidden {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 75ms ease-in-out, visibility 0ms 75ms;
+    }
+    .transition-visible {
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 0ms, opacity 75ms ease-in-out;
+    }
 }
