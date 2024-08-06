@@ -5,7 +5,6 @@ import { useModal } from '../../../context/Modal';
 import { getKeys } from '../../../utils/misc';
 import { validateEmail } from '../../../utils/validate';
 import { thunkSignup } from '../../../redux/session';
-import './SignupFormModal.css';
 
 
 function SignupFormModal() {
@@ -33,37 +32,38 @@ function SignupFormModal() {
         setSubmitDisabled(disabled);
     };
 
+    // Helper function to validate form fields and return an object with validations
     const getValidations = useCallback(() => {
         const newValidations = {};
 
         if (!email) {
-        newValidations.email = 'An email is required.';
+            newValidations.email = 'An email is required.';
         } else if (!validateEmail(email)) {
-        newValidations.email = 'The email\'s format is invalid.';
+            newValidations.email = 'The email\'s format is invalid.';
         } else if (email.length > 255) {
-        newValidations.email = 'Emails must be 255 or fewer characters.';
+            newValidations.email = 'Emails must be 255 or fewer characters.';
         }
 
         if (!name) {
-        newValidations.name = 'A name is required.';
+            newValidations.name = 'A name is required.';
         } else if (name.length > 255) {
-        newValidations.name = 'Names must be 255 or fewer characters.';
+            newValidations.name = 'Names must be 255 or fewer characters.';
         }
 
         if (description.length > 255) {
-        newValidations.description = 'Descriptions must be 255 or fewer characters.';
+            newValidations.description = 'Descriptions must be 255 or fewer characters.';
         }
 
         if (!file) {
-        newValidations.profileImage = 'A profile image is required.';
+            newValidations.profileImage = 'A profile image is required.';
         }
 
         if (password.length < 8) {
-        newValidations.password = 'Passwords must be 8 or more characters.';
+            newValidations.password = 'Passwords must be 8 or more characters.';
         } else if (password.length > 255) {
-        newValidations.password = 'Passwords must be 255 or fewer characters.';
+            newValidations.password = 'Passwords must be 255 or fewer characters.';
         } else if (password !== confirmPassword) {
-        newValidations.confirmPassword = 'Both passwords must match.';
+            newValidations.confirmPassword = 'Both passwords must match.';
         }
 
         return newValidations;
@@ -84,8 +84,8 @@ function SignupFormModal() {
 
         // Limit image size to 5 Mb
         if (tempFile.size > 5000000) {
-        setFilename('Image must be less than 5 Mb.');
-        return;
+            setFilename('Image must be less than 5 Mb.');
+            return;
         }
 
         // Generate local thumbnail URL
@@ -99,9 +99,9 @@ function SignupFormModal() {
         e.preventDefault();
 
         if (!hasSubmitted) { // Prevent submission if validation errors exist
-        setHasSubmitted(true);
-        const newValidations = getValidations();
-        if (getKeys(newValidations).length) return;
+            setHasSubmitted(true);
+            const newValidations = getValidations();
+            if (getKeys(newValidations).length) return;
         }
 
         const formData = new FormData();
@@ -114,27 +114,26 @@ function SignupFormModal() {
 
         const serverResponse = await dispatch(thunkSignup(formData));
         if (serverResponse) {
-        setErrors(serverResponse);
+            setErrors(serverResponse);
         } else {
-        closeModal();
+            closeModal();
         }
     };
 
     return (
-        <div id='signup-wrapper' className='container p-4 flex flex-col flex-nowrap items-center gap-2 bg-white border border-stone-200 rounded-xl overflow-hidden'>
+        <div className='container p-4 flex flex-col flex-nowrap items-center gap-2 bg-white border border-stone-200 rounded-xl overflow-hidden'>
             <h1 className='my-2 text-3xl font-bold'>
                 Sign Up
             </h1>
             <form
-                id='signup-form'
                 className='container flex flex-col flex-nowrap justify-center items-start gap-4'
                 onSubmit={handleSubmit}
                 encType='multipart/form-data'
                 method='post'
             >
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='email'>
+                <div className='container'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
+                        <label htmlFor='email' className='text-lg font-semibold'>
                             Email
                         </label>
                         <span className='font-base text-red-600'>
@@ -143,14 +142,16 @@ function SignupFormModal() {
                         </span>
                     </div>
                     <input
+                        id='email'
+                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='text'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='name'>
+                <div className='container'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
+                        <label htmlFor='name' className='text-lg font-semibold'>
                             Name
                         </label>
                         <span className='font-base text-red-600'>
@@ -160,14 +161,15 @@ function SignupFormModal() {
                     </div>
                     <input
                         id='name'
+                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='text'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
-                <div className='form-item-container' id='image-upload-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='profile-image'>
+                <div className='container'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
+                        <label htmlFor='profile-image' className='text-lg font-semibold'>
                             Profile Image
                         </label>
                         <span className='font-base text-red-600'>
@@ -175,26 +177,24 @@ function SignupFormModal() {
                             || errors.profile_image && errors.profile_image}
                         </span>
                     </div>
-                    <label className='image-upload' htmlFor='profile-image'>
-                        Upload Image
+                    <label htmlFor='profile-image' className='underline cursor-pointer text-stone-800 transition-colors hover:text-teal-500'>
+                        {filename || 'Upload an image'}
                     </label>
                     <input
                         id='profile-image'
+                        className='hidden'
                         type='file'
                         accept='image/*'
                         onChange={fileWrap}
                     />
                     <img
-                        className='image-upload-thumbnail'
+                        className='w-auto h-full max-w-16 max-h-16'
                         src={profileImage}
                     />
-                    <span className='filename'>
-                        {filename || 'No file selected.'}
-                    </span>
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='description'>
+                <div className='container'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
+                        <label htmlFor='description' className='text-lg font-semibold'>
                             Description
                         </label>
                         <span className='font-base text-red-600'>
@@ -204,14 +204,15 @@ function SignupFormModal() {
                     </div>
                     <input
                         id='description'
+                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='text'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='password'>
+                <div className='container'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
+                        <label htmlFor='password' className='text-lg font-semibold'>
                             Password
                         </label>
                         <span className='font-base text-red-600'>
@@ -221,14 +222,15 @@ function SignupFormModal() {
                     </div>
                     <input
                         id='password'
+                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='confirm-password'>
+                <div className='container'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
+                        <label htmlFor='confirm-password' className='text-lg font-semibold'>
                             Confirm Password
                         </label>
                         <span className='font-base text-red-600'>
@@ -237,17 +239,18 @@ function SignupFormModal() {
                     </div>
                     <input
                         id='confirm-password'
+                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='password'
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
                 {errors.server && (
-                    <p className='server-error'>
+                    <p className='font-base text-red-600'>
                         {errors.server}
                     </p>
                 )}
-                <div className='buttons-container'>
+                <div className='w-full self-center flex flex-row flex-nowrap justify-center gap-4'>
                     <button
                         type='submit'
                         className={submitClass}
@@ -262,7 +265,7 @@ function SignupFormModal() {
                     >
                         Cancel
                     </button>
-                    <p className='image-loading'>
+                    <p className='font-base text-stone-800'>
                         {imageLoading && 'Loading...'}
                     </p>
                 </div>
