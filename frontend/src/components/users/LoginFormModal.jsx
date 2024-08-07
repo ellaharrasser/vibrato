@@ -33,7 +33,7 @@ function LoginFormModal() {
             <h1 className='my-2 text-3xl font-bold'>
                 Log In
             </h1>
-            <form onSubmit={handleSubmit} className='container flex flex-col flex-nowrap justify-center items-start gap-4'>
+            <form onSubmit={handleSubmit} className='container max-w-[60ch] flex flex-col flex-nowrap justify-center items-start gap-4'>
                 <div className='container'>
                     <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label htmlFor='email' className='text-lg font-semibold'>
@@ -45,11 +45,11 @@ function LoginFormModal() {
                     </div>
                     <input
                         id='email'
-                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='text'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                    />
+                        className='w-full px-1 border border-stone-400 rounded-md'
+                        />
                 </div>
                 <div className='container'>
                     <div className='w-full min-w-[40ch] flex items-center gap-2'>

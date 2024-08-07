@@ -126,10 +126,10 @@ function SignupFormModal() {
                 Sign Up
             </h1>
             <form
-                className='container flex flex-col flex-nowrap justify-center items-start gap-4'
                 onSubmit={handleSubmit}
                 encType='multipart/form-data'
                 method='post'
+                className='container max-w-[60ch] flex flex-col flex-nowrap justify-center items-start gap-4'
             >
                 <div className='container'>
                     <div className='w-full min-w-[40ch] flex items-center gap-2'>
@@ -182,10 +182,10 @@ function SignupFormModal() {
                     </label>
                     <input
                         id='profile-image'
-                        className='hidden'
                         type='file'
                         accept='image/*'
                         onChange={fileWrap}
+                        className='hidden'
                     />
                     <img
                         className='w-auto h-full max-w-16 max-h-16'

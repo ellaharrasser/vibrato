@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
     getKeys, getValues, endsWithOne, imageSuffixes
-} from '../../../utils/misc';
-// import { validateUSD } from '../../../utils/validate';
-import conditions from '../../../utils/conditions';
-import { thunkLoadUserShops } from '../../../redux/shops';
-import { thunkNewProduct } from '../../../redux/products';
-import './NewProductForm.css';
+} from '../../utils/misc';
+import conditions from '../../utils/conditions';
+import { thunkLoadUserShops } from '../../redux/shops';
+import { thunkNewProduct } from '../../redux/products';
 
 
 function NewProductForm() {
@@ -36,7 +34,7 @@ function NewProductForm() {
     const [errors, setErrors] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [submitDisabled, setSubmitDisabled] = useState(false);
-    const [submitClass, setSubmitClass] = useState('submit');
+    const [submitClass, setSubmitClass] = useState('button-submit');
 
     const [dataLoaded, setDataLoaded] = useState(false);
 
@@ -56,8 +54,8 @@ function NewProductForm() {
 
     const setSubmitDisabledStatus = (disabled) => {
       (disabled)
-        ? setSubmitClass('submit disabled')
-        : setSubmitClass('submit');
+        ? setSubmitClass('button-submit-disabled')
+        : setSubmitClass('button-submit');
       setSubmitDisabled(disabled);
     };
 
@@ -189,17 +187,22 @@ function NewProductForm() {
     };
 
     return dataLoaded ? (
-        <main id='new-product-page'>
-            <h1>List a new Product</h1>
+        <main id='new-product-page' className='container p-4 flex flex-col flex-nowrap items-center gap-2 bg-white overflow-hidden'>
+            <h1 className='my-8 text-3xl font-bold'>
+                List a new Product
+            </h1>
             <form
                 id='new-product-form'
                 onSubmit={handleSubmit}
                 encType='multipart/form-data'
+                className='container max-w-[60ch] flex flex-col flex-nowrap justify-center items-start gap-4'
             >
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='shop'>Shop</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='shop' className='text-lg font-semibold'>
+                            Shop
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.shop && validations.shop
                             || errors.shop && errors.shop}
                         </p>
@@ -209,8 +212,11 @@ function NewProductForm() {
                         name='shop'
                         value={shopId}
                         onChange={(e) => setShopId(e.target.value)}
+                        className='px-2 py-1 rounded-full cursor-pointer bg-stone-200 border border-stone-400 transition-colors hover:bg-stone-100 focus:bg-stone-100'
                     >
-                        <option value=''>Please select a shop...</option>
+                        <option value=''>
+                            Please select a shop...
+                        </option>
                         {getValues(shops).map(shop => (
                             <option value={shop.id} key={shop.id}>
                                 {shop.name}
@@ -218,10 +224,12 @@ function NewProductForm() {
                         ))}
                     </select>
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='name'>Name</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='name' className='text-lg font-semibold'>
+                            Name
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.name && validations.name
                             || errors.name && errors.name}
                         </p>
@@ -231,12 +239,15 @@ function NewProductForm() {
                         type='text'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='brand'>Brand</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='brand' className='text-lg font-semibold'>
+                            Brand
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.brand && validations.brand
                             || errors.brand && errors.brand}
                         </p>
@@ -246,12 +257,15 @@ function NewProductForm() {
                         type='text'
                         value={brand}
                         onChange={(e) => setBrand(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='category'>Category</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='category' className='text-lg font-semibold'>
+                            Category
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.category && validations.category
                             || errors.category && errors.category}
                         </p>
@@ -261,12 +275,15 @@ function NewProductForm() {
                         type='text'
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='condition'>Condition</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='condition' className='text-lg font-semibold'>
+                            Condition
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.condition && validations.condition
                             || errors.condition && errors.condition}
                         </p>
@@ -275,8 +292,11 @@ function NewProductForm() {
                         id='condition'
                         value={condition}
                         onChange={(e) => setCondition(e.target.value)}
+                        className='px-2 py-1 rounded-full cursor-pointer bg-stone-200 border border-stone-400 transition-colors hover:bg-stone-100 focus:bg-stone-100'
                     >
-                        <option value=''>Please select a condition...</option>
+                        <option value=''>
+                            Please select a condition...
+                        </option>
                         {conditions.map(condition => (
                             <option value={condition} key={condition}>
                                 {condition}
@@ -284,10 +304,12 @@ function NewProductForm() {
                         ))}
                     </select>
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='description'>Description</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='description' className='text-lg font-semibold'>
+                            Description
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.description && validations.description
                             || errors.description && errors.description}
                         </p>
@@ -297,12 +319,15 @@ function NewProductForm() {
                         type='text'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='productPrice'>Product Price</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='productPrice' className='text-lg font-semibold'>
+                            Product Price
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.productPrice && validations.productPrice
                             || errors.product_price && errors.product_price}
                         </p>
@@ -312,12 +337,15 @@ function NewProductForm() {
                         type='number'
                         value={productPrice}
                         onChange={(e) => setProductPrice(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='shippingPrice'>Shipping Price</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='shippingPrice' className='text-lg font-semibold'>
+                            Shipping Price
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.shippingPrice && validations.shippingPrice
                             || errors.shipping_price && errors.shipping_price}
                         </p>
@@ -327,12 +355,15 @@ function NewProductForm() {
                         type='number'
                         value={shippingPrice}
                         onChange={(e) => setShippingPrice(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='quantity'>Quantity</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='quantity' className='text-lg font-semibold'>
+                            Quantity
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.quantity && validations.quantity
                             || errors.quantity && errors.quantity}
                         </p>
@@ -342,33 +373,38 @@ function NewProductForm() {
                         type='number'
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='form-item-container' id='image-upload-container'>
-                    <div className='form-item-text'>
-                        <label>Image</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400' id='image-upload-container'>
+                    <div className='flex items-center gap-2'>
+                        <label className='text-lg font-semibold'>
+                            Image
+                        </label>
+                        <p className='text-base text-red-500'>
                             {validations.image1 && validations.image1
                             || errors.image1 && errors.image1}
                         </p>
                     </div>
-                    <label className='image-upload' htmlFor='image-1'>
-                        Upload Image
+                    <label htmlFor='image-1' className='underline cursor-pointer text-stone-800 transition-colors hover:text-teal-500'>
+                        {filename || 'Upload an image'}
                     </label>
                     <input
                         id='image-1'
                         type='file'
                         accept='image/*'
                         onChange={fileWrap}
+                        className='hidden'
                     />
                     <img
-                        className='image-upload-thumbnail'
+                        className='w-auto h-full max-w-16 max-h-16'
                         src={image1}
                     />
-                    <span className='filename'>{filename || 'No file selected.'}</span>
                 </div>
-                <p className='server-error'>{errors.server && errors.server}</p>
-                <div className='buttons-container'>
+                <p className='text-base text-red-500'>
+                    {errors.server && errors.server}
+                </p>
+                <div className='w-full self-center flex flex-row flex-nowrap justify-center'>
                     <button
                         type='submit'
                         className={submitClass}
@@ -377,14 +413,14 @@ function NewProductForm() {
                         Create Product
                     </button>
                 </div>
-                <p className='loading'>
+                <p className='font-base text-stone-800'>
                     {imageLoading && 'Loading...'}
                 </p>
             </form>
         </main>
     ) : (
         <main>
-            <p className='loading'>Loading...</p>
+            <p className='font-base text-stone-800'>Loading...</p>
         </main>
     );
 }
