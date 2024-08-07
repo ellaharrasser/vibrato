@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getValues } from '../../../utils/misc';
-import { thunkLoadProducts } from '../../../redux/products';
-import ProductCard from '../ProductCard';
-import './ProductsPage.css';
+import { getValues } from '../../utils/misc';
+import { thunkLoadProducts } from '../../redux/products';
+import ProductCard from './ProductCard';
 
 
 function ProductsPage() {
@@ -24,18 +23,22 @@ function ProductsPage() {
     }, [user, dispatch]);
 
     return (
-        <main id='products-page'>
+        <main className='container h-max p-4 pb-16 flex flex-col gap-4'>
             {isLoaded ? <>
-                <div className='info'>
-                    <h1>All Products</h1>
-                    <p className='count'>{productsCount} results</p>
+                <div className='w-full my-4 flex flex-row flex-nowrap items-end gap-2'>
+                    <h1 className='text-3xl lg:text-4xl font-bold'>
+                        All Products
+                    </h1>
+                    <p className='text-lg text-stone-800'>
+                        {productsCount} results
+                    </p>
                 </div>
-                <ul>
+                <ul className='container grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4 list-none'>
                     {getValues(products).map(product => (
-                        <ProductCard product={product} key={product.id} />
+                        <ProductCard product={product} key={product.id}/>
                     ))}
                 </ul>
-            </> : <p className='loading'>Loading...</p>}
+            </> : <p className='text-base text-stone-800'>Loading...</p>}
         </main>
     );
 }

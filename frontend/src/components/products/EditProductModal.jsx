@@ -168,7 +168,6 @@ function EditProductModal({ product }) {
                 Edit an existing Product
             </h1>
             <form
-                id='edit-product-form'
                 onSubmit={handleSubmit}
                 encType='multipart/form-data'
                 className='container max-w-[60ch] flex flex-col flex-nowrap justify-center items-start gap-4'

@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { thunkLogout } from '../../../../../redux/session';
-import './ProfileImageButton.css';
+import { thunkLogout } from '../../../redux/session';
 
 
 function ProfileButton({ user }) {

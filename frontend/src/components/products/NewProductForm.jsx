@@ -187,12 +187,11 @@ function NewProductForm() {
     };
 
     return dataLoaded ? (
-        <main id='new-product-page' className='container px-8 py-4 flex flex-col flex-nowrap items-center gap-2 bg-white overflow-hidden'>
+        <main className='container px-8 py-4 flex flex-col flex-nowrap items-center gap-2 bg-white overflow-hidden'>
             <h1 className='my-8 text-3xl font-bold'>
                 List a new Product
             </h1>
             <form
-                id='new-product-form'
                 onSubmit={handleSubmit}
                 encType='multipart/form-data'
                 className='container max-w-[60ch] flex flex-col flex-nowrap justify-center items-start gap-4'

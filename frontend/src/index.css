@@ -12,6 +12,16 @@
     .button-cancel {
         @apply px-4 py-1 rounded-full text-lg cursor-pointer bg-stone-400 transition-colors hover:bg-stone-300;
     }
+    .transition-hidden {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 75ms ease-in-out, visibility 0ms 75ms;
+    }
+    .transition-visible {
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 0ms, opacity 75ms ease-in-out;
+    }
 }
 :root {
     /* Global color scheme */

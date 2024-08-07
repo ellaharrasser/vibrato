@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { thunkLogin } from '../../../../redux/session';
-import OpenModalMenuItem from '../../OpenModalMenuItem';
-import LoginFormModal from '../../../users/LoginFormModal';
-import SignupFormModal from '../../../users/SignupFormModal';
+import { thunkLogin } from '../../../redux/session';
+import OpenModalMenuItem from '../OpenModalMenuItem';
+import LoginFormModal from '../../users/LoginFormModal';
+import SignupFormModal from '../../users/SignupFormModal';
 import ProfileImageButton from './ProfileImageButton';
 
 

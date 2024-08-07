@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { centsToUSD } from '../../utils/misc';
 
 
-function HomeProductCard({ product }) {
+function ProductCard({ product }) {
     const navigate = useNavigate();
 
     const productPriceText = centsToUSD(product.productPrice);
@@ -12,9 +12,9 @@ function HomeProductCard({ product }) {
         : 'Free Shipping';
 
     return (
-        <div
+        <li
             onClick={() => navigate(`/products/${product.id}`)}
-            className='container h-full flex flex-col cursor-pointer group'
+            className='container w-full h-full flex flex-col cursor-pointer group'
         >
             <img
                 src={product.images[0].image}
@@ -35,8 +35,8 @@ function HomeProductCard({ product }) {
                     {shippingPriceText}
                 </p>
             </div>
-        </div>
-    );
+        </li>
+    )
 }
 
-export default HomeProductCard;
+export default ProductCard;

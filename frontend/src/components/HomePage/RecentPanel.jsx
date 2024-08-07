@@ -19,7 +19,9 @@ function RecentPanel() {
     return (
         <div className='container flex flex-col flex-nowrap gap-4'>
             <div className='container flex justify-between content-end border-b border-stone-400'>
-                <h2 className='text-2xl/6 font-bold align-bottom'>Recent Listings</h2>
+                <h2 className='text-2xl/6 font-bold align-bottom'>
+                    Recent Listings
+                </h2>
                 <NavLink to='/products?sort_by=new' className='text-lg transition-all hover:text-orange-400'>
                     See More
                 </NavLink>
