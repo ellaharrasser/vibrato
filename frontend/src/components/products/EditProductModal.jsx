@@ -1,30 +1,24 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import {
-    getKeys, getValues, endsWithOne, imageSuffixes
-} from '../../utils/misc';
+import { useModal } from '../../context/Modal';
+import { getKeys, endsWithOne, imageSuffixes } from '../../utils/misc';
 import conditions from '../../utils/conditions';
-import { thunkLoadUserShops } from '../../redux/shops';
-import { thunkNewProduct } from '../../redux/products';
+import { thunkEditProduct } from '../../redux/products';
 
 
-function NewProductForm() {
+function EditProductModal({ product }) {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const { closeModal } = useModal();
 
-    const user = useSelector(state => state.session.user);
-
-    const [shopId, setShopId] = useState('');
-    const [name, setName] = useState('');
-    const [brand, setBrand] = useState('');
-    const [category, setCategory] = useState('');
-    const [condition, setCondition] = useState('');
-    const [description, setDescription] = useState('');
-    const [productPrice, setProductPrice] = useState('');
-    const [shippingPrice, setShippingPrice] = useState('');
-    const [quantity, setQuantity] = useState(1);
+    const [name, setName] = useState(product.name);
+    const [brand, setBrand] = useState(product.brand);
+    const [category, setCategory] = useState(product.category);
+    const [condition, setCondition] = useState(product.condition);
+    const [description, setDescription] = useState(product.description);
+    const [productPrice, setProductPrice] = useState(product.productPrice / 100);
+    const [shippingPrice, setShippingPrice] = useState(product.shippingPrice / 100);
+    const [quantity, setQuantity] = useState(product.quantity);
     const [image1, setImage1] = useState(null);
     const [file, setFile] = useState(null);
     const [filename, setFilename] = useState('');
@@ -36,35 +30,15 @@ function NewProductForm() {
     const [submitDisabled, setSubmitDisabled] = useState(false);
     const [submitClass, setSubmitClass] = useState('button-submit');
 
-    const [dataLoaded, setDataLoaded] = useState(false);
-
-    useEffect(() => {
-        if (!user) {
-            navigate('/');
-            return;
-        }
-        const fetchUserShops = async () => {
-            await dispatch(thunkLoadUserShops(user));
-            setDataLoaded(true);
-        }
-        fetchUserShops();
-    }, [user, dispatch, navigate]);
-
-    const shops = useSelector(state => state.shops.shops);
-
     const setSubmitDisabledStatus = (disabled) => {
-      (disabled)
-        ? setSubmitClass('button-submit-disabled')
-        : setSubmitClass('button-submit');
-      setSubmitDisabled(disabled);
+        (disabled)
+            ? setSubmitClass('button-submit-disabled')
+            : setSubmitClass('button-submit');
+        setSubmitDisabled(disabled);
     };
 
     const getValidations = useCallback(() => {
         const newValidations = {};
-
-        if (!shopId) {
-            newValidations.shop = 'A shop is required.';
-        }
 
         if (!name) {
             newValidations.name = 'A name is required.';
@@ -114,24 +88,15 @@ function NewProductForm() {
             newValidations.quantity = 'A quantity must be 1 or more';
         }
 
-        if (!file) {
-            newValidations.image1 = 'An image is required.';
-        } else if (!endsWithOne(filename, imageSuffixes)) {
+        if (file && !endsWithOne(filename, imageSuffixes)) {
             newValidations.image1 = 'An image must be a pdf, png, jpg, jpeg, or gif.'
         }
 
         return newValidations;
     }, [
-        shopId, name, brand, category, condition, description, productPrice,
-        shippingPrice, quantity, file, filename
+        name, brand, category, condition, description, productPrice,
+        shippingPrice, quantity, file, filename,
     ]);
-
-    useEffect(() => {
-        if (!hasSubmitted) return; // Prevent validations until initial submission
-        const newValidations = getValidations();
-        setSubmitDisabledStatus(getKeys(newValidations).length > 0);
-        setValidations(newValidations);
-    }, [hasSubmitted, getValidations]);
 
     // Helper function for generating thumbnail URL and setting image states
     const fileWrap = (e) => {
@@ -152,21 +117,26 @@ function NewProductForm() {
         setFilename(tempFile.name);
     }
 
-    // Navigate to shop creation form if no shops exist
-    if (dataLoaded && !getKeys(shops).length) return navigate('shops/new');
+    useEffect(() => {
+        // Prevent validations until initial submission
+        if (!hasSubmitted) return;
+        const newValidations = getValidations();
+        setSubmitDisabledStatus(getKeys(newValidations).length > 0);
+        setValidations(newValidations);
+    }, [hasSubmitted, getValidations]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!hasSubmitted) { // Prevent submission if validation errors exist
+        /* Prevent submission if validation errors exist,
+        or if no fields have changed */
+        if (!hasSubmitted) {
             setHasSubmitted(true);
             const newValidations = getValidations();
             if (getKeys(newValidations).length) return;
         }
 
         const formData = new FormData();
-        formData.append('user_id', user.id);
-        formData.append('shop_id', shopId);
         formData.append('name', name);
         formData.append('brand', brand);
         formData.append('category', category);
@@ -175,61 +145,40 @@ function NewProductForm() {
         formData.append('product_price', Math.round(productPrice * 100));
         formData.append('shipping_price', Math.round(shippingPrice * 100));
         formData.append('quantity', +quantity);
-        formData.append('image_1', file);
-        setImageLoading(true);
+        if (file) {
+            formData.append('image_1', file);
+            setImageLoading(true);
+        }
 
-        const serverResponse = await dispatch(thunkNewProduct(formData));
+        const serverResponse = await dispatch(
+            thunkEditProduct(formData, product.id)
+        );
+
         if (serverResponse.product) {
-            navigate(`/products/${serverResponse.product.id}`);
+            closeModal();
         } else if (serverResponse) {
             setErrors(serverResponse);
+            setImageLoading(false);
         }
     };
 
-    return dataLoaded ? (
-        <main id='new-product-page' className='container px-8 py-4 flex flex-col flex-nowrap items-center gap-2 bg-white overflow-hidden'>
+    return (
+        <div className='container px-8 py-4 flex flex-col flex-nowrap items-center gap-2 bg-white border border-stone-200 rounded-xl overflow-hidden'>
             <h1 className='my-8 text-3xl font-bold'>
-                List a new Product
+                Edit an existing Product
             </h1>
             <form
-                id='new-product-form'
+                id='edit-product-form'
                 onSubmit={handleSubmit}
                 encType='multipart/form-data'
                 className='container max-w-[60ch] flex flex-col flex-nowrap justify-center items-start gap-4'
             >
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
-                    <div className='flex items-center gap-2'>
-                        <label htmlFor='shop' className='text-lg font-semibold'>
-                            Shop
-                        </label>
-                        <p className='text-base text-red-500'>
-                            {validations.shop && validations.shop
-                            || errors.shop && errors.shop}
-                        </p>
-                    </div>
-                    <select
-                        id='shop'
-                        name='shop'
-                        value={shopId}
-                        onChange={(e) => setShopId(e.target.value)}
-                        className='w-full px-2 py-1 rounded-full cursor-pointer bg-stone-200 border border-stone-400 transition-colors hover:bg-stone-100 focus:bg-stone-100'
-                    >
-                        <option value=''>
-                            Please select a shop...
-                        </option>
-                        {getValues(shops).map(shop => (
-                            <option value={shop.id} key={shop.id}>
-                                {shop.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
-                    <div className='flex items-center gap-2'>
+                <div className='min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label htmlFor='name' className='text-lg font-semibold'>
                             Name
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='font-base text-red-500'>
                             {validations.name && validations.name
                             || errors.name && errors.name}
                         </p>
@@ -242,12 +191,12 @@ function NewProductForm() {
                         className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
-                    <div className='flex items-center gap-2'>
+                <div className='min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label htmlFor='brand' className='text-lg font-semibold'>
                             Brand
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='font-base text-red-500'>
                             {validations.brand && validations.brand
                             || errors.brand && errors.brand}
                         </p>
@@ -260,12 +209,12 @@ function NewProductForm() {
                         className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
-                    <div className='flex items-center gap-2'>
+                <div className='min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label htmlFor='category' className='text-lg font-semibold'>
                             Category
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='font-base text-red-500'>
                             {validations.category && validations.category
                             || errors.category && errors.category}
                         </p>
@@ -278,12 +227,12 @@ function NewProductForm() {
                         className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
-                    <div className='flex items-center gap-2'>
+                <div className='min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label htmlFor='condition' className='text-lg font-semibold'>
                             Condition
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='font-base text-red-500'>
                             {validations.condition && validations.condition
                             || errors.condition && errors.condition}
                         </p>
@@ -294,9 +243,7 @@ function NewProductForm() {
                         onChange={(e) => setCondition(e.target.value)}
                         className='w-full px-2 py-1 rounded-full cursor-pointer bg-stone-200 border border-stone-400 transition-colors hover:bg-stone-100 focus:bg-stone-100'
                     >
-                        <option value=''>
-                            Please select a condition...
-                        </option>
+                        <option value=''>Please select a condition...</option>
                         {conditions.map(condition => (
                             <option value={condition} key={condition}>
                                 {condition}
@@ -304,12 +251,12 @@ function NewProductForm() {
                         ))}
                     </select>
                 </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
-                    <div className='flex items-center gap-2'>
+                <div className='min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label htmlFor='description' className='text-lg font-semibold'>
                             Description
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='font-base text-red-500'>
                             {validations.description && validations.description
                             || errors.description && errors.description}
                         </p>
@@ -322,12 +269,12 @@ function NewProductForm() {
                         className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
-                    <div className='flex items-center gap-2'>
+                <div className='min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label htmlFor='productPrice' className='text-lg font-semibold'>
                             Product Price
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='font-base text-red-500'>
                             {validations.productPrice && validations.productPrice
                             || errors.product_price && errors.product_price}
                         </p>
@@ -340,12 +287,12 @@ function NewProductForm() {
                         className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
-                    <div className='flex items-center gap-2'>
+                <div className='min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label htmlFor='shippingPrice' className='text-lg font-semibold'>
                             Shipping Price
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='font-base text-red-500'>
                             {validations.shippingPrice && validations.shippingPrice
                             || errors.shipping_price && errors.shipping_price}
                         </p>
@@ -358,12 +305,12 @@ function NewProductForm() {
                         className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
-                    <div className='flex items-center gap-2'>
+                <div className='min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label htmlFor='quantity' className='text-lg font-semibold'>
                             Quantity
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='font-base text-red-500'>
                             {validations.quantity && validations.quantity
                             || errors.quantity && errors.quantity}
                         </p>
@@ -376,18 +323,18 @@ function NewProductForm() {
                         className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400' id='image-upload-container'>
-                    <div className='flex items-center gap-2'>
+                <div className='min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='w-full min-w-[40ch] flex items-center gap-2'>
                         <label className='text-lg font-semibold'>
                             Image
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='font-base text-red-500'>
                             {validations.image1 && validations.image1
                             || errors.image1 && errors.image1}
                         </p>
                     </div>
                     <label htmlFor='image-1' className='underline cursor-pointer text-stone-800 transition-colors hover:text-teal-500'>
-                        {filename || 'Upload an image'}
+                        {filename || 'Upload an image (optional)'}
                     </label>
                     <input
                         id='image-1'
@@ -401,28 +348,33 @@ function NewProductForm() {
                         className='w-auto h-full max-w-16 max-h-16'
                     />
                 </div>
-                <p className='text-base text-red-500'>
-                    {errors.server && errors.server}
-                </p>
-                <div className='w-full self-center flex flex-row flex-nowrap justify-center'>
+                {errors.server && (
+                    <p className='font-base text-red-600'>
+                        {errors.server}
+                    </p>
+                )}
+                <div className='w-full self-center flex flex-row flex-nowrap justify-center gap-4'>
                     <button
                         type='submit'
                         disabled={submitDisabled}
                         className={submitClass}
                     >
-                        Create Product
+                        Edit Shop
+                    </button>
+                    <button
+                        type='button'
+                        onClick={closeModal}
+                        className='button-cancel'
+                    >
+                        Cancel
                     </button>
                 </div>
                 <p className='font-base text-stone-800'>
                     {imageLoading && 'Loading...'}
                 </p>
             </form>
-        </main>
-    ) : (
-        <main>
-            <p className='font-base text-stone-800'>Loading...</p>
-        </main>
-    );
+        </div>
+    )
 }
 
-export default NewProductForm;
+export default EditProductModal;

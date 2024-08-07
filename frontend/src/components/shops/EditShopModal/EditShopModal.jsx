@@ -13,7 +13,7 @@ function EditShopModal({ shop }) {
 
     const [name, setName] = useState(shop.name);
     const [description, setDescription] = useState(shop.description);
-    const [image, setImage] = useState(undefined);
+    const [image, setImage] = useState(null);
     const [file, setFile] = useState(null);
     const [filename, setFilename] = useState('');
     const [imageLoading, setImageLoading] = useState(false);

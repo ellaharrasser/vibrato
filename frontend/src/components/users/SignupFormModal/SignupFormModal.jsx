@@ -143,10 +143,10 @@ function SignupFormModal() {
                     </div>
                     <input
                         id='email'
-                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='text'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
                 <div className='container'>
@@ -161,10 +161,10 @@ function SignupFormModal() {
                     </div>
                     <input
                         id='name'
-                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='text'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
                 <div className='container'>
@@ -204,10 +204,10 @@ function SignupFormModal() {
                     </div>
                     <input
                         id='description'
-                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='text'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
                 <div className='container'>
@@ -222,10 +222,10 @@ function SignupFormModal() {
                     </div>
                     <input
                         id='password'
-                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
                 <div className='container'>
@@ -239,10 +239,10 @@ function SignupFormModal() {
                     </div>
                     <input
                         id='confirm-password'
-                        className='w-full px-1 border border-stone-400 rounded-md'
                         type='password'
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
                 {errors.server && (

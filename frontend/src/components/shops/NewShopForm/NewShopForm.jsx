@@ -15,7 +15,7 @@ function NewShopForm() {
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState(undefined);
+    const [image, setImage] = useState(null);
     const [file, setFile] = useState(null);
     const [filename, setFilename] = useState('');
     const [imageLoading, setImageLoading] = useState(false);
