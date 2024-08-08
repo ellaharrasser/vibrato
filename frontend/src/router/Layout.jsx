@@ -16,7 +16,7 @@ export default function Layout() {
 
   return (
     <ModalProvider>
-      <div className='w-full h-full flex flex-col flex-nowrap'>
+      <div className='w-full h-max flex flex-col flex-nowrap'>
         <header className='w-full h-[80px] fixed top-0 flex flex-col flex-nowrap items-center bg-white'>
           {isLoaded && <PageHeader />}
         </header>

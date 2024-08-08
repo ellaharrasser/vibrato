@@ -23,7 +23,7 @@ function ProductsPage() {
     }, [user, dispatch]);
 
     return (
-        <main className='container h-max p-4 pb-16 flex flex-col gap-4'>
+        <main className='container h-max p-4 flex flex-col gap-4'>
             {isLoaded ? <>
                 <div className='w-full my-4 flex flex-row flex-nowrap items-end gap-2'>
                     <h1 className='text-3xl lg:text-4xl font-bold'>

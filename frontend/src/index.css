@@ -4,13 +4,28 @@
 
 @layer components {
     .button-submit {
-        @apply px-4 py-1 rounded-full text-lg cursor-pointer bg-teal-300 transition-colors hover:bg-teal-200;
+        @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-teal-500 transition-colors hover:bg-teal-400;
+    }
+    .button-submit-sm {
+        @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-teal-500 transition-colors hover:bg-teal-400;
     }
     .button-submit-disabled {
-        @apply px-4 py-1 rounded-full text-lg cursor-not-allowed bg-stone-400 transition-colors hover:bg-red-400;
+        @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-not-allowed bg-stone-500 transition-colors hover:bg-red-500;
+    }
+    .button-submit-disabled-sm {
+        @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-not-allowed bg-stone-500 transition-colors hover:bg-red-500;
     }
     .button-cancel {
-        @apply px-4 py-1 rounded-full text-lg cursor-pointer bg-stone-400 transition-colors hover:bg-stone-300;
+        @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-stone-500 transition-colors hover:bg-stone-400;
+    }
+    .button-cancel-sm {
+        @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-stone-500 transition-colors hover:bg-stone-400;
+    }
+    .button-delete {
+        @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-red-500 transition-colors hover:bg-red-400;
+    }
+    .button-delete-sm {
+        @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-red-500 transition-colors hover:bg-red-400;
     }
     .transition-hidden {
         visibility: hidden;

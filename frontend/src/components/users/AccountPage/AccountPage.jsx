@@ -7,7 +7,6 @@ import { thunkLoadUserShops } from '../../../redux/shops';
 import { thunkLoadUserProducts } from '../../../redux/products';
 import MyShopCard from './MyShopCard';
 import MyProductCard from './MyProductCard';
-import './AccountPage.css';
 
 
 function AccountPage() {
@@ -38,48 +37,54 @@ function AccountPage() {
     }, [user, dispatch, productsCount, currentProduct, shopsCount, currentShop]);
 
     return (
-        <main id='account-page'>
-            <section id='my-account'>
-                <h1>My Account</h1>
-                <div id='user-info'>
+        <main id='account-page' className='container h-max p-4 flex flex-col flex-nowrap gap-4'>
+            <section className='w-full pb-4 flex flex-col flex-nowrap items-start gap-4 border-b border-stone-400'>
+                <h1 className='my-4 text-3xl lg:text-4xl font-bold'>
+                    My Account
+                </h1>
+                <div className='w-full flex flex-row flex-nowrap items-start justify-start'>
                     <img
-                        className='user-image'
                         src={user.profileImage}
                         alt='User Image'
+                        className='size-24 rounded-xl border border-stone-400'
                     />
-                    <div className='user-info-text'>
-                        <div className='name-email'>
-                            <p className='name'>{user.name}</p>
-                            <p className='email'>{user.email}</p>
+                    <div className='w-full my-auto ml-2 p-2 flex flex-col flex-wrap items-start gap-2'>
+                        <div className='flex flex-row flex-wrap items-end gap-4'>
+                            <p className='text-xl/[1] font-bold'>{user.name}</p>
+                            <p className='text-lg/[1] font-semibold text-stone-800'>{user.email}</p>
                         </div>
-                        <p className='description'>{user.description}</p>
+                        <p className='text-base'>{user.description}</p>
                     </div>
                 </div>
             </section>
-            <section id='my-shops'>
-                <div id='my-shops-header'>
-                    <h2>My Shops</h2>
-                    <NavLink to='/shops/new'>Create a Shop</NavLink>
+            <section className='w-full pb-4 flex flex-col flex-nowrap items-start gap-4 border-b border-stone-400'>
+                <div className='w-full flex flex-row flex-nowrap justify-start items-center gap-4'>
+                    <h2 className='my-4 text-3xl font-bold'>
+                        My Shops
+                    </h2>
+                    <NavLink to='/shops/new' className='button-submit'>
+                        Create a Shop
+                    </NavLink>
                 </div>
-                <ul id='my-shops-list'>
-                    {dataLoaded ? (<>
-                        {getValues(shops).map(shop => (
-                            <MyShopCard shop={shop} key={shop.id} />
-                        ))}
-                    </>) : <p className='loading'>Loading...</p>}
+                <ul className='w-full p-2 list-none grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4'>
+                    {dataLoaded ? (getValues(shops).map(shop => (
+                        <MyShopCard shop={shop} key={shop.id} />
+                    ))) : <p className='text-base text-stone-800'>Loading...</p>}
                 </ul>
             </section>
-            <section id='my-products'>
-                <div id='my-products-header'>
-                    <h2>My Products</h2>
-                    <NavLink to='/products/new'>Create a Product</NavLink>
+            <section className='w-full pb-4 flex flex-col flex-nowrap items-start gap-4 border-b border-stone-400'>
+                <div className='w-full flex flex-row flex-nowrap justify-start items-center gap-4'>
+                    <h2 className='my-4 text-3xl font-bold'>
+                        My Products
+                    </h2>
+                    <NavLink to='/products/new' className='button-submit'>
+                        Create a Product
+                    </NavLink>
                 </div>
-                <ul id='my-products-list'>
-                    {dataLoaded ? (<>
-                        {getValues(products).map(product => (
-                            <MyProductCard product={product} key={product.id} />
-                        ))}
-                    </>) : <p className='loading'>Loading...</p>}
+                <ul className='w-full p-2 list-none grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4'>
+                    {dataLoaded ? getValues(products).map(product => (
+                        <MyProductCard product={product} key={product.id} />
+                    )) : <p className='text-base text-stone-800'>Loading...</p>}
                 </ul>
             </section>
         </main>
