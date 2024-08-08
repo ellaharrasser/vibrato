@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer components {
+    /* DRY this up later with utility "subclasses" */
     .button-submit {
         @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-teal-500 transition-colors hover:bg-teal-400;
     }

@@ -40,7 +40,7 @@ function MyProductCard({ product }) {
                     </p>
                 </div>
             </div>
-            <div className='w-full flex flex-row flex-nowrap gap-4 justify-center'>
+            <div className='w-full flex flex-row flex-nowrap gap-2 md:gap-4 justify-center'>
                 <OpenModalButton
                     modalComponent={<EditProductModal product={product}/>}
                     buttonText='Edit'

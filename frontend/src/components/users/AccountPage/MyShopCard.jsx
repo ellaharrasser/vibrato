@@ -28,7 +28,7 @@ function MyShopCard({ shop }) {
                     </p>
                 </div>
             </div>
-            <div className='w-full flex flex-row flex-nowrap gap-4 justify-center'>
+            <div className='w-full flex flex-row flex-nowrap gap-2 md:gap-4 justify-center'>
                 <OpenModalButton
                     modalComponent={<EditShopModal shop={shop}/>}
                     buttonText='Edit'
