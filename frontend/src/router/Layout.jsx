@@ -20,7 +20,7 @@ export default function Layout() {
         <header className='w-full h-[80px] fixed top-0 flex flex-col flex-nowrap items-center bg-white'>
           {isLoaded && <PageHeader />}
         </header>
-        <div className='w-full h-full mt-[80px] flex justify-center'>
+        <div className='w-full h-max mt-[80px] flex justify-center'>
           {isLoaded && <Outlet />}
         </div>
       </div>

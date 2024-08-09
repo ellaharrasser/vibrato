@@ -28,6 +28,9 @@
     .button-delete-sm {
         @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-red-500 transition-colors hover:bg-red-400;
     }
+    .text-error {
+        @apply text-base text-red-600;
+    }
     .transition-hidden {
         visibility: hidden;
         opacity: 0;

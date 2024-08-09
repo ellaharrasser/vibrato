@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useModal } from '../../../context/Modal';
-import { getKeys, endsWithOne, imageSuffixes } from '../../../utils/misc';
-import { thunkEditShop } from '../../../redux/shops';
-import './EditShopModal.css';
+import { useModal } from '../../context/Modal';
+import { getKeys, endsWithOne, imageSuffixes } from '../../utils/misc';
+import { thunkEditShop } from '../../redux/shops';
 
 
 function EditShopModal({ shop }) {
@@ -22,12 +21,12 @@ function EditShopModal({ shop }) {
     const [errors, setErrors] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false);
     const [submitDisabled, setSubmitDisabled] = useState(false);
-    const [submitClass, setSubmitClass] = useState('submit');
+    const [submitClass, setSubmitClass] = useState('button-submit');
 
     const setSubmitDisabledStatus = (disabled) => {
       (disabled)
-        ? setSubmitClass('submit disabled')
-        : setSubmitClass('submit');
+        ? setSubmitClass('button-submit-disabled')
+        : setSubmitClass('button-submit');
       setSubmitDisabled(disabled);
     };
 
@@ -109,70 +108,80 @@ function EditShopModal({ shop }) {
     };
 
     return (
-        <div id='edit-shop-wrapper'>
-            <h1>Edit an existing Shop</h1>
+        <div className='container px-8 py-4 flex flex-col flex-nowrap items-center gap-2 bg-white border border-stone-200 rounded-xl overflow-hidden'>
+            <h1 className='my-8 text-3xl font-bold'>
+                Edit an existing Shop
+            </h1>
             <form
-                id='edit-shop-form'
                 onSubmit={handleSubmit}
                 encType='multipart/form-data'
+                className='container max-w-[60ch] flex flex-col flex-nowrap justify-center items-start gap-4'
             >
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='name'>Name</label>
-                        <span className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='name' className='text-lg font-semibold'>
+                            Name
+                        </label>
+                        <p className='text-error'>
                             {validations.name && validations.name
                             || errors.name && errors.name}
-                        </span>
+                        </p>
                     </div>
                     <input
                         id='name'
                         type='text'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='form-item-container'>
-                    <div className='form-item-text'>
-                        <label htmlFor='description'>Description</label>
-                        <span className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label htmlFor='description' className='text-lg font-semibold'>
+                            Description
+                        </label>
+                        <p className='text-error'>
                             {validations.description && validations.description
                             || errors.description && errors.description}
-                        </span>
+                        </p>
                     </div>
                     <input
                         id='description'
                         type='text'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='form-item-container' id='image-upload-container'>
-                    <div className='form-item-text'>
-                        <label>Image</label>
-                        <p className='form-error'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
+                    <div className='flex items-center gap-2'>
+                        <label className='text-lg font-semibold'>
+                            Image
+                        </label>
+                        <p className='text-error'>
                             {validations.image && validations.image
                             || errors.image && errors.image}
                         </p>
                     </div>
-                    <label className='image-upload' htmlFor='image'>
-                        Upload Image
+                    <label htmlFor='image' className='underline cursor-pointer text-stone-800 transition-colors hover:text-teal-500'>
+                        {filename || 'Upload an image (Optional)'}
                     </label>
                     <input
                         id='image'
                         type='file'
                         accept='image/*'
                         onChange={fileWrap}
+                        className='hidden'
                     />
                     <img
-                        className='image-upload-thumbnail'
                         src={image}
+                        className='w-auto h-full max-w-16 max-h-16'
                     />
-                    <span className='filename'>{filename || 'No file selected - image will not be updated.'}</span>
                 </div>
-                <p className='form-error'>
+                <p className='text-error'>
                     {errors.server && errors.server}
                 </p>
-                <div className='buttons-container'>
+                <div className='w-full self-center flex flex-row flex-nowrap justify-center gap-4'>
                     <button
                         type='submit'
                         className={submitClass}
@@ -182,13 +191,13 @@ function EditShopModal({ shop }) {
                     </button>
                     <button
                         type='button'
-                        className='cancel-button'
                         onClick={closeModal}
+                        className='button-cancel'
                     >
                         Cancel
                     </button>
                 </div>
-                <p className='loading'>
+                <p className='text-base text-stone-800'>
                     {imageLoading && 'Loading...'}
                 </p>
             </form>

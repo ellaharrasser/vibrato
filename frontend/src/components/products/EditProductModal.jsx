@@ -177,7 +177,7 @@ function EditProductModal({ product }) {
                         <label htmlFor='name' className='text-lg font-semibold'>
                             Name
                         </label>
-                        <p className='font-base text-red-500'>
+                        <p className='text-error'>
                             {validations.name && validations.name
                             || errors.name && errors.name}
                         </p>
@@ -195,7 +195,7 @@ function EditProductModal({ product }) {
                         <label htmlFor='brand' className='text-lg font-semibold'>
                             Brand
                         </label>
-                        <p className='font-base text-red-500'>
+                        <p className='text-error'>
                             {validations.brand && validations.brand
                             || errors.brand && errors.brand}
                         </p>
@@ -213,7 +213,7 @@ function EditProductModal({ product }) {
                         <label htmlFor='category' className='text-lg font-semibold'>
                             Category
                         </label>
-                        <p className='font-base text-red-500'>
+                        <p className='text-error'>
                             {validations.category && validations.category
                             || errors.category && errors.category}
                         </p>
@@ -231,7 +231,7 @@ function EditProductModal({ product }) {
                         <label htmlFor='condition' className='text-lg font-semibold'>
                             Condition
                         </label>
-                        <p className='font-base text-red-500'>
+                        <p className='text-error'>
                             {validations.condition && validations.condition
                             || errors.condition && errors.condition}
                         </p>
@@ -255,7 +255,7 @@ function EditProductModal({ product }) {
                         <label htmlFor='description' className='text-lg font-semibold'>
                             Description
                         </label>
-                        <p className='font-base text-red-500'>
+                        <p className='text-error'>
                             {validations.description && validations.description
                             || errors.description && errors.description}
                         </p>
@@ -273,7 +273,7 @@ function EditProductModal({ product }) {
                         <label htmlFor='productPrice' className='text-lg font-semibold'>
                             Product Price
                         </label>
-                        <p className='font-base text-red-500'>
+                        <p className='text-error'>
                             {validations.productPrice && validations.productPrice
                             || errors.product_price && errors.product_price}
                         </p>
@@ -291,7 +291,7 @@ function EditProductModal({ product }) {
                         <label htmlFor='shippingPrice' className='text-lg font-semibold'>
                             Shipping Price
                         </label>
-                        <p className='font-base text-red-500'>
+                        <p className='text-error'>
                             {validations.shippingPrice && validations.shippingPrice
                             || errors.shipping_price && errors.shipping_price}
                         </p>
@@ -309,7 +309,7 @@ function EditProductModal({ product }) {
                         <label htmlFor='quantity' className='text-lg font-semibold'>
                             Quantity
                         </label>
-                        <p className='font-base text-red-500'>
+                        <p className='text-error'>
                             {validations.quantity && validations.quantity
                             || errors.quantity && errors.quantity}
                         </p>
@@ -327,7 +327,7 @@ function EditProductModal({ product }) {
                         <label className='text-lg font-semibold'>
                             Image
                         </label>
-                        <p className='font-base text-red-500'>
+                        <p className='text-error'>
                             {validations.image1 && validations.image1
                             || errors.image1 && errors.image1}
                         </p>
@@ -348,9 +348,7 @@ function EditProductModal({ product }) {
                     />
                 </div>
                 {errors.server && (
-                    <p className='font-base text-red-600'>
-                        {errors.server}
-                    </p>
+                    <p className='text-error'>{errors.server}</p>
                 )}
                 <div className='w-full self-center flex flex-row flex-nowrap justify-center gap-4'>
                     <button
@@ -368,7 +366,7 @@ function EditProductModal({ product }) {
                         Cancel
                     </button>
                 </div>
-                <p className='font-base text-stone-800'>
+                <p className='text-base text-stone-800'>
                     {imageLoading && 'Loading...'}
                 </p>
             </form>

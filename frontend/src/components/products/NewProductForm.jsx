@@ -201,7 +201,7 @@ function NewProductForm() {
                         <label htmlFor='shop' className='text-lg font-semibold'>
                             Shop
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.shop && validations.shop
                             || errors.shop && errors.shop}
                         </p>
@@ -228,7 +228,7 @@ function NewProductForm() {
                         <label htmlFor='name' className='text-lg font-semibold'>
                             Name
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.name && validations.name
                             || errors.name && errors.name}
                         </p>
@@ -246,7 +246,7 @@ function NewProductForm() {
                         <label htmlFor='brand' className='text-lg font-semibold'>
                             Brand
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.brand && validations.brand
                             || errors.brand && errors.brand}
                         </p>
@@ -264,7 +264,7 @@ function NewProductForm() {
                         <label htmlFor='category' className='text-lg font-semibold'>
                             Category
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.category && validations.category
                             || errors.category && errors.category}
                         </p>
@@ -282,7 +282,7 @@ function NewProductForm() {
                         <label htmlFor='condition' className='text-lg font-semibold'>
                             Condition
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.condition && validations.condition
                             || errors.condition && errors.condition}
                         </p>
@@ -308,7 +308,7 @@ function NewProductForm() {
                         <label htmlFor='description' className='text-lg font-semibold'>
                             Description
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.description && validations.description
                             || errors.description && errors.description}
                         </p>
@@ -326,7 +326,7 @@ function NewProductForm() {
                         <label htmlFor='productPrice' className='text-lg font-semibold'>
                             Product Price
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.productPrice && validations.productPrice
                             || errors.product_price && errors.product_price}
                         </p>
@@ -344,7 +344,7 @@ function NewProductForm() {
                         <label htmlFor='shippingPrice' className='text-lg font-semibold'>
                             Shipping Price
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.shippingPrice && validations.shippingPrice
                             || errors.shipping_price && errors.shipping_price}
                         </p>
@@ -362,7 +362,7 @@ function NewProductForm() {
                         <label htmlFor='quantity' className='text-lg font-semibold'>
                             Quantity
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.quantity && validations.quantity
                             || errors.quantity && errors.quantity}
                         </p>
@@ -380,7 +380,7 @@ function NewProductForm() {
                         <label className='text-lg font-semibold'>
                             Image
                         </label>
-                        <p className='text-base text-red-500'>
+                        <p className='text-error'>
                             {validations.image1 && validations.image1
                             || errors.image1 && errors.image1}
                         </p>
@@ -400,7 +400,7 @@ function NewProductForm() {
                         className='w-auto h-full max-w-16 max-h-16'
                     />
                 </div>
-                <p className='text-base text-red-500'>
+                <p className='text-error'>
                     {errors.server && errors.server}
                 </p>
                 <div className='w-full self-center flex flex-row flex-nowrap justify-center'>
@@ -412,7 +412,7 @@ function NewProductForm() {
                         Create Product
                     </button>
                 </div>
-                <p className='font-base text-stone-800'>
+                <p className='text-base text-stone-800'>
                     {imageLoading && 'Loading...'}
                 </p>
             </form>
