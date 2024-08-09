@@ -375,7 +375,7 @@ function NewProductForm() {
                         className='w-full px-1 border border-stone-400 rounded-md'
                     />
                 </div>
-                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400' id='image-upload-container'>
+                <div className='container min-w-[40ch] box-content px-2 pb-1 flex flex-col flex-nowrap justify-center gap-1 border-l-2 border-stone-400'>
                     <div className='flex items-center gap-2'>
                         <label className='text-lg font-semibold'>
                             Image
