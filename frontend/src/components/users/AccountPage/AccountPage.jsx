@@ -48,7 +48,9 @@ function AccountPage() {
           <div className="w-full my-auto ml-2 p-2 flex flex-col flex-wrap items-start gap-2">
             <div className="flex flex-row flex-wrap items-end gap-4">
               <p className="text-xl/[1] font-bold">{user.name}</p>
-              <p className="text-lg/[1] font-semibold text-stone-800">{user.email}</p>
+              <p className="text-lg/[1] font-semibold text-stone-800">
+                {user.email}
+              </p>
             </div>
             <p className="text-base">{user.description}</p>
           </div>

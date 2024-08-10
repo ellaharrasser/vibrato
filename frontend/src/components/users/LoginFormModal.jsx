@@ -38,8 +38,12 @@ function LoginFormModal() {
       >
         <div className="container">
           <div className="w-full min-w-[40ch] flex items-center gap-2">
-            <label htmlFor="email" className="text-lg font-semibold">Email</label>
-            <span className="font-base text-red-600">{errors.email && errors.email}</span>
+            <label htmlFor="email" className="text-lg font-semibold">
+              Email
+            </label>
+            <span className="font-base text-red-600">
+              {errors.email && errors.email}
+            </span>
           </div>
           <input
             id="email"
@@ -51,8 +55,12 @@ function LoginFormModal() {
         </div>
         <div className="container">
           <div className="w-full min-w-[40ch] flex items-center gap-2">
-            <label htmlFor="password" className="text-lg font-semibold">Password</label>
-            <span className="font-base text-red-600">{errors.password && errors.password}</span>
+            <label htmlFor="password" className="text-lg font-semibold">
+              Password
+            </label>
+            <span className="font-base text-red-600">
+              {errors.password && errors.password}
+            </span>
           </div>
           <input
             id="password"
@@ -62,10 +70,16 @@ function LoginFormModal() {
             className="w-full px-1 border border-stone-400 rounded-md"
           />
         </div>
-        <p className="text-base text-red-600">{errors.server && errors.server}</p>
+        <p className="text-base text-red-600">
+          {errors.server && errors.server}
+        </p>
         <div className="w-full self-center flex flex-row flex-nowrap justify-center gap-4">
-          <button type="submit" className="button-submit">Log In</button>
-          <button type="button" onClick={closeModal} className="button-cancel">Cancel</button>
+          <button type="submit" className="button-submit">
+            Log In
+          </button>
+          <button type="button" onClick={closeModal} className="button-cancel">
+            Cancel
+          </button>
         </div>
       </form>
     </div>

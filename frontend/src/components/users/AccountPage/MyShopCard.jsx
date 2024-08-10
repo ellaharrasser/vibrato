@@ -19,8 +19,12 @@ function MyShopCard({ shop }) {
           className="w-full h-auto border border-stone-200 rounded-xl mb-2 shadow-md"
         />
         <div className="container flex-1 p-1 rounded-lg bg-transparent transition-all group-hover:bg-orange-200">
-          <p className="text-base md:text-lg lg:text-xl font-semibold overflow-ellipsis line-clamp-1">{shop.name}</p>
-          <p className="text-sm md:text-base lg:text-lg overflow-ellipsis line-clamp-2">{shop.description}</p>
+          <p className="text-base md:text-lg lg:text-xl font-semibold overflow-ellipsis line-clamp-1">
+            {shop.name}
+          </p>
+          <p className="text-sm md:text-base lg:text-lg overflow-ellipsis line-clamp-2">
+            {shop.description}
+          </p>
         </div>
       </div>
       <div className="w-full flex flex-row flex-nowrap gap-2 md:gap-4 justify-center">
