@@ -1,4 +1,4 @@
-import { useModal } from '../../../context/Modal';
+import { useModal } from "../../../context/Modal";
 
 function OpenModalButton({
   modalComponent, // component to render inside the modal
@@ -15,7 +15,11 @@ function OpenModalButton({
     if (typeof onButtonClick === "function") onButtonClick();
   };
 
-  return <button onClick={onClick} className={className}>{buttonText}</button>;
+  return (
+    <button onClick={onClick} className={className}>
+      {buttonText}
+    </button>
+  );
 }
 
 export default OpenModalButton;

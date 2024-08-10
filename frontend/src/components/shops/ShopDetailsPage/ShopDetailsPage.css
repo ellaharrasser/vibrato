@@ -1,108 +1,107 @@
 #shop-details-page {
-    width: 100%;
-    max-width: 80ch;
-    padding-top: 20px;
+  width: 100%;
+  max-width: 80ch;
+  padding-top: 20px;
 
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: start;
-    align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: start;
+  align-items: center;
 }
 
 #shop-details-page #shop-info {
-    margin: 0;
-    padding: 10px;
+  margin: 0;
+  padding: 10px;
 
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 10px;
 
-    border: 2px solid var(--d-grey-d);
-    border-radius: 10px;
+  border: 2px solid var(--d-grey-d);
+  border-radius: 10px;
 }
 
 #shop-details-page .shop-image {
-    height: auto;
-    max-width: 150px;
-    max-height: 150px;
+  height: auto;
+  max-width: 150px;
+  max-height: 150px;
 
-    border: 1px solid var(--grey-l);
-    border-radius: 5px;
+  border: 1px solid var(--grey-l);
+  border-radius: 5px;
 }
 
 #shop-details-page .shop-info-text {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 #shop-details-page .shop-info-text h1 {
-    margin: 0;
+  margin: 0;
 
-    font-size: 2rem;
-    line-height: 2rem;
-    font-weight: 700;
+  font-size: 2rem;
+  line-height: 2rem;
+  font-weight: 700;
 }
 
 #shop-details-page .shop-info-text p {
-    margin: 0;
+  margin: 0;
 }
 
 #shop-details-page .products-list {
-    margin: 20px 0px 0px;
-    padding: 0;
+  margin: 20px 0px 0px;
+  padding: 0;
 
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 20px;
 
-    list-style: none;
+  list-style: none;
 }
 
-
 #shop-details-page .owner-actions {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
 }
 
 #shop-details-page .owner-actions > button {
-    padding: 2.5px;
+  padding: 2.5px;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    color: white;
-    font-size: 1.25rem;
-    line-height: 1.25rem;
-    font-weight: 500;
+  color: white;
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+  font-weight: 500;
 
-    transition: all 75ms ease-in-out;
+  transition: all 75ms ease-in-out;
 }
 
 #shop-details-page .owner-actions > button:first-of-type {
-    width: 4ch;
-    background-color: var(--cyan-l);
-    border: 2px solid var(--cyan-m);
+  width: 4ch;
+  background-color: var(--cyan-l);
+  border: 2px solid var(--cyan-m);
 }
 
 #shop-details-page .owner-actions > button:first-of-type:hover {
-    background-color: var(--cyan-m);
-    border: 2px solid var(--cyan-d);
+  background-color: var(--cyan-m);
+  border: 2px solid var(--cyan-d);
 }
 
 #shop-details-page .owner-actions > button:last-of-type {
-    width: 6ch;
-    background-color: var(--red-l);
-    border: 2px solid var(--red-m);
+  width: 6ch;
+  background-color: var(--red-l);
+  border: 2px solid var(--red-m);
 }
 
 #shop-details-page .owner-actions > button:last-of-type:hover {
-    background-color: var(--red-m);
-    border: 2px solid var(--red-d);
+  background-color: var(--red-m);
+  border: 2px solid var(--red-d);
 }

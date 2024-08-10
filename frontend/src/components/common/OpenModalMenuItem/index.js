@@ -1,3 +1,3 @@
-import OpenModalMenuItem from './OpenModalMenuItem';
+import OpenModalMenuItem from "./OpenModalMenuItem";
 
 export default OpenModalMenuItem;
