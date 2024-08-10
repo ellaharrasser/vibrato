@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 import HeaderSearchBar from "./HeaderSearchBar";
 import NavBar from "./NavBar";
-import CategoryNavBar from "./CategoryNavBar";
+// import CategoryNavBar from "./CategoryNavBar";
 
 function PageHeader() {
   return (
@@ -20,9 +20,9 @@ function PageHeader() {
           <NavBar />
         </div>
       </div>
-      <div className="w-full h-[35px] px-4 py-1 flex flex-row flex-nowrap justify-center border-b border-stone-500">
+      {/* <div className="w-full h-[35px] px-4 py-1 flex flex-row flex-nowrap justify-center border-b border-stone-500">
         <CategoryNavBar />
-      </div>
+      </div> */}
     </>
   );
 }

@@ -55,7 +55,9 @@ function ShopDetailsPage() {
             </div>
           </section>
           <section className="w-full pb-4 flex flex-col flex-nowrap gap-4">
-            <h2 className="my-4 text-3xl font-bold">This Shop&apos;s Products</h2>
+            <h2 className="my-4 text-3xl font-bold">
+              This Shop&apos;s Products
+            </h2>
             <ul className="w-full p-2 list-none grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
               {getValues(products).map((product) => (
                 <ProductCard product={product} key={product.id} />

@@ -3,73 +3,79 @@
 @tailwind utilities;
 
 @layer components {
-    /* DRY this up later with utility "subclasses" */
-    .button-submit {
-        @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-teal-500 transition-colors hover:bg-teal-400;
-    }
-    .button-submit-sm {
-        @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-teal-500 transition-colors hover:bg-teal-400;
-    }
-    .button-submit-disabled {
-        @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-not-allowed bg-stone-500 transition-colors hover:bg-red-500;
-    }
-    .button-submit-disabled-sm {
-        @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-not-allowed bg-stone-500 transition-colors hover:bg-red-500;
-    }
-    .button-cancel {
-        @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-stone-500 transition-colors hover:bg-stone-400;
-    }
-    .button-cancel-sm {
-        @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-stone-500 transition-colors hover:bg-stone-400;
-    }
-    .button-delete {
-        @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-red-500 transition-colors hover:bg-red-400;
-    }
-    .button-delete-sm {
-        @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-red-500 transition-colors hover:bg-red-400;
-    }
-    .text-error {
-        @apply text-base text-red-600;
-    }
-    .transition-hidden {
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 75ms ease-in-out, visibility 0ms 75ms;
-    }
-    .transition-visible {
-        visibility: visible;
-        opacity: 1;
-        transition: visibility 0ms, opacity 75ms ease-in-out;
-    }
+  /* DRY this up later with utility "subclasses" */
+  .button-submit {
+    @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-teal-500 transition-colors hover:bg-teal-400;
+  }
+  .button-submit-sm {
+    @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-teal-500 transition-colors hover:bg-teal-400;
+  }
+  .button-submit-disabled {
+    @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-not-allowed bg-stone-500 transition-colors hover:bg-red-500;
+  }
+  .button-submit-disabled-sm {
+    @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-not-allowed bg-stone-500 transition-colors hover:bg-red-500;
+  }
+  .button-cancel {
+    @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-stone-500 transition-colors hover:bg-stone-400;
+  }
+  .button-cancel-sm {
+    @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-stone-500 transition-colors hover:bg-stone-400;
+  }
+  .button-delete {
+    @apply h-fit px-4 py-1 rounded-full text-lg text-white cursor-pointer bg-red-500 transition-colors hover:bg-red-400;
+  }
+  .button-delete-sm {
+    @apply h-fit px-3 py-0.5 rounded-full text-base text-white cursor-pointer bg-red-500 transition-colors hover:bg-red-400;
+  }
+  .text-error {
+    @apply text-base text-red-600;
+  }
+  .transition-hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 75ms ease-in-out,
+      visibility 0ms 75ms;
+  }
+  .transition-visible {
+    visibility: visible;
+    opacity: 1;
+    transition:
+      visibility 0ms,
+      opacity 75ms ease-in-out;
+  }
 }
 :root {
-    /* Global color scheme */
-    --white-l: #f9f9f9;
+  /* Global color scheme */
+  --white-l: #f9f9f9;
 
-    --l-grey-l: #eaeaea;
-    --l-grey-m: #cdcdcd;
-    --l-grey-d: #a4a4a4;
+  --l-grey-l: #eaeaea;
+  --l-grey-m: #cdcdcd;
+  --l-grey-d: #a4a4a4;
 
-    --grey-l: #8c8c8c;
-    --grey-m: #6a6a6a;
-    --grey-d: #484848;
+  --grey-l: #8c8c8c;
+  --grey-m: #6a6a6a;
+  --grey-d: #484848;
 
-    --d-grey-l: #3e3e3e;
-    --d-grey-m: #2d2d2d;
-    --d-grey-d: #1c1c1c;
+  --d-grey-l: #3e3e3e;
+  --d-grey-m: #2d2d2d;
+  --d-grey-d: #1c1c1c;
 
-    --cyan-l: #69ddc2;
-    --cyan-m: #36d1ad;
-    --cyan-d: #26a688;
+  --cyan-l: #69ddc2;
+  --cyan-m: #36d1ad;
+  --cyan-d: #26a688;
 
-    --red-l: #da5870;
-    --red-m: #d23350;
-    --red-d: #b82843;
+  --red-l: #da5870;
+  --red-m: #d23350;
+  --red-d: #b82843;
 }
 * {
-    box-sizing: border-box;
-    font-family: 'Cabin', sans-serif;
+  box-sizing: border-box;
+  font-family: "Cabin", sans-serif;
 }
-html, body, #root {
-    height: 100%;
+html,
+body,
+#root {
+  height: 100%;
 }
