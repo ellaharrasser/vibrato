@@ -188,7 +188,7 @@ const productsReducer = (state = initialState, action) => {
       const newState = { ...state };
       if (newState.products) {
         delete newState.products[action.productId];
-        newState.count -= 1;
+        newState.productsCount -= 1;
       }
       return newState;
     }
