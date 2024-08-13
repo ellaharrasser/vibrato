@@ -21,6 +21,14 @@ Vibrato is a clone of Reverb.com, an e-commerce site focused on new and used mus
 
 ## Index
 
+> [Features List](https://github.com/ethanharrasser/vibrato/wiki/Features-List)
+
+> [User Stories](https://github.com/ethanharrasser/vibrato/wiki/User-Stories)
+
+> [Database Schema](https://github.com/ethanharrasser/vibrato/wiki/Database-Schema)
+
+> [Wireframes](https://github.com/ethanharrasser/vibrato/wiki/Wireframes)
+
 ## Site Previews
 
 ### Landing Page
