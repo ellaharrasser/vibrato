@@ -16,7 +16,7 @@ class Shop(db.Model):
         nullable=False
     )
     name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
     image = db.Column(db.String(255), nullable=False)
     created_at = db.Column(
         db.DateTime,

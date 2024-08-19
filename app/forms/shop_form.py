@@ -11,7 +11,7 @@ class ShopForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired(), Length(max=255)])
     description = StringField(
         'Description',
-        validators=[InputRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=1000)]
     )
     image = FileField(
         'Image',
@@ -22,7 +22,7 @@ class EditShopForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired(), Length(max=255)])
     description = StringField(
         'Description',
-        validators=[InputRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=1000)]
     )
     image = FileField(
         'Image',

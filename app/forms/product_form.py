@@ -28,7 +28,7 @@ class ProductForm(FlaskForm):
     )
     description = StringField(
         'Description',
-        validators=[InputRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=1000)]
     )
     product_price = IntegerField(
         'Price',
@@ -73,7 +73,7 @@ class EditProductForm(FlaskForm):
     )
     description = StringField(
         'Description',
-        validators=[InputRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=1000)]
     )
     product_price = IntegerField(
         'Price',
@@ -85,7 +85,7 @@ class EditProductForm(FlaskForm):
     )
     quantity = IntegerField(
         'Quantity',
-        validators=[InputRequired(), NumberRange(min=0)]
+        validators=[InputRequired(), NumberRange(min=1)]
     )
     image_1 = FileField(
         validators=[FileAllowed(list(ALLOWED_EXTENSIONS))]

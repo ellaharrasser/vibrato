@@ -42,9 +42,9 @@ function NewShopForm() {
 
     if (!description) {
       newValidations.description = "A description is required.";
-    } else if (description.length > 255) {
+    } else if (description.length > 1000) {
       newValidations.description =
-        "Descriptions must be 255 or fewer characters.";
+        "Descriptions must be 1000 or fewer characters.";
     }
 
     if (!file) {

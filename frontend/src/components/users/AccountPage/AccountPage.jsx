@@ -52,7 +52,9 @@ function AccountPage() {
                 {user.email}
               </p>
             </div>
-            <p className="text-base">{user.description}</p>
+            <p className="max-w-[60ch] text-base text-wrap text-ellipsis line-clamp-4">
+              {user.description}
+            </p>
           </div>
         </div>
       </section>

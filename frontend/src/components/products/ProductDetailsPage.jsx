@@ -29,10 +29,7 @@ function ProductDetailsPage() {
       : "Free Shipping";
 
   return (
-    <main
-      id="product-details-page"
-      className="container h-max p-4 flex flex-col gap-4"
-    >
+    <main className="container h-max p-4 flex flex-col gap-4">
       {product ? (
         <>
           <div className="w-full grid grid-cols-[2fr_3fr] gap-8">
@@ -56,7 +53,7 @@ function ProductDetailsPage() {
                   {shippingPriceText}
                 </span>
               </div>
-              <p className="text-base">{product.description}</p>
+              <p className="max-w-[60ch] text-base text-wrap text-ellipsis line-clamp-4">{product.description}</p>
               {user && product.user.id === user.id && (
                 <div className="flex gap-2 mt-2">
                   <OpenModalButton

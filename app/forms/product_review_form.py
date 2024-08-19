@@ -6,7 +6,7 @@ from wtforms.validators import InputRequired, Length, NumberRange
 class ProductReviewForm(FlaskForm):
     review = TextAreaField(
         'Review',
-        validators=[InputRequired(), Length(max=255)]
+        validators=[InputRequired(), Length(max=1000)]
     )
     rating = IntegerField(
         'Rating',

@@ -20,7 +20,7 @@ class ProductReview(db.Model):
         db.ForeignKey(add_prefix_for_prod('products.id')),
         nullable=False
     )
-    review = db.Column(db.String(255), nullable=False)
+    review = db.Column(db.String(1000), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     created_at = db.Column(
         db.DateTime,
