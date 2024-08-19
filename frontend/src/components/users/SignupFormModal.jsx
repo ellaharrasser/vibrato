@@ -49,9 +49,9 @@ function SignupFormModal() {
       newValidations.name = "Names must be 255 or fewer characters.";
     }
 
-    if (description.length > 255) {
+    if (description.length > 1000) {
       newValidations.description =
-        "Descriptions must be 255 or fewer characters.";
+        "Descriptions must be 1000 or fewer characters.";
     }
 
     if (!file) {

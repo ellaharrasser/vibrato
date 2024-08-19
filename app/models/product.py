@@ -25,7 +25,7 @@ class Product(db.Model):
     # Category will be changed to a separate, self-referential tree-like table
     category = db.Column(db.String(255), nullable=False)
     condition = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
     product_price = db.Column(db.Integer, nullable=False)
     shipping_price = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)

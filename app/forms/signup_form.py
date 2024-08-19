@@ -26,4 +26,4 @@ class SignUpForm(FlaskForm):
         'profile image',
         validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))]
     )
-    description = StringField('description', validators=[Length(0, 255)])
+    description = StringField('description', validators=[Length(max=1000)])
