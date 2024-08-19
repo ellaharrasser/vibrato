@@ -33,11 +33,13 @@ function ShopDetailsPage() {
             <img
               src={shop.image}
               alt="Shop Image"
-              className="size-auto box-content border border-stone-400 rounded-xl"
+              className="w-auto h-full box-content border border-stone-400 rounded-xl"
             />
             <div className="flex flex-col flex-nowrap gap-2">
               <h1 className="text-3xl font-bold">{shop.name}</h1>
-              <p className="text-base">{shop.description}</p>
+              <p className="max-w-[60ch] text-base text-wrap text-ellipsis line-clamp-4">
+                {shop.description}
+              </p>
               {user && shop.owner.id === user.id && (
                 <div className="flex gap-2">
                   <OpenModalButton

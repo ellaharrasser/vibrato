@@ -22,7 +22,7 @@ function MyShopCard({ shop }) {
           <p className="text-base md:text-lg lg:text-xl font-semibold overflow-ellipsis line-clamp-1">
             {shop.name}
           </p>
-          <p className="text-sm md:text-base lg:text-lg overflow-ellipsis line-clamp-2">
+          <p className="max-w-[60ch] text-base text-wrap text-ellipsis line-clamp-2">
             {shop.description}
           </p>
         </div>
