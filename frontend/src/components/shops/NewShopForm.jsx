@@ -17,7 +17,6 @@ function NewShopForm() {
 		imageFile: null,
 		imageFilename: '',
 	});
-
 	const [imageLoading, setImageLoading] = useState(false);
 	const [validations, setValidations] = useState({});
 	const [errors, setErrors] = useState({});
@@ -101,7 +100,7 @@ function NewShopForm() {
       });
       setValidations(newValidations);
     }
-	}, [submitInfo, submitInfo.hasSubmitted, getValidations]);
+	}, [submitInfo.hasSubmitted, getValidations]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
