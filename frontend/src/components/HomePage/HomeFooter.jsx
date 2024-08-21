@@ -7,11 +7,12 @@ function HomeFooter() {
       >
         GitHub
       </a>
-      <p
+      <a
         href="https://www.linkedin.com/in/ethanharrasser"
-        className="my-auto text-lg font-semibold underline decoration-[rgba(0,_0,_0,_0)] decoration-2 underline-offset-2 transition-all hover:decoration-[rgba(0,_0,_0,_1)]">
+        className="my-auto text-lg font-semibold underline decoration-[rgba(0,_0,_0,_0)] decoration-2 underline-offset-2 transition-all hover:decoration-[rgba(0,_0,_0,_1)]"
+      >
         LinkedIn
-      </p>
+      </a>
     </footer>
   );
 }
